@@ -5,12 +5,13 @@ Inter Process Communiction for use in Lvce Editor.
 ### Usage
 
 ```js
-import { IpcParent, IpcParentType } from '@lvce-editor/ipc'
+import * as IpcParentWithElectronUtilityProcess from '@lvce-editor/ipc/dist/parts/IpcParentWithElectronUtilityProcess/IpcParentWithElectronUtilityProcess.js'
 
-const ipc = await IpcParent.create({
-  method: IpcParentType.NodeWorker,
-  path: '/test/worker.js',
+const rawIpc = await IpcParentWithElectronUtilityProcess.create({
+  path: '/test/utility-process.js',
 })
+
+const ipc = IpcParentWithElectronUtilityProcess.wrap(rawIpc)
 
 ipc.send({
   jsonrpc: '2.0',
