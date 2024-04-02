@@ -1,3 +1,4 @@
+// @ts-ignore
 import { WebSocket } from 'ws'
 
 export const Open = WebSocket.OPEN

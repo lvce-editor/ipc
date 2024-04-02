@@ -5,10 +5,12 @@ export const listen = async () => {
   return process
 }
 
+// @ts-ignore
 export const signal = (process) => {
   process.send('ready')
 }
 
+// @ts-ignore
 const getActualData = (message, handle) => {
   if (handle) {
     return {
@@ -19,11 +21,14 @@ const getActualData = (message, handle) => {
   return message
 }
 
+// @ts-ignore
 export const wrap = (process) => {
   return {
     process,
+    // @ts-ignore
     on(event, listener) {
       if (event === 'message') {
+        // @ts-ignore
         const wrappedListener = (event, handle) => {
           const actualData = getActualData(event, handle)
           listener(actualData)
@@ -35,9 +40,11 @@ export const wrap = (process) => {
         throw new Error('unsupported event type')
       }
     },
+    // @ts-ignore
     off(event, listener) {
       this.process.off(event, listener)
     },
+    // @ts-ignore
     send(message) {
       this.process.send(message)
     },

@@ -3,7 +3,9 @@ import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNode
 import * as GetFirstNodeWorkerEvent from '../GetFirstNodeWorkerEvent/GetFirstNodeWorkerEvent.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 
+// @ts-ignore
 export const create = async ({ path, argv = [], env = process.env, execArgv = [] }) => {
+  // @ts-ignore
   Assert.string(path)
   const actualArgv = ['--ipc-type=node-worker', ...argv]
   const actualEnv = {
@@ -30,15 +32,19 @@ export const create = async ({ path, argv = [], env = process.env, execArgv = []
   return worker
 }
 
+// @ts-ignore
 export const wrap = (worker) => {
   return {
     worker,
+    // @ts-ignore
     on(event, listener) {
       this.worker.on(event, listener)
     },
+    // @ts-ignore
     send(message) {
       this.worker.postMessage(message)
     },
+    // @ts-ignore
     sendAndTransfer(message, transfer) {
       Assert.array(transfer)
       this.worker.postMessage(message, transfer)
