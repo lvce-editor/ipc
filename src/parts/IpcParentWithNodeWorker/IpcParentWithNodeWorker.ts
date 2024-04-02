@@ -1,4 +1,3 @@
-import { Worker } from 'node:worker_threads'
 import * as Assert from '../Assert/Assert.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 import * as GetFirstNodeWorkerEvent from '../GetFirstNodeWorkerEvent/GetFirstNodeWorkerEvent.ts'
@@ -11,6 +10,7 @@ export const create = async ({ path, argv = [], env = process.env, execArgv = []
     ...env,
     ELECTRON_RUN_AS_NODE: '1',
   }
+  const { Worker } = await import('node:worker_threads')
   const worker = new Worker(path, {
     argv: actualArgv,
     env: actualEnv,
