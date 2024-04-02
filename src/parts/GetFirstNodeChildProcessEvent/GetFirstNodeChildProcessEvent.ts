@@ -1,6 +1,7 @@
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 
 export const getFirstNodeChildProcessEvent = async (childProcess) => {
+  // @ts-ignore
   const { type, event, stdout, stderr } = await new Promise((resolve, reject) => {
     let stderr = ''
     let stdout = ''

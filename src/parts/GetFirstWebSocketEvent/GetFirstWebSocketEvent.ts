@@ -18,6 +18,7 @@ export const getFirstWebSocketEvent = async (webSocket) => {
     default:
       break
   }
+  // @ts-ignore
   const { type, event } = await GetFirstEvent.getFirstEvent(webSocket, {
     open: FirstWebSocketEventType.Open,
     close: FirstWebSocketEventType.Close,

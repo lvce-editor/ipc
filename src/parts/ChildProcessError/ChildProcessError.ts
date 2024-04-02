@@ -4,10 +4,12 @@ import * as SplitLines from '../SplitLines/SplitLines.ts'
 
 export class ChildProcessError extends Error {
   constructor(stderr) {
+    // @ts-ignore
     const { message, code, stack } = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
     super(message || 'child process error')
     this.name = 'ChildProcessError'
     if (code) {
+      // @ts-ignore
       this.code = code
     }
     if (stack) {
