@@ -5,6 +5,9 @@ const firstLetterLowerCase = (string: string) => {
 }
 
 export const camelCase = (string: string) => {
+  if (!string) {
+    return string
+  }
   const parts = string.split(Character.Space)
   const lowerParts = parts.map(firstLetterLowerCase)
   return lowerParts.join(Character.Dash)

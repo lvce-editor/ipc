@@ -3,6 +3,7 @@ import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNode
 import * as GetFirstNodeWorkerEvent from '../GetFirstNodeWorkerEvent/GetFirstNodeWorkerEvent.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 
+// @ts-ignore
 export const create = async ({ path, argv = [], env = process.env, execArgv = [] }) => {
   // @ts-ignore
   Assert.string(path)
