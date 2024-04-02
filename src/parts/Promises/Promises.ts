@@ -1,13 +1,15 @@
-export const withResolvers = () => {
-  /**
-   * @type {any}
-   */
-  let _resolve
-  const promise = new Promise((resolve) => {
+interface WithResolvers<T> {
+  readonly resolve: (value: T) => void
+  readonly promise: Promise<T>
+}
+
+export const withResolvers = <T>(): WithResolvers<T> => {
+  let _resolve: (value: T) => void
+  const promise = new Promise<T>((resolve) => {
     _resolve = resolve
   })
   return {
-    resolve: _resolve,
+    resolve: _resolve!,
     promise,
   }
 }
