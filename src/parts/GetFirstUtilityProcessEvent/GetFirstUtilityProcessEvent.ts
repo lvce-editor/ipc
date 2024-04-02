@@ -1,5 +1,5 @@
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
-import * as Promises from '../Promises/Promises.js'
+import * as Promises from '../Promises/Promises.ts'
 
 /**
  *

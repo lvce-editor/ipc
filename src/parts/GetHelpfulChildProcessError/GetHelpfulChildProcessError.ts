@@ -1,6 +1,6 @@
 import * as ErrorCodes from '../ErrorCodes/ErrorCodes.ts'
-import * as SplitLines from '../SplitLines/SplitLines.js'
-import * as JoinLines from '../JoinLines/JoinLines.js'
+import * as SplitLines from '../SplitLines/SplitLines.ts'
+import * as JoinLines from '../JoinLines/JoinLines.ts'
 
 const RE_NATIVE_MODULE_ERROR = /^innerError Error: Cannot find module '.*.node'/
 const RE_NATIVE_MODULE_ERROR_2 = /was compiled against a different Node.js version/

@@ -1,5 +1,5 @@
-import { IpcError } from '../IpcError/IpcError.js'
-import * as IsMessagePortMain from '../IsMessagePortMain/IsMessagePortMain.js'
+import { IpcError } from '../IpcError/IpcError.ts'
+import * as IsMessagePortMain from '../IsMessagePortMain/IsMessagePortMain.ts'
 
 export const listen = ({ messagePort }) => {
   if (!IsMessagePortMain.isMessagePortMain(messagePort)) {

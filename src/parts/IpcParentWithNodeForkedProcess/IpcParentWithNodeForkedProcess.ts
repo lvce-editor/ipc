@@ -3,7 +3,7 @@ import * as Assert from '../Assert/Assert.ts'
 import { ChildProcessError } from '../ChildProcessError/ChildProcessError.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 import * as GetFirstNodeChildProcessEvent from '../GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.ts'
-import { VError } from '../VError/VError.js'
+import { VError } from '../VError/VError.ts'
 
 export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inherit', name = 'child process' }) => {
   try {
