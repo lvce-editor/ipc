@@ -10,6 +10,11 @@ export default {
   output: {
     file: 'dist/dist/index.js',
     format: 'es',
+    freeze: false,
+    generatedCode: {
+      constBindings: true,
+      objectShorthand: true,
+    },
   },
   plugins: [
     babel({
