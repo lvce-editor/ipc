@@ -13,7 +13,7 @@ export const listen = async ({ request, handle }) => {
   }
   const webSocket = await WebSocketServer.handleUpgrade(request, handle)
   webSocket.pause()
-  if (!IsWebSocketOpen.isWebSocketOpen(webSocket)) {
+  if (!(await IsWebSocketOpen.isWebSocketOpen(webSocket))) {
     const { type, event } = await GetFirstWebSocketEvent.getFirstWebSocketEvent(webSocket)
   }
   return webSocket

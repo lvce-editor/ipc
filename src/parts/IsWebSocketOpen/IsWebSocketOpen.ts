@@ -1,5 +1,4 @@
-import { WebSocket } from 'ws'
-
-export const isWebSocketOpen = (webSocket) => {
+export const isWebSocketOpen = async (webSocket) => {
+  const { WebSocket } = await import('ws')
   return webSocket.readyState === WebSocket.OPEN
 }

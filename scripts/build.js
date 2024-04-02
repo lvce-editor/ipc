@@ -53,10 +53,7 @@ const getVersion = async () => {
 await rm(dist, { recursive: true, force: true })
 await mkdir(dist, { recursive: true })
 
-await cp(join(root, 'src'), join(root, 'dist', 'dist'), {
-  recursive: true,
-  force: true,
-})
+await execa(`npx`, ['rollup', '-c'])
 
 const version = await getVersion()
 
