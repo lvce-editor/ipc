@@ -14,6 +14,7 @@ export class ChildProcessError extends Error {
       this.code = code
     }
     if (stack) {
+      // @ts-ignore
       const lines = SplitLines.splitLines(this.stack)
       const [firstLine, ...stackLines] = lines
       const newStackLines = [firstLine, ...stack, ...stackLines]
