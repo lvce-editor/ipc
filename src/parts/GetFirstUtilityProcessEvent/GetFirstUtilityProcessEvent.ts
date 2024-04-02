@@ -1,5 +1,5 @@
-import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.js'
-import * as Promises from '../Promises/Promises.js'
+import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
+import * as Promises from '../Promises/Promises.ts'
 
 /**
  *
@@ -37,6 +37,7 @@ export const getFirstUtilityProcessEvent = async (utilityProcess) => {
   utilityProcess.stdout.on('data', handleStdoutData)
   utilityProcess.on('message', handleMessage)
   utilityProcess.on('exit', handleExit)
+  // @ts-ignore
   const { type, event } = await promise
   return { type, event, stdout, stderr }
 }

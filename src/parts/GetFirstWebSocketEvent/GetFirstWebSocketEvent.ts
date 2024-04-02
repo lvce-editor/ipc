@@ -1,5 +1,5 @@
-import * as FirstWebSocketEventType from '../FirstWebSocketEventType/FirstWebSocketEventType.js'
-import * as GetFirstEvent from '../GetFirstEvent/GetFirstEvent.js'
+import * as FirstWebSocketEventType from '../FirstWebSocketEventType/FirstWebSocketEventType.ts'
+import * as GetFirstEvent from '../GetFirstEvent/GetFirstEvent.ts'
 
 export const getFirstWebSocketEvent = async (webSocket) => {
   const { WebSocket } = await import('ws')
@@ -18,6 +18,7 @@ export const getFirstWebSocketEvent = async (webSocket) => {
     default:
       break
   }
+  // @ts-ignore
   const { type, event } = await GetFirstEvent.getFirstEvent(webSocket, {
     open: FirstWebSocketEventType.Open,
     close: FirstWebSocketEventType.Close,

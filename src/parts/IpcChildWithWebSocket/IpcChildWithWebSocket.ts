@@ -1,8 +1,8 @@
-import * as GetFirstWebSocketEvent from '../GetFirstWebSocketEvent/GetFirstWebSocketEvent.js'
-import { IpcError } from '../IpcError/IpcError.js'
-import * as IsWebSocketOpen from '../IsWebSocketOpen/IsWebSocketOpen.js'
-import * as WebSocketSerialization from '../WebSocketSerialization/WebSocketSerialization.js'
-import * as WebSocketServer from '../WebSocketServer/WebSocketServer.js'
+import * as GetFirstWebSocketEvent from '../GetFirstWebSocketEvent/GetFirstWebSocketEvent.ts'
+import { IpcError } from '../IpcError/IpcError.ts'
+import * as IsWebSocketOpen from '../IsWebSocketOpen/IsWebSocketOpen.ts'
+import * as WebSocketSerialization from '../WebSocketSerialization/WebSocketSerialization.ts'
+import * as WebSocketServer from '../WebSocketServer/WebSocketServer.ts'
 
 export const listen = async ({ request, handle }) => {
   if (!request) {

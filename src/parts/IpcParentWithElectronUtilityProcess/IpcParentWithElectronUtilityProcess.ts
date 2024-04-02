@@ -1,7 +1,7 @@
-import * as Assert from '../Assert/Assert.js'
-import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.js'
-import * as GetFirstUtilityProcessEvent from '../GetFirstUtilityProcessEvent/GetFirstUtilityProcessEvent.js'
-import { IpcError } from '../IpcError/IpcError.js'
+import * as Assert from '../Assert/Assert.ts'
+import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
+import * as GetFirstUtilityProcessEvent from '../GetFirstUtilityProcessEvent/GetFirstUtilityProcessEvent.ts'
+import { IpcError } from '../IpcError/IpcError.ts'
 
 export const create = async ({ path, argv = [], execArgv = [], name }) => {
   Assert.string(path)

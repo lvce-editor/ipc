@@ -1,13 +1,15 @@
-import * as GetHelpfulChildProcessError from '../GetHelpfulChildProcessError/GetHelpfulChildProcessError.js'
-import * as JoinLines from '../JoinLines/JoinLines.js'
-import * as SplitLines from '../SplitLines/SplitLines.js'
+import * as GetHelpfulChildProcessError from '../GetHelpfulChildProcessError/GetHelpfulChildProcessError.ts'
+import * as JoinLines from '../JoinLines/JoinLines.ts'
+import * as SplitLines from '../SplitLines/SplitLines.ts'
 
 export class ChildProcessError extends Error {
   constructor(stderr) {
+    // @ts-ignore
     const { message, code, stack } = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
     super(message || 'child process error')
     this.name = 'ChildProcessError'
     if (code) {
+      // @ts-ignore
       this.code = code
     }
     if (stack) {

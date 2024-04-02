@@ -1,9 +1,9 @@
 import { fork } from 'node:child_process'
-import * as Assert from '../Assert/Assert.js'
-import { ChildProcessError } from '../ChildProcessError/ChildProcessError.js'
-import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.js'
-import * as GetFirstNodeChildProcessEvent from '../GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.js'
-import { VError } from '../VError/VError.js'
+import * as Assert from '../Assert/Assert.ts'
+import { ChildProcessError } from '../ChildProcessError/ChildProcessError.ts'
+import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
+import * as GetFirstNodeChildProcessEvent from '../GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.ts'
+import { VError } from '../VError/VError.ts'
 
 export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inherit', name = 'child process' }) => {
   try {

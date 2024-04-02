@@ -113,6 +113,7 @@ ReferenceError: ProcessListeners is not defined
 Node.js v18.16.1
 `
 
+  // @ts-ignore
   const { message, stack } = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
   expect(message).toBe(`ReferenceError: ProcessListeners is not defined`)
   expect(stack).toEqual([
@@ -144,6 +145,7 @@ SyntaxError: Cannot use import statement outside a module
 Node.js v18.12.1`
   const error = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
   expect(error.message).toBe(`SyntaxError: Cannot use import statement outside a module`)
+  // @ts-ignore
   expect(error.stack).toBe(`SyntaxError: Cannot use import statement outside a module
     at /test/language-features-typescript/packages/node/src/typeScriptClient.js:1
     at Object.compileFunction (node:vm:360:18)
@@ -177,6 +179,7 @@ SyntaxError: await is only valid in async functions and the top level bodies of 
 Node.js v18.12.1`
   const error = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
   expect(error.message).toBe(`SyntaxError: await is only valid in async functions and the top level bodies of modules`)
+  // @ts-ignore
   expect(error.stack).toBe(`SyntaxError: await is only valid in async functions and the top level bodies of modules
     at /test/file.js:1
     at Object.compileFunction (node:vm:360:18)
@@ -214,6 +217,7 @@ Node.js v18.12.1`
   expect(error.message).toBe(
     `Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/language-features-typescript/packages/node/src/parts/RestoreJsonRpcError/RestoreJsonRpcError.js' imported from /test/language-features-typescript/packages/node/src/parts/JsonRpc/JsonRpc.js`,
   )
+  // @ts-ignore
   expect(error.stack)
     .toBe(`Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/language-features-typescript/packages/node/src/parts/RestoreJsonRpcError/RestoreJsonRpcError.js' imported from /test/language-features-typescript/packages/node/src/parts/JsonRpc/JsonRpc.js
     at /test/language-features-typescript/packages/node/src/parts/JsonRpc/JsonRpc.js
@@ -248,6 +252,7 @@ Node.js v18.14.0
   expect(error.message).toBe(
     `SyntaxError: Named export 'MessagePortMain' not found. The requested module 'electron' is a CommonJS module, which may not support all module.exports as named exports. CommonJS modules can always be imported via the default export, for example using:  import pkg from 'electron'; const { MessagePortMain } = pkg;`,
   )
+  // @ts-ignore
   expect(error.stack).toBe(
     `SyntaxError: Named export 'MessagePortMain' not found. The requested module 'electron' is a CommonJS module, which may not support all module.exports as named exports. CommonJS modules can always be imported via the default export, for example using:  import pkg from 'electron'; const { MessagePortMain } = pkg;
     at file:///test/packages/pty-host/src/parts/HandleElectronMessagePort/HandleElectronMessagePort.js:5
