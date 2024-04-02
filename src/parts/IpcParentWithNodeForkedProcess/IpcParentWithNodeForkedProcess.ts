@@ -1,4 +1,3 @@
-import { fork } from 'node:child_process'
 import * as Assert from '../Assert/Assert.ts'
 import { ChildProcessError } from '../ChildProcessError/ChildProcessError.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
@@ -9,6 +8,7 @@ export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inh
   try {
     Assert.string(path)
     const actualArgv = ['--ipc-type=node-forked-process', ...argv]
+    const { fork } = await import('node:child_process')
     const childProcess = fork(path, actualArgv, {
       env,
       execArgv,
