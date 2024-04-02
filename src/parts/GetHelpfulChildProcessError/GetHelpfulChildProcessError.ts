@@ -11,18 +11,22 @@ const RE_MESSAGE_CODE_BLOCK_END = /^\s* at/
 const RE_AT = /^\s+at/
 const RE_AT_PROMISE_INDEX = /^\s*at async Promise.all \(index \d+\)$/
 
+// @ts-ignore
 const isUnhelpfulNativeModuleError = (stderr) => {
   return RE_NATIVE_MODULE_ERROR.test(stderr) && RE_NATIVE_MODULE_ERROR_2.test(stderr)
 }
 
+// @ts-ignore
 const isMessageCodeBlockStartIndex = (line) => {
   return RE_MESSAGE_CODE_BLOCK_START.test(line)
 }
 
+// @ts-ignore
 const isMessageCodeBlockEndIndex = (line) => {
   return RE_MESSAGE_CODE_BLOCK_END.test(line)
 }
 
+// @ts-ignore
 const getMessageCodeBlock = (stderr) => {
   const lines = SplitLines.splitLines(stderr)
   const startIndex = lines.findIndex(isMessageCodeBlockStartIndex)
@@ -32,6 +36,7 @@ const getMessageCodeBlock = (stderr) => {
   return relevantMessage
 }
 
+// @ts-ignore
 const getNativeModuleErrorMessage = (stderr) => {
   const message = getMessageCodeBlock(stderr)
   return {
@@ -40,6 +45,7 @@ const getNativeModuleErrorMessage = (stderr) => {
   }
 }
 
+// @ts-ignore
 const isModulesSyntaxError = (stderr) => {
   if (!stderr) {
     return false
@@ -47,6 +53,7 @@ const isModulesSyntaxError = (stderr) => {
   return stderr.includes('SyntaxError: Cannot use import statement outside a module')
 }
 
+// @ts-ignore
 const getModuleSyntaxError = (stderr) => {
   return {
     message: `ES Modules are not supported in electron`,
@@ -54,6 +61,7 @@ const getModuleSyntaxError = (stderr) => {
   }
 }
 
+// @ts-ignore
 const isModuleNotFoundError = (stderr) => {
   if (!stderr) {
     return false
@@ -61,10 +69,12 @@ const isModuleNotFoundError = (stderr) => {
   return stderr.includes('ERR_MODULE_NOT_FOUND')
 }
 
+// @ts-ignore
 const isModuleNotFoundMessage = (line) => {
   return line.includes('ERR_MODULE_NOT_FOUND')
 }
 
+// @ts-ignore
 const getModuleNotFoundError = (stderr) => {
   const lines = SplitLines.splitLines(stderr)
   const messageIndex = lines.findIndex(isModuleNotFoundMessage)
@@ -75,10 +85,12 @@ const getModuleNotFoundError = (stderr) => {
   }
 }
 
+// @ts-ignore
 const isNormalStackLine = (line) => {
   return RE_AT.test(line) && !RE_AT_PROMISE_INDEX.test(line)
 }
 
+// @ts-ignore
 const getDetails = (lines) => {
   const index = lines.findIndex(isNormalStackLine)
   if (index === -1) {
@@ -99,6 +111,7 @@ const getDetails = (lines) => {
   }
 }
 
+// @ts-ignore
 export const getHelpfulChildProcessError = (stdout, stderr) => {
   if (isUnhelpfulNativeModuleError(stderr)) {
     return getNativeModuleErrorMessage(stderr)

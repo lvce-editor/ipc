@@ -1,3 +1,4 @@
+// @ts-ignore
 export const getUtilityProcessPortData = (event) => {
   const { data, ports } = event
   if (ports.length === 0) {

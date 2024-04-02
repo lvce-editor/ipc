@@ -3,6 +3,7 @@ import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNode
 import * as GetFirstUtilityProcessEvent from '../GetFirstUtilityProcessEvent/GetFirstUtilityProcessEvent.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 
+// @ts-ignore
 export const create = async ({ path, argv = [], execArgv = [], name }) => {
   Assert.string(path)
   const actualArgv = ['--ipc-type=electron-utility-process', ...argv]
@@ -24,15 +25,19 @@ export const create = async ({ path, argv = [], execArgv = [], name }) => {
   return childProcess
 }
 
+// @ts-ignore
 export const wrap = (process) => {
   return {
     process,
+    // @ts-ignore
     on(event, listener) {
       this.process.on(event, listener)
     },
+    // @ts-ignore
     send(message) {
       this.process.postMessage(message)
     },
+    // @ts-ignore
     sendAndTransfer(message, transfer) {
       Assert.array(transfer)
       this.process.postMessage(message, transfer)

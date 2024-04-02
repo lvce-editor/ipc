@@ -3,6 +3,7 @@ import * as JoinLines from '../JoinLines/JoinLines.ts'
 import * as SplitLines from '../SplitLines/SplitLines.ts'
 
 export class ChildProcessError extends Error {
+  // @ts-ignore
   constructor(stderr) {
     // @ts-ignore
     const { message, code, stack } = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)

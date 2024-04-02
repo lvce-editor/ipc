@@ -9,15 +9,19 @@ export const listen = () => {
   return parentPort
 }
 
+// @ts-ignore
 export const signal = (parentPort) => {
   parentPort.postMessage('ready')
 }
 
+// @ts-ignore
 export const wrap = (parentPort) => {
   return {
     parentPort,
+    // @ts-ignore
     on(event, listener) {
       if (event === 'message') {
+        // @ts-ignore
         const wrappedListener = (event) => {
           const actualData = GetUtilityProcessPortData.getUtilityProcessPortData(event)
           listener(actualData)
@@ -29,12 +33,15 @@ export const wrap = (parentPort) => {
         throw new Error('unsupported event type')
       }
     },
+    // @ts-ignore
     off(event, listener) {
       this.parentPort.off(event, listener)
     },
+    // @ts-ignore
     send(message) {
       this.parentPort.postMessage(message)
     },
+    // @ts-ignore
     sendAndTransfer(message, transfer) {
       this.parentPort.postMessage(message, transfer)
     },

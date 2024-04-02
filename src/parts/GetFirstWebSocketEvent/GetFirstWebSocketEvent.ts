@@ -1,7 +1,9 @@
 import * as FirstWebSocketEventType from '../FirstWebSocketEventType/FirstWebSocketEventType.ts'
 import * as GetFirstEvent from '../GetFirstEvent/GetFirstEvent.ts'
 
+// @ts-ignore
 export const getFirstWebSocketEvent = async (webSocket) => {
+  // @ts-ignore
   const { WebSocket } = await import('ws')
 
   switch (webSocket.readyState) {

@@ -4,6 +4,7 @@ import * as IsWebSocketOpen from '../IsWebSocketOpen/IsWebSocketOpen.ts'
 import * as WebSocketSerialization from '../WebSocketSerialization/WebSocketSerialization.ts'
 import * as WebSocketServer from '../WebSocketServer/WebSocketServer.ts'
 
+// @ts-ignore
 export const listen = async ({ request, handle }) => {
   if (!request) {
     throw new IpcError('request must be defined')
@@ -19,6 +20,7 @@ export const listen = async ({ request, handle }) => {
   return webSocket
 }
 
+// @ts-ignore
 export const wrap = (webSocket) => {
   return {
     webSocket,
@@ -26,9 +28,11 @@ export const wrap = (webSocket) => {
      * @type {any}
      */
     wrappedListener: undefined,
+    // @ts-ignore
     on(event, listener) {
       switch (event) {
         case 'message':
+          // @ts-ignore
           const wrappedListener = (message) => {
             const data = WebSocketSerialization.deserialize(message)
             listener(data)
@@ -42,9 +46,11 @@ export const wrap = (webSocket) => {
           throw new Error('unknown event listener type')
       }
     },
+    // @ts-ignore
     off(event, listener) {
       this.webSocket.off(event, listener)
     },
+    // @ts-ignore
     send(message) {
       const stringifiedMessage = WebSocketSerialization.serialize(message)
       this.webSocket.send(stringifiedMessage)

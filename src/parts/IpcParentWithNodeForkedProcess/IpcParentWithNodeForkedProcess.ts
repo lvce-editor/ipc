@@ -5,6 +5,7 @@ import * as GetFirstNodeChildProcessEvent from '../GetFirstNodeChildProcessEvent
 import { VError } from '../VError/VError.ts'
 
 export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inherit', name = 'child process' }) => {
+  // @ts-ignore
   try {
     Assert.string(path)
     const actualArgv = ['--ipc-type=node-forked-process', ...argv]
@@ -31,18 +32,23 @@ export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inh
   }
 }
 
+// @ts-ignore
 export const wrap = (childProcess) => {
   return {
     childProcess,
+    // @ts-ignore
     on(event, listener) {
       this.childProcess.on(event, listener)
     },
+    // @ts-ignore
     off(event, listener) {
       this.childProcess.off(event, listener)
     },
+    // @ts-ignore
     send(message) {
       this.childProcess.send(message)
     },
+    // @ts-ignore
     sendAndTransfer(message, handle) {
       this.childProcess.send(message, handle)
     },
