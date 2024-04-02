@@ -1,6 +1,5 @@
 import * as CamelCase from '../CamelCase/CamelCase.ts'
 
-// @ts-ignore
-export const formatUtilityProcessName = (name) => {
+export const formatUtilityProcessName = (name: string) => {
   return CamelCase.camelCase(name)
 }
