@@ -5,7 +5,7 @@ Inter Process Communiction for use in Lvce Editor.
 ### Usage
 
 ```js
-import * as IpcParentWithElectronUtilityProcess from '@lvce-editor/ipc/dist/parts/IpcParentWithElectronUtilityProcess/IpcParentWithElectronUtilityProcess.js'
+import { IpcParentWithElectronUtilityProcess } from '@lvce-editor/ipc'
 
 const rawIpc = await IpcParentWithElectronUtilityProcess.create({
   path: '/test/utility-process.js',
