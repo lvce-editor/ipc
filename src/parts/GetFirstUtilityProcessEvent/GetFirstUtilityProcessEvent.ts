@@ -3,7 +3,7 @@ import * as Promises from '../Promises/Promises.js'
 
 /**
  *
- * @param {import('electron').UtilityProcess} utilityProcess
+ * @param {any} utilityProcess
  * @returns
  */
 export const getFirstUtilityProcessEvent = async (utilityProcess) => {
