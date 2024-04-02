@@ -1,4 +1,3 @@
-// @ts-ignore
-export const isMessagePortMain = (value) => {
+export const isMessagePortMain = (value: unknown) => {
   return value && value.constructor && value.constructor.name === 'MessagePortMain'
 }
