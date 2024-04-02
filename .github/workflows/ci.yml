@@ -27,5 +27,6 @@ jobs:
         run: npm ci
         if: steps.npm-cache.outputs.cache-hit != 'true'
       - run: npm test
+      - run: npm run type-check
       - name: Build
         run: node scripts/build.js
