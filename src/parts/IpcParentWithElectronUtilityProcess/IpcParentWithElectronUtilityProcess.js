@@ -1,5 +1,3 @@
-// @ts-ignore
-import { utilityProcess } from 'electron'
 import * as Assert from '../Assert/Assert.js'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.js'
 import * as GetFirstUtilityProcessEvent from '../GetFirstUtilityProcessEvent/GetFirstUtilityProcessEvent.js'
@@ -8,6 +6,8 @@ import { IpcError } from '../IpcError/IpcError.js'
 export const create = async ({ path, argv = [], execArgv = [], name }) => {
   Assert.string(path)
   const actualArgv = ['--ipc-type=electron-utility-process', ...argv]
+  // @ts-ignore
+  const { utilityProcess } = await import('electron')
   const childProcess = utilityProcess.fork(path, actualArgv, {
     execArgv,
     stdio: 'pipe',

@@ -2,7 +2,7 @@ import { babel } from '@rollup/plugin-babel'
 import pluginTypeScript from '@babel/preset-typescript'
 
 export default {
-  input: 'src/index.js',
+  input: 'src/index.ts',
   preserveEntrySignatures: 'strict',
   treeshake: {
     propertyReadSideEffects: false,
