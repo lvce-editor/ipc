@@ -1,3 +1,4 @@
+// @ts-ignore
 import { utilityProcess } from 'electron'
 import * as Assert from '../Assert/Assert.js'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.js'

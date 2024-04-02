@@ -1,4 +1,5 @@
 import * as GetHelpfulChildProcessError from '../src/parts/GetHelpfulChildProcessError/GetHelpfulChildProcessError.js'
+import { jest, test, expect } from '@jest/globals'
 
 test('getHelpfulChildProcessError - incompatible native module', () => {
   const stderr = `innerError Error: Cannot find module '../build/Debug/pty.node'
