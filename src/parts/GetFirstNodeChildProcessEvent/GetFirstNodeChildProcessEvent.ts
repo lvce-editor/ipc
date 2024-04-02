@@ -1,4 +1,4 @@
-import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.js'
+import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 
 export const getFirstNodeChildProcessEvent = async (childProcess) => {
   const { type, event, stdout, stderr } = await new Promise((resolve, reject) => {

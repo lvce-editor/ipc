@@ -1,4 +1,4 @@
-import * as GetUtilityProcessPortData from '../GetUtilityProcessPortData/GetUtilityProcessPortData.js'
+import * as GetUtilityProcessPortData from '../GetUtilityProcessPortData/GetUtilityProcessPortData.ts'
 
 export const listen = () => {
   // @ts-ignore

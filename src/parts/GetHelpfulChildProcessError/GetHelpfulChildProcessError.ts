@@ -1,4 +1,4 @@
-import * as ErrorCodes from '../ErrorCodes/ErrorCodes.js'
+import * as ErrorCodes from '../ErrorCodes/ErrorCodes.ts'
 import * as SplitLines from '../SplitLines/SplitLines.js'
 import * as JoinLines from '../JoinLines/JoinLines.js'
 

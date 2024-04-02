@@ -1,8 +1,8 @@
 import { Worker } from 'node:worker_threads'
-import * as Assert from '../Assert/Assert.js'
-import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.js'
-import * as GetFirstNodeWorkerEvent from '../GetFirstNodeWorkerEvent/GetFirstNodeWorkerEvent.js'
-import { IpcError } from '../IpcError/IpcError.js'
+import * as Assert from '../Assert/Assert.ts'
+import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
+import * as GetFirstNodeWorkerEvent from '../GetFirstNodeWorkerEvent/GetFirstNodeWorkerEvent.ts'
+import { IpcError } from '../IpcError/IpcError.ts'
 
 export const create = async ({ path, argv = [], env = process.env, execArgv = [] }) => {
   Assert.string(path)

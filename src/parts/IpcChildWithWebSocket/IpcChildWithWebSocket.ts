@@ -1,4 +1,4 @@
-import * as GetFirstWebSocketEvent from '../GetFirstWebSocketEvent/GetFirstWebSocketEvent.js'
+import * as GetFirstWebSocketEvent from '../GetFirstWebSocketEvent/GetFirstWebSocketEvent.ts'
 import { IpcError } from '../IpcError/IpcError.js'
 import * as IsWebSocketOpen from '../IsWebSocketOpen/IsWebSocketOpen.js'
 import * as WebSocketSerialization from '../WebSocketSerialization/WebSocketSerialization.js'
