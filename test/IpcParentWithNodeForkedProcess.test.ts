@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals'
+import { jest, test, expect } from '@jest/globals'
 import * as FirstNodeWorkerEventType from '../src/parts/FirstNodeWorkerEventType/FirstNodeWorkerEventType.js'
 
 jest.unstable_mockModule('../src/parts/GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.js', () => {
