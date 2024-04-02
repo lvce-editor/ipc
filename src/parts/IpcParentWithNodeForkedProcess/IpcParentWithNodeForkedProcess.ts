@@ -4,6 +4,7 @@ import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNode
 import * as GetFirstNodeChildProcessEvent from '../GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.ts'
 import { VError } from '../VError/VError.ts'
 
+// @ts-ignore
 export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inherit', name = 'child process' }) => {
   // @ts-ignore
   try {
