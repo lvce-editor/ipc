@@ -1,7 +1,1 @@
-export * as IpcChildWithElectronMessagePort from './parts/IpcChildWithElectronMessagePort/IpcChildWithElectronMessagePort.ts'
-export * as IpcChildWithElectronUtilityProcess from './parts/IpcChildWithElectronUtilityProcess/IpcChildWithElectronUtilityProcess.ts'
-export * as IpcChildWithNodeForkedProcess from './parts/IpcChildWithNodeForkedProcess/IpcChildWithNodeForkedProcess.ts'
-export * as IpcChildWithWebSocket from './parts/IpcChildWithWebSocket/IpcChildWithWebSocket.ts'
-export * as IpcParentWithElectronUtilityProcess from './parts/IpcParentWithElectronUtilityProcess/IpcParentWithElectronUtilityProcess.ts'
-export * as IpcParentWithNodeForkedProcess from './parts/IpcParentWithNodeForkedProcess/IpcParentWithNodeForkedProcess.ts'
-export * as IpcParentWithNodeWorker from './parts/IpcParentWithNodeWorker/IpcParentWithNodeWorker.ts'
+export * from './parts/Main/Main.ts'
