@@ -63,7 +63,7 @@ await bundleJs({
 })
 await bundleJs({
   cwd: root,
-  from: 'src/index.ts',
+  from: 'src/browser.ts',
   platform: 'node',
   outFile: 'dist/dist/browser.js',
   external: ['electron', '@lvce-editor/web-socket-server', 'ws'],
