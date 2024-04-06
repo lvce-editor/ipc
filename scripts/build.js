@@ -2,6 +2,7 @@ import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path, { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { execa } from 'execa'
+import { bundleJs } from './bundleJs.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = path.join(__dirname, '..')
@@ -53,7 +54,20 @@ const getVersion = async () => {
 await rm(dist, { recursive: true, force: true })
 await mkdir(dist, { recursive: true })
 
-await execa(`npx`, ['rollup', '-c'])
+await bundleJs({
+  cwd: root,
+  from: 'src/index.ts',
+  platform: 'node',
+  outFile: 'dist/dist/index.js',
+  external: ['electron', '@lvce-editor/web-socket-server', 'ws', '@lvce-editor/assert', '@lvce-editor/verror'],
+})
+await bundleJs({
+  cwd: root,
+  from: 'src/index.ts',
+  platform: 'node',
+  outFile: 'dist/dist/browser.js',
+  external: ['electron', '@lvce-editor/web-socket-server', 'ws'],
+})
 
 const version = await getVersion()
 
@@ -66,6 +80,7 @@ delete packageJson.jest
 packageJson.version = version
 packageJson.main = 'dist/index.js'
 packageJson.types = 'dist/index.d.ts'
+packageJson.browser = 'dist/browser.js'
 
 await writeJson(join(dist, 'package.json'), packageJson)
 
