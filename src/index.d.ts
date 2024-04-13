@@ -7,6 +7,7 @@ export const IpcChildWithElectronMessagePort: IpcChild
 export const IpcChildWithElectronUtilityProcess: IpcChild
 export const IpcChildWithNodeForkedProcess: IpcChild
 export const IpcChildWithWebSocket: IpcChild
+export const IpcChildWithNodeWorker: IpcChild
 
 interface IpcParent {
   readonly create: any
