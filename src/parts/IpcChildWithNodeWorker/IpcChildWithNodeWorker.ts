@@ -1,4 +1,4 @@
-import { IpcError } from '../IpcError/IpcError.js'
+import { IpcError } from '../IpcError/IpcError.ts'
 import type { MessagePort } from 'node:worker_threads'
 
 export const listen = async () => {
