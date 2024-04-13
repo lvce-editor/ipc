@@ -4,7 +4,7 @@ import * as GetFirstUtilityProcessEvent from '../GetFirstUtilityProcessEvent/Get
 import { IpcError } from '../IpcError/IpcError.ts'
 
 // @ts-ignore
-export const create = async ({ path, argv = [], execArgv = [], name }) => {
+export const create = async ({ path, argv = [], execArgv = [], name, env = process.env }) => {
   Assert.string(path)
   const actualArgv = ['--ipc-type=electron-utility-process', ...argv]
   // @ts-ignore
@@ -13,6 +13,7 @@ export const create = async ({ path, argv = [], execArgv = [], name }) => {
     execArgv,
     stdio: 'pipe',
     serviceName: name,
+    env,
   })
   // @ts-ignore
   childProcess.stdout.pipe(process.stdout)
