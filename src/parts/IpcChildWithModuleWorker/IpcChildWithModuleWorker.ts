@@ -29,7 +29,7 @@ export const wrap = (global: any) => {
       return this.listener
     },
     set onmessage(listener) {
-      const wrappedListener = (event: any) => {
+      const wrappedListener = (event: MessageEvent) => {
         const data = GetData.getData(event)
         // @ts-expect-error
         listener({
