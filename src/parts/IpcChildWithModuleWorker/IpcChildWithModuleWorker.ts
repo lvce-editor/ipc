@@ -5,8 +5,6 @@ export const listen = () => {
   if (typeof WorkerGlobalScope === 'undefined') {
     throw new TypeError('module is not in web worker scope')
   }
-  // @ts-ignore
-  globalThis.postMessage('ready')
   return globalThis
 }
 
@@ -31,7 +29,7 @@ export const wrap = (global: any) => {
       return this.listener
     },
     set onmessage(listener) {
-      const wrappedListener = (event: any) => {
+      const wrappedListener = (event: MessageEvent) => {
         const data = GetData.getData(event)
         // @ts-expect-error
         listener({
