@@ -1,3 +1,5 @@
+import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
+
 export const listen = async () => {
   if (!process.send) {
     throw new Error('process.send must be defined')
@@ -7,7 +9,7 @@ export const listen = async () => {
 
 // @ts-ignore
 export const signal = (process) => {
-  process.send('ready')
+  process.send(ReadyMessage.readyMessage)
 }
 
 // @ts-ignore

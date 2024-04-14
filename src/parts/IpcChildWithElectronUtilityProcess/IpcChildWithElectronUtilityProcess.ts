@@ -1,4 +1,5 @@
 import * as GetUtilityProcessPortData from '../GetUtilityProcessPortData/GetUtilityProcessPortData.ts'
+import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
 export const listen = () => {
   // @ts-ignore
@@ -11,7 +12,7 @@ export const listen = () => {
 
 // @ts-ignore
 export const signal = (parentPort) => {
-  parentPort.postMessage('ready')
+  parentPort.postMessage(ReadyMessage.readyMessage)
 }
 
 // @ts-ignore

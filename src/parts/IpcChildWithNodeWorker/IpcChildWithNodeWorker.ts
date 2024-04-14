@@ -1,5 +1,6 @@
 import { IpcError } from '../IpcError/IpcError.ts'
 import type { MessagePort } from 'node:worker_threads'
+import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
 export const listen = async () => {
   const { parentPort } = await import('node:worker_threads')
@@ -10,7 +11,7 @@ export const listen = async () => {
 }
 
 export const signal = (parentPort: MessagePort) => {
-  parentPort.postMessage('ready')
+  parentPort.postMessage(ReadyMessage.readyMessage)
 }
 
 export const wrap = (parentPort: MessagePort) => {

@@ -2,9 +2,10 @@ import * as FirstWorkerEventType from '../FirstWorkerEventType/FirstWorkerEventT
 import * as GetFirstWorkerEvent from '../GetFirstWorkerEvent/GetFirstWorkerEvent.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsErrorEvent from '../IsErrorEvent/IsErrorEvent.ts'
+import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
+import * as TryToGetActualWorkerErrorMessage from '../TryToGetActualWorkerErrorMessage/TryToGetActualWorkerErrorMessage.ts'
 import { WorkerError } from '../WorkerError/WorkerError.ts'
 import * as WorkerType from '../WorkerType/WorkerType.ts'
-import * as TryToGetActualWorkerErrorMessage from '../TryToGetActualWorkerErrorMessage/TryToGetActualWorkerErrorMessage.ts'
 
 export const create = async ({ url, name }: { url: string; name: string }) => {
   const worker = new Worker(url, {
@@ -14,7 +15,7 @@ export const create = async ({ url, name }: { url: string; name: string }) => {
   const { type, event } = await GetFirstWorkerEvent.getFirstWorkerEvent(worker)
   switch (type) {
     case FirstWorkerEventType.Message:
-      if (event.data !== 'ready') {
+      if (event.data !== ReadyMessage.readyMessage) {
         throw new IpcError('unexpected first message from worker')
       }
       break
