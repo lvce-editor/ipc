@@ -41,5 +41,10 @@ export const wrap = (global: any) => {
       this.listener = listener
       this.global.onmessage = wrappedListener
     },
+    dispose() {
+      // @ts-ignore
+      this.listener = null
+      this.global.onmessage = null
+    },
   }
 }
