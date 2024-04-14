@@ -1,10 +1,12 @@
+import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
+
 export const listen = () => {
   // @ts-ignore
   return window
 }
 
 export const signal = (global: any) => {
-  global.postMessage('ready')
+  global.postMessage(ReadyMessage.readyMessage)
 }
 
 export const wrap = (window: any) => {

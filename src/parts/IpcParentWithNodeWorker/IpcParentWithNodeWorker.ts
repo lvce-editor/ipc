@@ -2,6 +2,7 @@ import * as Assert from '../Assert/Assert.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 import * as GetFirstNodeWorkerEvent from '../GetFirstNodeWorkerEvent/GetFirstNodeWorkerEvent.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
+import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
 // @ts-ignore
 export const create = async ({ path, argv = [], env = process.env, execArgv = [] }) => {
@@ -26,7 +27,7 @@ export const create = async ({ path, argv = [], env = process.env, execArgv = []
   if (type === FirstNodeWorkerEventType.Error) {
     throw new IpcError(`Worker threw an error before ipc connection was established: ${event}`)
   }
-  if (event !== 'ready') {
+  if (event !== ReadyMessage.readyMessage) {
     throw new IpcError('unexpected first message from worker')
   }
   return worker

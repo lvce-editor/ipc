@@ -1,5 +1,6 @@
 import { beforeEach, expect, jest, test } from '@jest/globals'
 import * as IpcChildWithNodeWorker from '../src/parts/IpcChildWithNodeWorker/IpcChildWithNodeWorker.ts'
+import * as ReadyMessage from '../src/parts/ReadyMessage/ReadyMessage.ts'
 import { IpcError } from '../src/parts/IpcError/IpcError.js'
 
 const mockParentPort = jest.fn()
@@ -33,5 +34,5 @@ test('signal - send ready message', async () => {
   } as any
   IpcChildWithNodeWorker.signal(messagePort)
   expect(messagePort.postMessage).toHaveBeenCalledTimes(1)
-  expect(messagePort.postMessage).toHaveBeenCalledWith('ready')
+  expect(messagePort.postMessage).toHaveBeenCalledWith(ReadyMessage.readyMessage)
 })

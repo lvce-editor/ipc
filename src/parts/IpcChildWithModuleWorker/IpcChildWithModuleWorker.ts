@@ -1,4 +1,5 @@
 import * as GetData from '../GetData/GetData.ts'
+import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
 export const listen = () => {
   // @ts-ignore
@@ -9,7 +10,7 @@ export const listen = () => {
 }
 
 export const signal = (global: any) => {
-  global.postMessage('ready')
+  global.postMessage(ReadyMessage.readyMessage)
 }
 
 export const wrap = (global: any) => {

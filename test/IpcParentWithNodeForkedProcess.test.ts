@@ -1,5 +1,6 @@
 import { jest, test, expect } from '@jest/globals'
 import * as FirstNodeWorkerEventType from '../src/parts/FirstNodeWorkerEventType/FirstNodeWorkerEventType.js'
+import * as ReadyMessage from '../src/parts/ReadyMessage/ReadyMessage.js'
 
 jest.unstable_mockModule('../src/parts/GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.js', () => {
   return {
@@ -44,7 +45,7 @@ test('create', async () => {
   GetFirstNodeChildProcessEvent.getFirstNodeChildProcessEvent.mockImplementation(() => {
     return {
       type: FirstNodeWorkerEventType.Message,
-      event: 'ready',
+      event: ReadyMessage.readyMessage,
     }
   })
   const childProcess = await IpcParentWithNodeForkedProcess.create({ path: '/test/childProcess.js', argv: [], env: {}, execArgv: [] })
