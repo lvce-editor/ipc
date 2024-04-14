@@ -5,6 +5,7 @@ import * as WaitForFirstMessage from '../WaitForFirstMessage/WaitForFirstMessage
 
 export const listen = async () => {
   const parentIpcRaw = IpcChildWithModuleWorker.listen()
+  IpcChildWithModuleWorker.signal(parentIpcRaw)
   const parentIpc = IpcChildWithModuleWorker.wrap(parentIpcRaw)
   const firstMessage = await WaitForFirstMessage.waitForFirstMessage(parentIpc)
   if (firstMessage.method !== 'initialize') {
@@ -12,6 +13,7 @@ export const listen = async () => {
   }
   const type = firstMessage.params[0]
   if (type === 'message-port') {
+    parentIpc.dispose()
     const port = firstMessage.params[1]
     return port
   }
