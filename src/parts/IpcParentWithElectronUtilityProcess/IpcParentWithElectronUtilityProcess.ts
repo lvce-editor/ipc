@@ -17,7 +17,7 @@ export const create = async ({ path, argv = [], execArgv = [], name, env = proce
   })
   // @ts-ignore
   childProcess.stdout.pipe(process.stdout)
-  const { type, event, stdout, stderr } = await GetFirstUtilityProcessEvent.getFirstUtilityProcessEvent(childProcess)
+  const { type, stdout, stderr } = await GetFirstUtilityProcessEvent.getFirstUtilityProcessEvent(childProcess)
   if (type === FirstNodeWorkerEventType.Exit) {
     throw new IpcError(`Utility process exited before ipc connection was established`, stdout, stderr)
   }
@@ -32,7 +32,14 @@ export const wrap = (process) => {
     process,
     // @ts-ignore
     on(event, listener) {
-      this.process.on(event, listener)
+      const wrappedListener = (message: any) => {
+        const syntheticEvent = {
+          data: message,
+          target: this,
+        }
+        listener(syntheticEvent)
+      }
+      this.process.on(event, wrappedListener)
     },
     // @ts-ignore
     send(message) {

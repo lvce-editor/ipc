@@ -39,7 +39,14 @@ export const wrap = (worker) => {
     worker,
     // @ts-ignore
     on(event, listener) {
-      this.worker.on(event, listener)
+      const wrappedListener = (message: any) => {
+        const syntheticEvent = {
+          data: message,
+          target: this,
+        }
+        listener(syntheticEvent)
+      }
+      this.worker.on(event, wrappedListener)
     },
     // @ts-ignore
     send(message) {

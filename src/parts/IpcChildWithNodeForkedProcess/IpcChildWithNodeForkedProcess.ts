@@ -33,7 +33,11 @@ export const wrap = (process) => {
         // @ts-ignore
         const wrappedListener = (event, handle) => {
           const actualData = getActualData(event, handle)
-          listener(actualData)
+          const syntheticEvent = {
+            data: actualData,
+            target: this,
+          }
+          listener(syntheticEvent)
         }
         this.process.on(event, wrappedListener)
       } else if (event === 'close') {

@@ -25,7 +25,11 @@ export const wrap = (parentPort) => {
         // @ts-ignore
         const wrappedListener = (event) => {
           const actualData = GetUtilityProcessPortData.getUtilityProcessPortData(event)
-          listener(actualData)
+          const syntheticEvent = {
+            data: actualData,
+            target: this,
+          }
+          listener(syntheticEvent)
         }
         this.parentPort.on(event, wrappedListener)
       } else if (event === 'close') {
