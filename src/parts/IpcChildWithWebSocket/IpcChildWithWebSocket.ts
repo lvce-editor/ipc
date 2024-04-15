@@ -15,7 +15,7 @@ export const listen = async ({ request, handle }) => {
   const webSocket = await WebSocketServer.handleUpgrade(request, handle)
   webSocket.pause()
   if (!(await IsWebSocketOpen.isWebSocketOpen(webSocket))) {
-    const { type, event } = await GetFirstWebSocketEvent.getFirstWebSocketEvent(webSocket)
+    await GetFirstWebSocketEvent.getFirstWebSocketEvent(webSocket)
   }
   return webSocket
 }
@@ -35,7 +35,11 @@ export const wrap = (webSocket) => {
           // @ts-ignore
           const wrappedListener = (message) => {
             const data = WebSocketSerialization.deserialize(message)
-            listener(data)
+            const event = {
+              data,
+              target: this,
+            }
+            listener(event)
           }
           webSocket.on('message', wrappedListener)
           break

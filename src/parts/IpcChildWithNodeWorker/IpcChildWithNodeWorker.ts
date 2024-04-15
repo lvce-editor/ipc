@@ -18,7 +18,14 @@ export const wrap = (parentPort: MessagePort) => {
   return {
     parentPort,
     on(event: string, listener: any) {
-      this.parentPort.on(event, listener)
+      const wrappedListener = (message: any) => {
+        const event = {
+          data: message,
+          target: this,
+        }
+        listener(event)
+      }
+      this.parentPort.on(event, wrappedListener)
     },
     off(event: string, listener: any) {
       this.parentPort.off(event, listener)

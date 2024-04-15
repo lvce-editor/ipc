@@ -12,7 +12,14 @@ export const wrap = (port: any) => {
   return {
     port,
     on(event: any, listener: any) {
-      this.port.on(event, listener)
+      const wrappedListener = (message: any) => {
+        const event = {
+          data: message,
+          target: this,
+        }
+        listener(event)
+      }
+      this.port.on(event, wrappedListener)
     },
     off(event: any, listener: any) {
       this.port.off(event, listener)

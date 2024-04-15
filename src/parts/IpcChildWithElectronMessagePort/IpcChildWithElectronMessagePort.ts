@@ -31,7 +31,11 @@ export const wrap = (messagePort) => {
         // @ts-ignore
         const wrappedListener = (event) => {
           const actualData = getActualData(event)
-          listener(actualData)
+          const syntheticEvent = {
+            data: actualData,
+            target: this,
+          }
+          listener(syntheticEvent)
         }
         this.messagePort.on(event, wrappedListener)
       } else if (event === 'close') {

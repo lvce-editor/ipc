@@ -16,7 +16,7 @@ export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inh
       execArgv,
       stdio: 'pipe',
     })
-    const { type, event, stdout, stderr } = await GetFirstNodeChildProcessEvent.getFirstNodeChildProcessEvent(childProcess)
+    const { type, event, stderr } = await GetFirstNodeChildProcessEvent.getFirstNodeChildProcessEvent(childProcess)
     if (type === FirstNodeWorkerEventType.Exit) {
       throw new ChildProcessError(stderr)
     }
@@ -39,7 +39,14 @@ export const wrap = (childProcess) => {
     childProcess,
     // @ts-ignore
     on(event, listener) {
-      this.childProcess.on(event, listener)
+      const wrappedListener = (message: any) => {
+        const syntheticEvent = {
+          data: message,
+          target: this,
+        }
+        listener(syntheticEvent)
+      }
+      this.childProcess.on(event, wrappedListener)
     },
     // @ts-ignore
     off(event, listener) {
