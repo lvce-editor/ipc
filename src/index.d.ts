@@ -9,7 +9,7 @@ interface Ipc {
 
 interface IpcChild {
   readonly listen: any
-  readonly wrap: Ipc
+  readonly wrap: (rawIpc: any) => Ipc
 }
 
 export const IpcChildWithElectronMessagePort: IpcChild
@@ -20,7 +20,7 @@ export const IpcChildWithNodeWorker: IpcChild
 
 interface IpcParent {
   readonly create: any
-  readonly wrap: Ipc
+  readonly wrap: (rawIpc: any) => Ipc
 }
 
 export const IpcParentWithElectronUtilityProcess: IpcParent
