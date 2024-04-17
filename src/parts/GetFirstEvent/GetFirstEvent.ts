@@ -1,5 +1,5 @@
 import * as Promises from '../Promises/Promises.ts'
-import { EventEmitter } from 'node:events'
+import type { EventEmitter } from 'node:events'
 
 const addListener = (emitter: EventEmitter | EventTarget, type: string, callback: any) => {
   if ('addEventListener' in emitter) {
