@@ -1,26 +1,39 @@
 import * as Promises from '../Promises/Promises.ts'
 import type { EventEmitter } from 'node:events'
 
-export const getFirstEvent = (eventEmitter: EventEmitter, eventMap: any) => {
+const addListener = (emitter: EventEmitter | EventTarget, type: string, callback: any) => {
+  if ('addEventListener' in emitter) {
+    emitter.addEventListener(type, callback)
+  } else {
+    emitter.on(type, callback)
+  }
+}
+
+const removeListener = (emitter: EventEmitter | EventTarget, type: string, callback: any) => {
+  if ('removeEventListener' in emitter) {
+    emitter.removeEventListener(type, callback)
+  } else {
+    emitter.off(type, callback)
+  }
+}
+
+export const getFirstEvent = (eventEmitter: EventEmitter | EventTarget, eventMap: any) => {
   const { resolve, promise } = Promises.withResolvers()
   const listenerMap = Object.create(null)
-  // @ts-ignore
-  const cleanup = (value) => {
+  const cleanup = (value: any) => {
     for (const event of Object.keys(eventMap)) {
-      eventEmitter.off(event, listenerMap[event])
+      removeListener(eventEmitter, event, listenerMap[event])
     }
-    // @ts-ignore
     resolve(value)
   }
   for (const [event, type] of Object.entries(eventMap)) {
-    // @ts-ignore
-    const listener = (event) => {
+    const listener = (event: any) => {
       cleanup({
         type,
         event,
       })
     }
-    eventEmitter.on(event, listener)
+    addListener(eventEmitter, event, listener)
     listenerMap[event] = listener
   }
   return promise
