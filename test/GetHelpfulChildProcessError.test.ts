@@ -248,7 +248,6 @@ const { MessagePortMain } = pkg;
 Node.js v18.14.0
 `
   const error = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
-  expect(error).toBeInstanceOf(Error)
   expect(error.message).toBe(
     `SyntaxError: Named export 'MessagePortMain' not found. The requested module 'electron' is a CommonJS module, which may not support all module.exports as named exports. CommonJS modules can always be imported via the default export, for example using:  import pkg from 'electron'; const { MessagePortMain } = pkg;`,
   )
@@ -259,4 +258,33 @@ Node.js v18.14.0
     at ModuleJob._instantiate (node:internal/modules/esm/module_job:124:21)
     at async ModuleJob.run (node:internal/modules/esm/module_job:190:5)`,
   )
+})
+
+test('getHelpfulChildProcessError - module not found 2', () => {
+  const stderr = `node:internal/errors:496
+    ErrorCaptureStackTrace(err);
+    ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/packages/embeds-worker/src/embedsProcessMain.js' imported from /test/packages/main-process/\
+    at new NodeError (node:internal/errors:405:5)
+    at finalizeResolution (node:internal/modules/esm/resolve:294:11)
+    at moduleResolve (node:internal/modules/esm/resolve:919:10)
+    at defaultResolve (node:internal/modules/esm/resolve:1105:11)
+    at nextResolve (node:internal/modules/esm/loader:166:28)
+    at ESMLoader.resolve (node:internal/modules/esm/loader:840:30)
+    at ESMLoader.getModuleJob (node:internal/modules/esm/loader:429:18)
+    at ESMLoader.import (node:internal/modules/esm/loader:529:22)
+    at node:electron/js2c/utility_init:2:17145
+    at loadESM (node:internal/process/esm_loader:73:11) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v18.18.2
+`
+  const error = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
+  expect(error.message).toBe(
+    "Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/packages/embeds-worker/src/embedsProcessMain.js' imported from /test/packages/main-process/    at new NodeError (node:internal/errors:405:5)",
+  )
+  // @ts-ignore
+  expect(error.stack).toBe(undefined)
 })
