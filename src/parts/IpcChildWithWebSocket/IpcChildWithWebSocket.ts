@@ -20,6 +20,10 @@ export const listen = async ({ request, handle }) => {
   return webSocket
 }
 
+export const signal = (webSocket: any) => {
+  webSocket.resume()
+}
+
 // @ts-ignore
 export const wrap = (webSocket) => {
   return {
@@ -63,7 +67,7 @@ export const wrap = (webSocket) => {
       this.webSocket.close()
     },
     start() {
-      this.webSocket.resume()
+      throw new Error('start method is deprecated')
     },
   }
 }

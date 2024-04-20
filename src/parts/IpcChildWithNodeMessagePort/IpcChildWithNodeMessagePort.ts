@@ -8,6 +8,10 @@ export const listen = async ({ messagePort }: { messagePort: unknown }) => {
   return messagePort
 }
 
+export const signal = (messagePort: any) => {
+  messagePort.start()
+}
+
 export const wrap = (port: any) => {
   return {
     port,
@@ -31,7 +35,7 @@ export const wrap = (port: any) => {
       this.port.close()
     },
     start() {
-      this.port.start()
+      throw new Error('start method is deprecated')
     },
   }
 }
