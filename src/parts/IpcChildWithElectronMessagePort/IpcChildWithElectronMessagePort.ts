@@ -50,6 +50,9 @@ export const wrap = (messagePort: any) => {
     send(message: any) {
       this.messagePort.postMessage(message)
     },
+    sendAndTransfer(message: any, transfer: any) {
+      this.messagePort.postMessage(message, transfer)
+    },
     dispose() {
       this.messagePort.close()
     },
