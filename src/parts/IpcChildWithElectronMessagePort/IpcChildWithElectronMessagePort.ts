@@ -1,16 +1,18 @@
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePortMain from '../IsMessagePortMain/IsMessagePortMain.ts'
 
-// @ts-ignore
-export const listen = ({ messagePort }) => {
+export const listen = ({ messagePort }: { messagePort: any }) => {
   if (!IsMessagePortMain.isMessagePortMain(messagePort)) {
     throw new IpcError('port must be of type MessagePortMain')
   }
   return messagePort
 }
 
-// @ts-ignore
-const getActualData = (event) => {
+export const signal = (messagePort: any) => {
+  messagePort.start()
+}
+
+const getActualData = (event: any) => {
   const { data, ports } = event
   if (ports.length === 0) {
     return data
@@ -21,12 +23,10 @@ const getActualData = (event) => {
   }
 }
 
-// @ts-ignore
-export const wrap = (messagePort) => {
+export const wrap = (messagePort: any) => {
   return {
     messagePort,
-    // @ts-ignore
-    on(event, listener) {
+    on(event: string, listener: any) {
       if (event === 'message') {
         // @ts-ignore
         const wrappedListener = (event) => {
@@ -44,19 +44,17 @@ export const wrap = (messagePort) => {
         throw new Error('unsupported event type')
       }
     },
-    // @ts-ignore
-    off(event, listener) {
+    off(event: string, listener: any) {
       this.messagePort.off(event, listener)
     },
-    // @ts-ignore
-    send(message) {
+    send(message: any) {
       this.messagePort.postMessage(message)
     },
     dispose() {
       this.messagePort.close()
     },
     start() {
-      this.messagePort.start()
+      throw new Error('start method is deprecated')
     },
   }
 }
