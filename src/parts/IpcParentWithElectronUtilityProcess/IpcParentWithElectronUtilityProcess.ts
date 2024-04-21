@@ -1,3 +1,4 @@
+import type { UtilityProcess } from 'electron'
 import * as Assert from '../Assert/Assert.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 import * as GetFirstUtilityProcessEvent from '../GetFirstUtilityProcessEvent/GetFirstUtilityProcessEvent.ts'
@@ -8,7 +9,6 @@ import { IpcError } from '../IpcError/IpcError.ts'
 export const create = async ({ path, argv = [], execArgv = [], name, env = process.env }) => {
   Assert.string(path)
   const actualArgv = ['--ipc-type=electron-utility-process', ...argv]
-  // @ts-ignore
   const { utilityProcess } = await import('electron')
   const childProcess = utilityProcess.fork(path, actualArgv, {
     execArgv,
@@ -27,10 +27,24 @@ export const create = async ({ path, argv = [], execArgv = [], name, env = proce
   return childProcess
 }
 
-const getData = (data: any) => {
-  return data
+class IpcParentWithElectronUtilityProcess extends Ipc<UtilityProcess> {
+  override getData(data: any) {
+    return data
+  }
+
+  override send(message: any): void {
+    this._rawIpc.postMessage(message)
+  }
+
+  override sendAndTransfer(message: any, transfer: any): void {
+    this._rawIpc.postMessage(message, transfer)
+  }
+
+  override dispose(): void {
+    this._rawIpc.kill()
+  }
 }
 
 export const wrap = (process: any) => {
-  return new Ipc(process, getData)
+  return new IpcParentWithElectronUtilityProcess(process)
 }

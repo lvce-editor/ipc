@@ -24,6 +24,28 @@ const getActualData = (event: any) => {
   }
 }
 
+class IpcChildWithElectronMessagePort extends Ipc<MessagePort> {
+  constructor(port: MessagePort) {
+    super(port)
+  }
+
+  override getData(event: MessageEvent) {
+    return getActualData(event)
+  }
+
+  override send(message: any) {
+    this._rawIpc.postMessage(message)
+  }
+
+  override sendAndTransfer(message: any, transfer: any): void {
+    this._rawIpc.postMessage(message, transfer)
+  }
+
+  override dispose(): void {
+    this._rawIpc.close()
+  }
+}
+
 export const wrap = (messagePort: any) => {
-  return new Ipc(messagePort, getActualData)
+  return new IpcChildWithElectronMessagePort(messagePort)
 }

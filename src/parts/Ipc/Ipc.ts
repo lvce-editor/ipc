@@ -16,49 +16,22 @@ const attachEvent = (rawIpc: any, getData: any, that: any) => {
   }
 }
 
-export class Ipc extends (EventTarget as TypedEventTarget<{
+export abstract class Ipc<T> extends (EventTarget as TypedEventTarget<{
   message: MessageEvent
 }>) {
-  _rawIpc: any
-  constructor(rawIpc: any, getData: any) {
+  readonly _rawIpc: T
+
+  constructor(rawIpc: T) {
     super()
-    attachEvent(rawIpc, getData, this)
+    attachEvent(rawIpc, this.getData, this)
     this._rawIpc = rawIpc
   }
 
-  /**
-   * @deprecated use addEventListener instead of getter/setter
-   */
-  set onmessage(listener: (value: MessageEvent<any>) => void) {
-    this.addEventListener('message', listener)
-  }
+  abstract getData(event: any): any
 
-  send(message: any) {
-    if ('postMessage' in this._rawIpc) {
-      this._rawIpc.postMessage(message)
-      return
-    }
-    if ('send' in this._rawIpc) {
-      this._rawIpc.send(message)
-      return
-    }
-    throw new Error('send not supported')
-  }
+  abstract send(message: any): void
 
-  sendAndTransfer(message: any, transfer: any) {
-    if ('postMessage' in this._rawIpc) {
-      this._rawIpc.postMessage(message, transfer)
-      return
-    }
-    throw new Error('sendAndTransfer not supported')
-  }
+  abstract sendAndTransfer(message: any, transfer: any): void
 
-  dispose() {
-    if ('close' in this._rawIpc) {
-      this._rawIpc.close()
-    }
-    if ('kill' in this._rawIpc) {
-      this._rawIpc.kill()
-    }
-  }
+  abstract dispose(): void
 }

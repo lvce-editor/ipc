@@ -1,5 +1,6 @@
 import * as FirstWorkerEventType from '../FirstWorkerEventType/FirstWorkerEventType.ts'
 import * as GetFirstWorkerEvent from '../GetFirstWorkerEvent/GetFirstWorkerEvent.ts'
+import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsErrorEvent from '../IsErrorEvent/IsErrorEvent.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
@@ -41,28 +42,24 @@ const getData = (event: any) => {
   return event
 }
 
-export const wrap = (worker: any) => {
-  let handleMessage: any
-  return {
-    get onmessage() {
-      return handleMessage
-    },
-    set onmessage(listener) {
-      if (listener) {
-        handleMessage = (event: any) => {
-          const data = getData(event)
-          listener({ data, target: this })
-        }
-      } else {
-        handleMessage = null
-      }
-      worker.onmessage = handleMessage
-    },
-    send(message: any) {
-      worker.postMessage(message)
-    },
-    sendAndTransfer(message: any, transfer: any) {
-      worker.postMessage(message, transfer)
-    },
+class IpcParentWithModuleWorker extends Ipc<Worker> {
+  override getData(event: any) {
+    return getData(event)
   }
+
+  override send(message: any): void {
+    this._rawIpc.postMessage(message)
+  }
+
+  override sendAndTransfer(message: any, transfer: any): void {
+    this._rawIpc.postMessage(message, transfer)
+  }
+
+  override dispose(): void {
+    // igore
+  }
+}
+
+export const wrap = (worker: any) => {
+  return new IpcParentWithModuleWorker(worker)
 }
