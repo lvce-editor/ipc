@@ -1,4 +1,5 @@
 import * as FirstWebSocketEventType from '../FirstWebSocketEventType/FirstWebSocketEventType.ts'
+import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as Json from '../Json/Json.ts'
 import * as WaitForWebSocketToBeOpen from '../WaitForWebSocketToBeOpen/WaitForWebSocketToBeOpen.ts'
@@ -12,36 +13,24 @@ export const create = async ({ webSocket }: { webSocket: WebSocket }) => {
   return webSocket
 }
 
-const getData = (event: any) => {
-  return Json.parse(event.data)
+class IpcParentWithWebSocket extends Ipc<WebSocket> {
+  override getData(event: any) {
+    return Json.parse(event.data)
+  }
+
+  override send(message: any): void {
+    this._rawIpc.send(Json.stringifyCompact(message))
+  }
+
+  override sendAndTransfer(message: any, transfer: any): void {
+    throw new Error('sendAndTransfer not supported')
+  }
+
+  override dispose(): void {
+    this._rawIpc.close()
+  }
 }
 
 export const wrap = (webSocket: WebSocket) => {
-  return {
-    webSocket,
-    /**
-     * @type {any}
-     */
-    listener: undefined,
-    get onmessage() {
-      return this.listener
-    },
-    set onmessage(listener) {
-      this.listener = listener
-      const wrappedListener = (event: any) => {
-        const data = getData(event)
-        const syntheticEvent = {
-          data,
-          target: this,
-        }
-        // @ts-ignore
-        listener(syntheticEvent)
-      }
-      this.webSocket.onmessage = wrappedListener
-    },
-    send(message: any) {
-      const stringifiedMessage = Json.stringifyCompact(message)
-      this.webSocket.send(stringifiedMessage)
-    },
-  }
+  return new IpcParentWithWebSocket(webSocket)
 }

@@ -1,4 +1,5 @@
 import * as GetData from '../GetData/GetData.ts'
+import { Ipc } from '../Ipc/Ipc.ts'
 import * as IpcChildWithModuleWorker from '../IpcChildWithModuleWorker/IpcChildWithModuleWorker.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as WaitForFirstMessage from '../WaitForFirstMessage/WaitForFirstMessage.ts'
@@ -20,34 +21,26 @@ export const listen = async () => {
   return globalThis
 }
 
-export const wrap = (port: any) => {
-  return {
-    port,
-    /**
-     * @type {any}
-     */
-    wrappedListener: undefined,
-    send(message: any) {
-      this.port.postMessage(message)
-    },
-    sendAndTransfer(message: any, transferables: any) {
-      this.port.postMessage(message, transferables)
-    },
-    get onmessage() {
-      return this.wrappedListener
-    },
-    set onmessage(listener) {
-      if (listener) {
-        // @ts-expect-error
-        this.wrappedListener = (event) => {
-          const data = GetData.getData(event)
-          // @ts-expect-error
-          listener({ data, target: this })
-        }
-      } else {
-        this.wrappedListener = undefined
-      }
-      this.port.onmessage = this.wrappedListener
-    },
+class IpcChildWithModuleWorkerAndMessagePort extends Ipc<MessagePort> {
+  override getData(event: any) {
+    return GetData.getData(event)
   }
+
+  override send(message: any): void {
+    this._rawIpc.postMessage(message)
+  }
+
+  override sendAndTransfer(message: any, transfer: any): void {
+    this._rawIpc.postMessage(message, transfer)
+  }
+
+  override dispose(): void {
+    if (this._rawIpc.close) {
+      this._rawIpc.close()
+    }
+  }
+}
+
+export const wrap = (port: any) => {
+  return new IpcChildWithModuleWorkerAndMessagePort(port)
 }
