@@ -52,7 +52,6 @@ class IpcParentWithNodeForkedProcess extends Ipc<ChildProcess> {
 
   override sendAndTransfer(message: any, transfer: any): void {
     this._rawIpc.send(message, transfer)
-    throw new Error('Method not implemented.')
   }
 
   override dispose(): void {
