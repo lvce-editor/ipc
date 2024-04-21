@@ -1,12 +1,13 @@
+import type { ChildProcess } from 'node:child_process'
 import * as Assert from '../Assert/Assert.ts'
 import { ChildProcessError } from '../ChildProcessError/ChildProcessError.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 import * as GetFirstNodeChildProcessEvent from '../GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.ts'
+import { Ipc } from '../Ipc/Ipc.ts'
 import { VError } from '../VError/VError.ts'
 
 // @ts-ignore
 export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inherit', name = 'child process' }) => {
-  // @ts-ignore
   try {
     Assert.string(path)
     const actualArgv = ['--ipc-type=node-forked-process', ...argv]
@@ -33,36 +34,32 @@ export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inh
   }
 }
 
-// @ts-ignore
-export const wrap = (childProcess) => {
-  return {
-    childProcess,
-    // @ts-ignore
-    on(event, listener) {
-      const wrappedListener = (message: any) => {
-        const syntheticEvent = {
-          data: message,
-          target: this,
-        }
-        listener(syntheticEvent)
-      }
-      this.childProcess.on(event, wrappedListener)
-    },
-    // @ts-ignore
-    off(event, listener) {
-      this.childProcess.off(event, listener)
-    },
-    // @ts-ignore
-    send(message) {
-      this.childProcess.send(message)
-    },
-    // @ts-ignore
-    sendAndTransfer(message, handle) {
-      this.childProcess.send(message, handle)
-    },
-    dispose() {
-      this.childProcess.kill()
-    },
-    pid: childProcess.pid,
+class IpcParentWithNodeForkedProcess extends Ipc<ChildProcess> {
+  readonly pid: number | undefined
+
+  constructor(childProcess: ChildProcess) {
+    super(childProcess)
+    this.pid = childProcess.pid
   }
+
+  override getData(message: any) {
+    return message
+  }
+
+  override send(message: any): void {
+    this._rawIpc.send(message)
+  }
+
+  override sendAndTransfer(message: any, transfer: any): void {
+    this._rawIpc.send(message, transfer)
+    throw new Error('Method not implemented.')
+  }
+
+  override dispose(): void {
+    this._rawIpc.kill()
+  }
+}
+
+export const wrap = (childProcess: ChildProcess) => {
+  return new IpcParentWithNodeForkedProcess(childProcess)
 }
