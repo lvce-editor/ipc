@@ -1,6 +1,7 @@
 import * as Assert from '../Assert/Assert.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 import * as GetFirstUtilityProcessEvent from '../GetFirstUtilityProcessEvent/GetFirstUtilityProcessEvent.ts'
+import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 
 // @ts-ignore
@@ -26,32 +27,10 @@ export const create = async ({ path, argv = [], execArgv = [], name, env = proce
   return childProcess
 }
 
-// @ts-ignore
-export const wrap = (process) => {
-  return {
-    process,
-    // @ts-ignore
-    on(event, listener) {
-      const wrappedListener = (message: any) => {
-        const syntheticEvent = {
-          data: message,
-          target: this,
-        }
-        listener(syntheticEvent)
-      }
-      this.process.on(event, wrappedListener)
-    },
-    // @ts-ignore
-    send(message) {
-      this.process.postMessage(message)
-    },
-    // @ts-ignore
-    sendAndTransfer(message, transfer) {
-      Assert.array(transfer)
-      this.process.postMessage(message, transfer)
-    },
-    dispose() {
-      this.process.kill()
-    },
-  }
+const getData = (data: any) => {
+  return data
+}
+
+export const wrap = (process: any) => {
+  return new Ipc(process, getData)
 }

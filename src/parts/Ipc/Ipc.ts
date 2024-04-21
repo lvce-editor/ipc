@@ -1,16 +1,18 @@
 import { TypedEventTarget } from '../TypedEventTarget/TypedEventTarget.ts'
 
 const attachEvent = (rawIpc: any, getData: any, that: any) => {
+  const wrapped = (event: any) => {
+    const data = getData(event)
+    that.dispatchEvent(
+      new MessageEvent('message', {
+        data,
+      }),
+    )
+  }
   if ('onmessage' in rawIpc) {
-    const wrapped = (event: any) => {
-      const data = getData(event)
-      that.dispatchEvent(
-        new MessageEvent('message', {
-          data,
-        }),
-      )
-    }
     rawIpc.onmessage = wrapped
+  } else if ('on' in rawIpc) {
+    rawIpc.on('message', wrapped)
   }
 }
 
@@ -36,6 +38,10 @@ export class Ipc extends (EventTarget as TypedEventTarget<{
       this._rawIpc.postMessage(message)
       return
     }
+    if ('send' in this._rawIpc) {
+      this._rawIpc.send(message)
+      return
+    }
     throw new Error('send not supported')
   }
 
@@ -50,6 +56,9 @@ export class Ipc extends (EventTarget as TypedEventTarget<{
   dispose() {
     if ('close' in this._rawIpc) {
       this._rawIpc.close()
+    }
+    if ('kill' in this._rawIpc) {
+      this._rawIpc.kill()
     }
   }
 }

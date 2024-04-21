@@ -1,3 +1,4 @@
+import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePortMain from '../IsMessagePortMain/IsMessagePortMain.ts'
 
@@ -24,40 +25,5 @@ const getActualData = (event: any) => {
 }
 
 export const wrap = (messagePort: any) => {
-  return {
-    messagePort,
-    on(event: string, listener: any) {
-      if (event === 'message') {
-        // @ts-ignore
-        const wrappedListener = (event) => {
-          const actualData = getActualData(event)
-          const syntheticEvent = {
-            data: actualData,
-            target: this,
-          }
-          listener(syntheticEvent)
-        }
-        this.messagePort.on(event, wrappedListener)
-      } else if (event === 'close') {
-        this.messagePort.on('close', listener)
-      } else {
-        throw new Error('unsupported event type')
-      }
-    },
-    off(event: string, listener: any) {
-      this.messagePort.off(event, listener)
-    },
-    send(message: any) {
-      this.messagePort.postMessage(message)
-    },
-    sendAndTransfer(message: any, transfer: any) {
-      this.messagePort.postMessage(message, transfer)
-    },
-    dispose() {
-      this.messagePort.close()
-    },
-    start() {
-      throw new Error('start method is deprecated')
-    },
-  }
+  return new Ipc(messagePort, getActualData)
 }
