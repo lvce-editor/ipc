@@ -1,8 +1,6 @@
-interface Ipc {
+interface Ipc extends EventTarget {
   readonly send: (message: any) => void
   readonly sendAndTransfer: (message: any, transfer: any) => void
-  readonly on: any
-  readonly onmessage: any
   readonly dispose: () => void
   readonly isDisposed: () => void
 }
