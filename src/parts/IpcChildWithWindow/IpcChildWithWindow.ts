@@ -20,8 +20,7 @@ class IpcChildWithWindow extends Ipc<Window> {
   }
 
   override sendAndTransfer(message: any, transfer: any): void {
-    // TODO set diffrent origin
-    this._rawIpc.postMessage(message, '*', transfer)
+    this._rawIpc.postMessage(message, location.origin, transfer)
   }
 
   override dispose(): void {
