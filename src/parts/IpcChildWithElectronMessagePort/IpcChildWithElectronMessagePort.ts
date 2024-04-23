@@ -1,4 +1,4 @@
-import { MessagePortMain } from 'electron'
+import type { MessagePortMain } from 'electron'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePortMain from '../IsMessagePortMain/IsMessagePortMain.ts'
