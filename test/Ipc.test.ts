@@ -28,7 +28,9 @@ class TestIpc extends Ipc<MessagePort> {
   }
 
   onMessage(callback: any) {
-    this._rawIpc.addEventListener('message', callback)
+    if (this._rawIpc.addEventListener) {
+      this._rawIpc.addEventListener('message', callback)
+    }
   }
 }
 
