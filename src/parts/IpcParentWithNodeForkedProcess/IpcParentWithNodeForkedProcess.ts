@@ -57,6 +57,14 @@ class IpcParentWithNodeForkedProcess extends Ipc<ChildProcess> {
   override dispose(): void {
     this._rawIpc.kill()
   }
+
+  override onClose(callback: any) {
+    this._rawIpc.on('close', callback)
+  }
+
+  override onMessage(callback: any) {
+    this._rawIpc.on('message', callback)
+  }
 }
 
 export const wrap = (childProcess: ChildProcess) => {

@@ -22,11 +22,20 @@ class TestIpc extends Ipc<MessagePort> {
   dispose(): void {
     this._rawIpc.close()
   }
+
+  onClose(callback: any) {
+    // not implemented
+  }
+
+  onMessage(callback: any) {
+    if (this._rawIpc && this._rawIpc.addEventListener) {
+      this._rawIpc.addEventListener('message', callback)
+    }
+  }
 }
 
-test('addEventListener onmessage', async () => {
+test('addEventListener - message', async () => {
   const { port1, port2 } = new MessageChannel()
-
   const ipc = new TestIpc(port1)
   const { resolve, promise } = Promises.withResolvers<MessageEvent>()
   ipc.addEventListener('message', resolve)

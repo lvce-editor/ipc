@@ -43,6 +43,14 @@ class IpcParentWithElectronUtilityProcess extends Ipc<UtilityProcess> {
   override dispose(): void {
     this._rawIpc.kill()
   }
+
+  override onClose(callback: any) {
+    this._rawIpc.on('exit', callback)
+  }
+
+  override onMessage(callback: any) {
+    this._rawIpc.on('message', callback)
+  }
 }
 
 export const wrap = (process: any) => {

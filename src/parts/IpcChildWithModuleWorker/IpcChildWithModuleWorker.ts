@@ -32,6 +32,14 @@ class IpcChildWithModuleWorker extends Ipc<WorkerGlobalScope> {
   override dispose(): void {
     // ignore
   }
+
+  override onClose(callback: any) {
+    // ignore
+  }
+
+  override onMessage(callback: any) {
+    this._rawIpc.addEventListener('message', callback)
+  }
 }
 
 export const wrap = (global: any) => {

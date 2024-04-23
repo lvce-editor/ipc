@@ -1,3 +1,4 @@
+import type { MessagePortMain } from 'electron'
 import * as GetUtilityProcessPortData from '../GetUtilityProcessPortData/GetUtilityProcessPortData.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
@@ -15,7 +16,7 @@ export const signal = (parentPort: any) => {
   parentPort.postMessage(ReadyMessage.readyMessage)
 }
 
-class IpcChildWithElectronUtilityProcess extends Ipc<MessagePort> {
+class IpcChildWithElectronUtilityProcess extends Ipc<MessagePortMain> {
   override getData(event: any) {
     return GetUtilityProcessPortData.getUtilityProcessPortData(event)
   }
@@ -30,6 +31,14 @@ class IpcChildWithElectronUtilityProcess extends Ipc<MessagePort> {
 
   override dispose(): void {
     this._rawIpc.close()
+  }
+
+  override onClose(callback: any) {
+    this._rawIpc.on('close', callback)
+  }
+
+  override onMessage(callback: any) {
+    this._rawIpc.on('message', callback)
   }
 }
 

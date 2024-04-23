@@ -56,7 +56,15 @@ class IpcParentWithModuleWorker extends Ipc<Worker> {
   }
 
   override dispose(): void {
-    // igore
+    // ignore
+  }
+
+  override onClose(callback: any) {
+    // ignore
+  }
+
+  override onMessage(callback: any) {
+    this._rawIpc.addEventListener('message', callback)
   }
 }
 
