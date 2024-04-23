@@ -22,6 +22,14 @@ class TestIpc extends Ipc<MessagePort> {
   dispose(): void {
     this._rawIpc.close()
   }
+
+  onClose(callback: any) {
+    // not implemented
+  }
+
+  onMessage(callback: any) {
+    this._rawIpc.addEventListener('message', callback)
+  }
 }
 
 test('addEventListener onmessage', async () => {

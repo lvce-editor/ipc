@@ -39,6 +39,14 @@ class IpcChildWithModuleWorkerAndMessagePort extends Ipc<MessagePort> {
       this._rawIpc.close()
     }
   }
+
+  override onClose(callback: any) {
+    // ignore
+  }
+
+  override onMessage(callback: any) {
+    this._rawIpc.addEventListener('message', callback)
+  }
 }
 
 export const wrap = (port: any) => {

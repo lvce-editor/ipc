@@ -1,33 +1,26 @@
-import { TypedEventTarget } from '../TypedEventTarget/TypedEventTarget.ts'
+import * as AttachEvents from '../AttachEvents/AttachEvents.ts'
+import type { IIpc } from '../IIpc/Iipc.ts'
+import type { TypedEventTarget } from '../TypedEventTarget/TypedEventTarget.ts'
 
-const attachEvent = (rawIpc: any, getData: any, that: any) => {
-  const wrapped = (event: any) => {
-    const data = getData(event)
-    that.dispatchEvent(
-      new MessageEvent('message', {
-        data,
-      }),
-    )
-  }
-  if ('onmessage' in rawIpc) {
-    rawIpc.onmessage = wrapped
-  } else if ('on' in rawIpc) {
-    rawIpc.on('message', wrapped)
-  }
-}
-
-export abstract class Ipc<T> extends (EventTarget as TypedEventTarget<{
-  message: MessageEvent
-}>) {
+export abstract class Ipc<T>
+  extends (EventTarget as TypedEventTarget<{
+    message: MessageEvent
+  }>)
+  implements IIpc
+{
   readonly _rawIpc: T
 
   constructor(rawIpc: T) {
     super()
-    attachEvent(rawIpc, this.getData, this)
+    AttachEvents.attachEvents(this)
     this._rawIpc = rawIpc
   }
 
   abstract getData(event: any): any
+
+  abstract onClose(callback: any): any
+
+  abstract onMessage(callback: any): any
 
   abstract send(message: any): void
 

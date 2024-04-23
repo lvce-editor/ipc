@@ -1,3 +1,4 @@
+import { MessagePortMain } from 'electron'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePortMain from '../IsMessagePortMain/IsMessagePortMain.ts'
@@ -24,8 +25,8 @@ const getActualData = (event: any) => {
   }
 }
 
-class IpcChildWithElectronMessagePort extends Ipc<MessagePort> {
-  constructor(port: MessagePort) {
+class IpcChildWithElectronMessagePort extends Ipc<MessagePortMain> {
+  constructor(port: MessagePortMain) {
     super(port)
   }
 
@@ -43,6 +44,14 @@ class IpcChildWithElectronMessagePort extends Ipc<MessagePort> {
 
   override dispose(): void {
     this._rawIpc.close()
+  }
+
+  override onMessage(callback: any) {
+    this._rawIpc.on('message', callback)
+  }
+
+  override onClose(callback: any) {
+    this._rawIpc.on('close', callback)
   }
 }
 

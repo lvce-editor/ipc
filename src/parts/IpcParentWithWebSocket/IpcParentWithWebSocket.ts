@@ -29,6 +29,14 @@ class IpcParentWithWebSocket extends Ipc<WebSocket> {
   override dispose(): void {
     this._rawIpc.close()
   }
+
+  override onClose(callback: any) {
+    this._rawIpc.addEventListener('close', callback)
+  }
+
+  override onMessage(callback: any) {
+    this._rawIpc.addEventListener('message', callback)
+  }
 }
 
 export const wrap = (webSocket: WebSocket) => {
