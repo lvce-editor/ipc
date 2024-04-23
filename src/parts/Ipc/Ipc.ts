@@ -12,8 +12,8 @@ export abstract class Ipc<T>
 
   constructor(rawIpc: T) {
     super()
-    AttachEvents.attachEvents(this)
     this._rawIpc = rawIpc
+    AttachEvents.attachEvents(this)
   }
 
   abstract getData(event: any): any
