@@ -36,7 +36,6 @@ class TestIpc extends Ipc<MessagePort> {
 
 test('addEventListener - message', async () => {
   const { port1, port2 } = new MessageChannel()
-
   const ipc = new TestIpc(port1)
   const { resolve, promise } = Promises.withResolvers<MessageEvent>()
   ipc.addEventListener('message', resolve)
