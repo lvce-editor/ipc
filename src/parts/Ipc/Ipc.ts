@@ -16,7 +16,7 @@ export abstract class Ipc<T>
     AttachEvents.attachEvents(this)
   }
 
-  abstract getData(event: any): any
+  abstract getData(...args: any[]): any
 
   abstract onClose(callback: any): any
 

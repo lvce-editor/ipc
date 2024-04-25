@@ -1,8 +1,8 @@
 import type { IIpc } from '../IIpc/Iipc.ts'
 
 export const attachEvents = (that: IIpc) => {
-  const handleMessage = (event: any) => {
-    const data = that.getData(event)
+  const handleMessage = (...args: any[]) => {
+    const data = that.getData(...args)
     that.dispatchEvent(
       new MessageEvent('message', {
         data,
