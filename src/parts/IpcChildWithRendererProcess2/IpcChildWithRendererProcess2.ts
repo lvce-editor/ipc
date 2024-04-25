@@ -8,10 +8,10 @@ export const listen = ({ webContents }: { webContents: WebContents }) => {
 }
 
 const getData = (event: IpcMainEvent, message: any) => {
-  const { ports } = event
+  const { ports, sender } = event
   const data = {
     ...message,
-    params: [...message.params, ...ports],
+    params: [...message.params, ...ports, sender.id],
   }
   return data
 }
