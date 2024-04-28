@@ -32,7 +32,15 @@ class IpcChildWithWindow extends Ipc<Window> {
   }
 
   override onMessage(callback: any) {
-    this._rawIpc.addEventListener('message', callback)
+    const wrapped = (event: MessageEvent) => {
+      const { ports } = event
+      if (ports.length) {
+        return
+      }
+      callback(event)
+      this._rawIpc.removeEventListener('message', wrapped)
+    }
+    this._rawIpc.addEventListener('message', wrapped)
   }
 }
 
