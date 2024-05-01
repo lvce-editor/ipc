@@ -1,3 +1,5 @@
+import { Ipc } from '../Ipc/Ipc.ts'
+import type { NodeJsProcess } from '../NodeJsProcess/NodeJsProcess.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
 export const listen = async () => {
@@ -7,13 +9,11 @@ export const listen = async () => {
   return process
 }
 
-// @ts-ignore
-export const signal = (process) => {
+export const signal = (process: NodeJsProcess) => {
   process.send(ReadyMessage.readyMessage)
 }
 
-// @ts-ignore
-const getActualData = (message, handle) => {
+const getActualData = (message: any, handle: any) => {
   if (handle) {
     return {
       ...message,
@@ -23,37 +23,36 @@ const getActualData = (message, handle) => {
   return message
 }
 
-// @ts-ignore
-export const wrap = (process) => {
-  return {
-    process,
-    // @ts-ignore
-    on(event, listener) {
-      if (event === 'message') {
-        // @ts-ignore
-        const wrappedListener = (event, handle) => {
-          const actualData = getActualData(event, handle)
-          const syntheticEvent = {
-            data: actualData,
-            target: this,
-          }
-          listener(syntheticEvent)
-        }
-        this.process.on(event, wrappedListener)
-      } else if (event === 'close') {
-        this.process.on('close', listener)
-      } else {
-        throw new Error('unsupported event type')
-      }
-    },
-    // @ts-ignore
-    off(event, listener) {
-      this.process.off(event, listener)
-    },
-    // @ts-ignore
-    send(message) {
-      this.process.send(message)
-    },
-    dispose() {},
+class IpcChildWithNodeForkedProcess extends Ipc<NodeJsProcess> {
+  constructor(process: NodeJsProcess) {
+    super(process)
   }
+
+  override getData(message: any, handle: any) {
+    return getActualData(message, handle)
+  }
+
+  override onClose(callback: any) {
+    this._rawIpc.on('close', callback)
+  }
+
+  override send(message: any) {
+    this._rawIpc.send(message)
+  }
+
+  override onMessage(callback: any) {
+    this._rawIpc.on('message', callback)
+  }
+
+  override sendAndTransfer(message: any, transfer: any): void {
+    this._rawIpc.send(message, transfer)
+  }
+
+  override dispose(): void {
+    // ignore
+  }
+}
+
+export const wrap = (process: NodeJsProcess) => {
+  return new IpcChildWithNodeForkedProcess(process)
 }
