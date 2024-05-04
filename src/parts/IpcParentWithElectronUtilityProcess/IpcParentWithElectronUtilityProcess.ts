@@ -16,6 +16,13 @@ export const create = async ({ path, argv = [], execArgv = [], name, env = proce
     serviceName: name,
     env,
   })
+  const handleExit = () => {
+    // @ts-ignore
+    childProcess.stdout.unpipe(process.stdout)
+    // @ts-ignore
+    childProcess.stderr.unpipe(process.stderr)
+  }
+  childProcess.once('exit', handleExit)
   // @ts-ignore
   childProcess.stdout.pipe(process.stdout)
   const { type, stdout, stderr } = await GetFirstUtilityProcessEvent.getFirstUtilityProcessEvent(childProcess)
