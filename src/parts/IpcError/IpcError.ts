@@ -3,7 +3,7 @@ import { VError } from '../VError/VError.ts'
 
 export class IpcError extends VError {
   // @ts-ignore
-  constructor(message, stdout = '', stderr = '') {
+  constructor(betterMessage, stdout = '', stderr = '') {
     if (stdout || stderr) {
       // @ts-ignore
       const { message, code, stack } = GetHelpfulChildProcessError.getHelpfulChildProcessError(stdout, stderr)
@@ -11,9 +11,9 @@ export class IpcError extends VError {
       // @ts-ignore
       cause.code = code
       cause.stack = stack
-      super(cause, message)
+      super(cause, betterMessage)
     } else {
-      super(message)
+      super(betterMessage)
     }
     // @ts-ignore
     this.name = 'IpcError'
