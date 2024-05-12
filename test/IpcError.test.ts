@@ -14,7 +14,8 @@ test('module not found error', async () => {
   // @ts-ignore
   expect(error.message).toBe(`Utility Process exited before connection: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/packages/shared-process/node_modules/@lvce-editor/embeds-process/src/embedsProcessMain-not.js' imported from /packages/main-process/`)
   // @ts-ignore
-  expect(error.stack).toBe(``)
+  expect(error.stack).toMatch(`VError: Utility Process exited before connection: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/packages/shared-process/node_modules/@lvce-editor/embeds-process/src/embedsProcessMain-not.js' imported from /packages/main-process/
+    at`)
   // @ts-ignore
-  expect(error.code).toBe(``)
+  expect(error.code).toBe(`ERR_MODULE_NOT_FOUND`)
 })
