@@ -22,7 +22,7 @@ export const listen = async () => {
 }
 
 class IpcChildWithModuleWorkerAndMessagePort extends Ipc<MessagePort> {
-  constructor(port:MessagePort){
+  constructor(port: MessagePort) {
     super(port)
   }
 
@@ -50,6 +50,7 @@ class IpcChildWithModuleWorkerAndMessagePort extends Ipc<MessagePort> {
 
   override onMessage(callback: any) {
     this._rawIpc.addEventListener('message', callback)
+    this._rawIpc.start()
   }
 }
 
