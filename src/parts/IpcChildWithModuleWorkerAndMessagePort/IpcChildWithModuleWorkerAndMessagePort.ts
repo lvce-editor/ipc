@@ -22,6 +22,10 @@ export const listen = async () => {
 }
 
 class IpcChildWithModuleWorkerAndMessagePort extends Ipc<MessagePort> {
+  constructor(port:MessagePort){
+    super(port)
+  }
+
   override getData(event: any) {
     return GetData.getData(event)
   }
