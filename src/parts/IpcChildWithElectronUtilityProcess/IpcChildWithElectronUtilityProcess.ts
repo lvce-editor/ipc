@@ -2,6 +2,7 @@ import type { MessagePortMain } from 'electron'
 import * as GetUtilityProcessPortData from '../GetUtilityProcessPortData/GetUtilityProcessPortData.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
+import * as FixElectronParameters from '../FixElectronParameters/FixElectronParameters.ts'
 
 export const listen = () => {
   // @ts-ignore
@@ -25,8 +26,9 @@ class IpcChildWithElectronUtilityProcess extends Ipc<MessagePortMain> {
     this._rawIpc.postMessage(message)
   }
 
-  override sendAndTransfer(message: any, transfer: any): void {
-    this._rawIpc.postMessage(message, transfer)
+  override sendAndTransfer(message: any): void {
+    const { newValue, transfer } = FixElectronParameters.fixElectronParameters(message)
+    this._rawIpc.postMessage(newValue, transfer)
   }
 
   override dispose(): void {
