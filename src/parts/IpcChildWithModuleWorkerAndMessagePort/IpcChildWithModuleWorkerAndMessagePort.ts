@@ -3,6 +3,7 @@ import { Ipc } from '../Ipc/Ipc.ts'
 import * as IpcChildWithModuleWorker from '../IpcChildWithModuleWorker/IpcChildWithModuleWorker.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as WaitForFirstMessage from '../WaitForFirstMessage/WaitForFirstMessage.ts'
+import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 
 export const listen = async () => {
   const parentIpcRaw = IpcChildWithModuleWorker.listen()
@@ -34,7 +35,8 @@ class IpcChildWithModuleWorkerAndMessagePort extends Ipc<MessagePort> {
     this._rawIpc.postMessage(message)
   }
 
-  override sendAndTransfer(message: any, transfer: any): void {
+  override sendAndTransfer(message: any): void {
+    const transfer = GetTransferrables.getTransferrables(message)
     this._rawIpc.postMessage(message, transfer)
   }
 

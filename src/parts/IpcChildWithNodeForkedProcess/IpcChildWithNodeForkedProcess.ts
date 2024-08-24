@@ -1,6 +1,7 @@
 import { Ipc } from '../Ipc/Ipc.ts'
 import type { NodeJsProcess } from '../NodeJsProcess/NodeJsProcess.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
+import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 
 export const listen = async () => {
   if (!process.send) {
@@ -44,7 +45,8 @@ class IpcChildWithNodeForkedProcess extends Ipc<NodeJsProcess> {
     this._rawIpc.on('message', callback)
   }
 
-  override sendAndTransfer(message: any, transfer: any): void {
+  override sendAndTransfer(message: any): void {
+    const transfer = GetTransferrables.getTransferrables(message)
     this._rawIpc.send(message, transfer)
   }
 
