@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
 import * as FixElectronParameters from '../src/parts/FixElectronParameters/FixElectronParameters.ts'
 
-test('move messageport from params to transfer list', async () => {
+test('move messageport from params to transfer list', () => {
   const { port1 } = new MessageChannel()
   const value = {
     jsonrpc: '2.0',
@@ -17,7 +17,7 @@ test('move messageport from params to transfer list', async () => {
   expect(transfer).toEqual([port1])
 })
 
-test('null', async () => {
+test('null', () => {
   const value = null
   const { newValue, transfer } = FixElectronParameters.fixElectronParameters(value)
   expect(newValue).toBe(null)
