@@ -7,6 +7,7 @@ import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 import * as TryToGetActualWorkerErrorMessage from '../TryToGetActualWorkerErrorMessage/TryToGetActualWorkerErrorMessage.ts'
 import { WorkerError } from '../WorkerError/WorkerError.ts'
 import * as WorkerType from '../WorkerType/WorkerType.ts'
+import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 
 export const create = async ({ url, name }: { url: string; name: string }) => {
   const worker = new Worker(url, {
@@ -51,7 +52,8 @@ class IpcParentWithModuleWorker extends Ipc<Worker> {
     this._rawIpc.postMessage(message)
   }
 
-  override sendAndTransfer(message: any, transfer: any): void {
+  override sendAndTransfer(message: any): void {
+    const transfer = GetTransferrables.getTransferrables(message)
     this._rawIpc.postMessage(message, transfer)
   }
 
