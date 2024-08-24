@@ -1,6 +1,7 @@
 import * as GetData from '../GetData/GetData.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
+import * as FixElectronParameters from '../FixElectronParameters/FixElectronParameters.ts'
 
 export const listen = () => {
   return window
@@ -19,8 +20,9 @@ class IpcChildWithWindow extends Ipc<Window> {
     this._rawIpc.postMessage(message)
   }
 
-  override sendAndTransfer(message: any, transfer: any): void {
-    this._rawIpc.postMessage(message, location.origin, transfer)
+  override sendAndTransfer(message: any, _transfer: any): void {
+    const { newValue, transfer } = FixElectronParameters.fixElectronParameters(message)
+    this._rawIpc.postMessage(newValue, location.origin, transfer)
   }
 
   override dispose(): void {
