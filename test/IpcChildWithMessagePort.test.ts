@@ -41,7 +41,7 @@ test('wrap - sendAndTransfer', async () => {
   const promise = new Promise((resolve) => {
     port2.onmessage = resolve
   })
-  ipc.sendAndTransfer('test', [])
+  ipc.sendAndTransfer('test')
   const event = await promise
   // @ts-ignore
   expect(event.data).toBe('test')

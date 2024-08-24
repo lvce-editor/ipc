@@ -9,6 +9,7 @@ test('move messageport from params to transfer list', () => {
     params: [1, port1],
   }
   const { newValue, transfer } = FixElectronParameters.fixElectronParameters(value)
+  // @ts-ignore
   expect(newValue.params).toHaveLength(1)
   expect(newValue).toEqual({
     jsonrpc: '2.0',
