@@ -4,6 +4,7 @@ import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNode
 import * as GetFirstUtilityProcessEvent from '../GetFirstUtilityProcessEvent/GetFirstUtilityProcessEvent.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
+import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 
 // @ts-ignore
 export const create = async ({ path, argv = [], execArgv = [], name, env = process.env }) => {
@@ -43,7 +44,8 @@ class IpcParentWithElectronUtilityProcess extends Ipc<UtilityProcess> {
     this._rawIpc.postMessage(message)
   }
 
-  override sendAndTransfer(message: any, transfer: any): void {
+  override sendAndTransfer(message: any): void {
+    const transfer = GetTransferrables.getTransferrables(message)
     this._rawIpc.postMessage(message, transfer)
   }
 

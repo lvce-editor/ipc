@@ -24,7 +24,7 @@ export abstract class Ipc<T>
 
   abstract send(message: any): void
 
-  abstract sendAndTransfer(message: any, transfer: any): void
+  abstract sendAndTransfer(message: any): void
 
   abstract dispose(): void
 }
