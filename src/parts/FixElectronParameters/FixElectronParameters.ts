@@ -1,3 +1,4 @@
+import * as RemoveValues from '../RemoveValues/RemoveValues.ts'
 import * as WalkValue from '../WalkValue/WalkValue.ts'
 
 // workaround for electron not supporting transferrable objects
@@ -5,7 +6,8 @@ import * as WalkValue from '../WalkValue/WalkValue.ts'
 // only an empty objected is received in the main process
 export const fixElectronParameters = (value: unknown) => {
   const transfer: any[] = []
-  const newValue = WalkValue.walkValue(value, transfer)
+  WalkValue.walkValue(value, transfer)
+  const newValue = RemoveValues.removeValues(value, transfer)
   return {
     newValue,
     transfer,
