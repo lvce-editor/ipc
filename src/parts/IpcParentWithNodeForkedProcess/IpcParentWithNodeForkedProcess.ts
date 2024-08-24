@@ -5,6 +5,7 @@ import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNode
 import * as GetFirstNodeChildProcessEvent from '../GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { VError } from '../VError/VError.ts'
+import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 
 // @ts-ignore
 export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inherit', name = 'child process' }) => {
@@ -50,7 +51,8 @@ class IpcParentWithNodeForkedProcess extends Ipc<ChildProcess> {
     this._rawIpc.send(message)
   }
 
-  override sendAndTransfer(message: any, transfer: any): void {
+  override sendAndTransfer(message: any): void {
+    const transfer = GetTransferrables.getTransferrables(message)
     this._rawIpc.send(message, transfer)
   }
 

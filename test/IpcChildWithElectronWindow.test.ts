@@ -105,7 +105,7 @@ test('sendAndTransfer - move transferrable parameters to transfer array', async 
     method: 'CreateMessagePort.createMessagePort',
     params: [1, port3],
   }
-  ipc.sendAndTransfer(message, [port3])
+  ipc.sendAndTransfer(message)
   expect(mockWindow.postMessage).toHaveBeenCalledTimes(1)
   expect(mockWindow.postMessage).toHaveBeenCalledWith(
     {

@@ -1,4 +1,5 @@
 import type { MessagePortMain } from 'electron'
+import * as FixElectronParameters from '../FixElectronParameters/FixElectronParameters.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePortMain from '../IsMessagePortMain/IsMessagePortMain.ts'
@@ -38,8 +39,9 @@ class IpcChildWithElectronMessagePort extends Ipc<MessagePortMain> {
     this._rawIpc.postMessage(message)
   }
 
-  override sendAndTransfer(message: any, transfer: any): void {
-    this._rawIpc.postMessage(message, transfer)
+  override sendAndTransfer(message: any): void {
+    const { newValue, transfer } = FixElectronParameters.fixElectronParameters(message)
+    this._rawIpc.postMessage(newValue, transfer)
   }
 
   override dispose(): void {

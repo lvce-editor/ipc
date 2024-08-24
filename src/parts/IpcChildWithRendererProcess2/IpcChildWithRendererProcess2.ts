@@ -1,5 +1,6 @@
 import type { IpcMainEvent, WebContents } from 'electron'
 import { Ipc } from '../Ipc/Ipc.ts'
+import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 
 const preloadChannelType = 'port'
 
@@ -25,7 +26,8 @@ class IpcChildWithRendererProcess2 extends Ipc<WebContents> {
     this._rawIpc.postMessage(preloadChannelType, message)
   }
 
-  override sendAndTransfer(message: any, transfer: any): void {
+  override sendAndTransfer(message: any): void {
+    const transfer = GetTransferrables.getTransferrables(message)
     this._rawIpc.postMessage(preloadChannelType, message, transfer)
   }
 

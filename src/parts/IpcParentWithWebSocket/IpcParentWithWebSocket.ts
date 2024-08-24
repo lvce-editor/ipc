@@ -22,7 +22,7 @@ class IpcParentWithWebSocket extends Ipc<WebSocket> {
     this._rawIpc.send(Json.stringifyCompact(message))
   }
 
-  override sendAndTransfer(message: any, transfer: any): void {
+  override sendAndTransfer(message: any): void {
     throw new Error('sendAndTransfer not supported')
   }
 

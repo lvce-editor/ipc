@@ -1,4 +1,5 @@
 import * as GetData from '../GetData/GetData.ts'
+import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
@@ -24,7 +25,8 @@ class IpcChildWithModuleWorker extends Ipc<WorkerGlobalScope> {
     this._rawIpc.postMessage(message)
   }
 
-  override sendAndTransfer(message: any, transfer: any): void {
+  override sendAndTransfer(message: any): void {
+    const transfer = GetTransferrables.getTransferrables(message)
     // @ts-ignore
     this._rawIpc.postMessage(message, transfer)
   }
