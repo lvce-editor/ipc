@@ -1,6 +1,7 @@
 export * as IpcChildWithModuleWorker from '../IpcChildWithModuleWorker/IpcChildWithModuleWorker.ts'
 export * as IpcChildWithModuleWorkerAndMessagePort from '../IpcChildWithModuleWorkerAndMessagePort/IpcChildWithModuleWorkerAndMessagePort.ts'
 export * as IpcChildWithWindow from '../IpcChildWithWindow/IpcChildWithWindow.ts'
+export * as IpcChildWithElectronWindow from '../IpcChildWithElectronWindow/IpcChildWithElectronWindow.ts'
 export * as IpcChildWithMessagePort from '../IpcChildWithMessagePort/IpcChildWithMessagePort.ts'
 export * as IpcParentWithModuleWorker from '../IpcParentWithModuleWorker/IpcParentWithModuleWorker.ts'
 export * as IpcParentWithWebSocket from '../IpcParentWithWebSocket/IpcParentWithWebSocket.ts'
