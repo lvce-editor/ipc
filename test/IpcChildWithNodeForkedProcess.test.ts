@@ -4,7 +4,6 @@ import * as IpcChildWithNodeForkedProcess from '../src/parts/IpcChildWithNodeFor
 import type { NodeJsProcess } from '../src/parts/NodeJsProcess/NodeJsProcess.ts'
 import * as Promises from '../src/parts/Promises/Promises.ts'
 
-
 class MockProcess extends EventEmitter implements NodeJsProcess {
   constructor() {
     super()
@@ -15,7 +14,6 @@ class MockProcess extends EventEmitter implements NodeJsProcess {
   }
 }
 
-
 test('data event', async () => {
   const process = new MockProcess()
   const ipc = IpcChildWithNodeForkedProcess.wrap(process)
@@ -24,19 +22,20 @@ test('data event', async () => {
   const message = {
     jsonrpc: '2.0',
     method: 'handleSocket',
-    params: []
+    params: [],
   }
   const handle = {
-    isSocket: true
+    isSocket: true,
   }
   process.emit('message', message, handle)
   const response = await promise
-  console.log({ response })
   expect(response.data).toEqual({
     jsonrpc: '2.0',
     method: 'handleSocket',
-    params: [{
-      isSocket: true
-    }]
+    params: [
+      {
+        isSocket: true,
+      },
+    ],
   })
 })
