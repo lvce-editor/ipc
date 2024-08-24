@@ -11,7 +11,7 @@ export const signal = (global: Window) => {
   global.postMessage(ReadyMessage.readyMessage)
 }
 
-class IpcChildWithWindow extends Ipc<Window> {
+class IpcChildWithElectronWindow extends Ipc<Window> {
   override getData(event: any) {
     return GetData.getData(event)
   }
@@ -47,5 +47,5 @@ class IpcChildWithWindow extends Ipc<Window> {
 }
 
 export const wrap = (window: any) => {
-  return new IpcChildWithWindow(window)
+  return new IpcChildWithElectronWindow(window)
 }
