@@ -12,7 +12,7 @@ test('move messageport from params to transfer list', async () => {
   expect(newValue).toEqual({
     jsonrpc: '2.0',
     method: 'CreateMessagePort.createMessagePort',
-    params: [1, port1],
+    params: [1],
   })
   expect(transfer).toEqual([port1])
 })
