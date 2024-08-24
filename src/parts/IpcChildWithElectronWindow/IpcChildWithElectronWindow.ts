@@ -20,7 +20,7 @@ class IpcChildWithElectronWindow extends Ipc<Window> {
     this._rawIpc.postMessage(message)
   }
 
-  override sendAndTransfer(message: any, _transfer: any): void {
+  override sendAndTransfer(message: any): void {
     const { newValue, transfer } = FixElectronParameters.fixElectronParameters(message)
     this._rawIpc.postMessage(newValue, location.origin, transfer)
   }
