@@ -1,5 +1,5 @@
 import { expect, test, beforeAll, jest } from '@jest/globals'
-import * as IpcChildWithWindow from '../src/parts/IpcChildWithWindow/IpcChildWithWindow.ts'
+import * as IpcChildWithElectronWindow from '../src/parts/IpcChildWithElectronWindow/IpcChildWithElectronWindow.ts'
 
 beforeAll(() => {
   // @ts-ignore
@@ -8,7 +8,7 @@ beforeAll(() => {
 
 test('onMessage - ignore events with messagePorts', async () => {
   const mockWindow = new EventTarget()
-  const ipc = IpcChildWithWindow.wrap(mockWindow)
+  const ipc = IpcChildWithElectronWindow.wrap(mockWindow)
 
   const messages: any[] = []
   const handleMessage = (event: MessageEvent) => {
@@ -26,7 +26,7 @@ test('onMessage - ignore events with messagePorts', async () => {
 
 test('onMessage - forward message events', async () => {
   const mockWindow = new EventTarget()
-  const ipc = IpcChildWithWindow.wrap(mockWindow)
+  const ipc = IpcChildWithElectronWindow.wrap(mockWindow)
 
   const messages: any[] = []
   const handleMessage = (event: MessageEvent) => {
@@ -53,7 +53,7 @@ test('onMessage - forward message events', async () => {
 
 test('onMessage - ignore events after first message', async () => {
   const mockWindow = new EventTarget()
-  const ipc = IpcChildWithWindow.wrap(mockWindow)
+  const ipc = IpcChildWithElectronWindow.wrap(mockWindow)
 
   const messages: any[] = []
   const handleMessage = (event: MessageEvent) => {
@@ -92,7 +92,7 @@ test('sendAndTransfer - move transferrable parameters to transfer array', async 
     postMessage: jest.fn(),
     addEventListener: jest.fn(),
   }
-  const ipc = IpcChildWithWindow.wrap(mockWindow)
+  const ipc = IpcChildWithElectronWindow.wrap(mockWindow)
 
   const messages: any[] = []
   const handleMessage = (event: MessageEvent) => {
