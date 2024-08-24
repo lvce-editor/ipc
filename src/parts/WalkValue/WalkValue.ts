@@ -18,7 +18,6 @@ export const walkValue = (value: unknown, transferrables: unknown[]) => {
   }
   if (typeof value === 'object') {
     const newObject = Object.create(null)
-    console.log({ value: value })
     for (const [key, property] of Object.entries(value)) {
       const newValue = walkValue(property, transferrables)
       newObject[key] = newValue
