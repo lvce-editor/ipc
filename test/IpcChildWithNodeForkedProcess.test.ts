@@ -25,7 +25,7 @@ test('data event', async () => {
   const message = {
     jsonrpc: '2.0',
     method: 'handleSocket',
-    params: [handle],
+    params: [],
   }
   process.emit('message', message, handle)
   const response = await promise
