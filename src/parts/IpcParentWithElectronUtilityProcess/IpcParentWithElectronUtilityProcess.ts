@@ -1,10 +1,10 @@
 import type { UtilityProcess } from 'electron'
 import * as Assert from '../Assert/Assert.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
+import * as FixElectronParameters from '../FixElectronParameters/FixElectronParameters.ts'
 import * as GetFirstUtilityProcessEvent from '../GetFirstUtilityProcessEvent/GetFirstUtilityProcessEvent.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
-import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 
 // @ts-ignore
 export const create = async ({ path, argv = [], execArgv = [], name, env = process.env }) => {
@@ -45,8 +45,8 @@ class IpcParentWithElectronUtilityProcess extends Ipc<UtilityProcess> {
   }
 
   override sendAndTransfer(message: any): void {
-    const transfer = GetTransferrables.getTransferrables(message)
-    this._rawIpc.postMessage(message, transfer)
+    const { newValue, transfer } = FixElectronParameters.fixElectronParameters(message)
+    this._rawIpc.postMessage(newValue, transfer)
   }
 
   override dispose(): void {
