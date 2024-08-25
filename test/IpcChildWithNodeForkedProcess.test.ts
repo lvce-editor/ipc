@@ -19,13 +19,13 @@ test('data event', async () => {
   const ipc = IpcChildWithNodeForkedProcess.wrap(process)
   const { resolve, promise } = Promises.withResolvers<MessageEvent>()
   ipc.addEventListener('message', resolve)
+  const handle = {
+    isSocket: true,
+  }
   const message = {
     jsonrpc: '2.0',
     method: 'handleSocket',
-    params: [],
-  }
-  const handle = {
-    isSocket: true,
+    params: [handle],
   }
   process.emit('message', message, handle)
   const response = await promise
