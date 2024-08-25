@@ -14,23 +14,13 @@ export const signal = (process: NodeJsProcess) => {
   process.send(ReadyMessage.readyMessage)
 }
 
-const getActualData = (message: any, handle: any) => {
-  if (handle) {
-    return {
-      ...message,
-      params: [handle, ...message.params],
-    }
-  }
-  return message
-}
-
 class IpcChildWithNodeForkedProcess extends Ipc<NodeJsProcess> {
   constructor(process: NodeJsProcess) {
     super(process)
   }
 
-  override getData(message: any, handle: any) {
-    return getActualData(message, handle)
+  override getData(message: any) {
+    return message
   }
 
   override onClose(callback: any) {
