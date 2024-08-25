@@ -1,9 +1,9 @@
 import * as Assert from '../Assert/Assert.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 import * as GetFirstNodeWorkerEvent from '../GetFirstNodeWorkerEvent/GetFirstNodeWorkerEvent.ts'
+import * as GetTransferrablesNode from '../GetTransferrablesNode/GetTransferrablesNode.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
-import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 
 // @ts-ignore
 export const create = async ({ path, argv = [], env = process.env, execArgv = [] }) => {
@@ -55,7 +55,7 @@ export const wrap = (worker) => {
     },
     // @ts-ignore
     sendAndTransfer(message) {
-      const transfer = GetTransferrables.getTransferrables(message)
+      const transfer = GetTransferrablesNode.getTransferrablesNode(message)
       this.worker.postMessage(message, transfer)
     },
     dispose() {
