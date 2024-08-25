@@ -1,25 +1,21 @@
-import * as IsTransferrable from '../IsTransferrable/IsTransferrable.ts'
-
-export const walkValue = (value: unknown, transferrables: unknown[]) => {
+export const walkValue = (value: unknown, transferrables: unknown[], isTransferrable: (value: any) => boolean) => {
   if (!value) {
-    return value
+    return
   }
-  if (IsTransferrable.isTransferrable(value)) {
+  if (isTransferrable(value)) {
     transferrables.push(value)
     return
   }
   if (Array.isArray(value)) {
     for (const item of value) {
-      walkValue(item, transferrables)
+      walkValue(item, transferrables, isTransferrable)
     }
     return
   }
   if (typeof value === 'object') {
-    const newObject = Object.create(null)
     for (const property of Object.values(value)) {
-      walkValue(property, transferrables)
+      walkValue(property, transferrables, isTransferrable)
     }
-    return newObject
+    return
   }
-  return value
 }
