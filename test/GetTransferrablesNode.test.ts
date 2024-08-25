@@ -12,3 +12,8 @@ test('socket inside object', () => {
   }
   expect(GetTransferrablesNode.getTransferrablesNode(message)).toBe(socket)
 })
+
+test('no transferrables', () => {
+  const value: any[] = []
+  expect(() => GetTransferrablesNode.getTransferrablesNode(value)).toThrow(new Error('no transferrables found'))
+})
