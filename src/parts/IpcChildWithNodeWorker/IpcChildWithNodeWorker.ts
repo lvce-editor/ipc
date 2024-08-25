@@ -1,5 +1,6 @@
-import { IpcError } from '../IpcError/IpcError.ts'
 import type { MessagePort } from 'node:worker_threads'
+import * as GetActualDataNode from '../GetActualDataNode/GetActualDataNode.ts'
+import { IpcError } from '../IpcError/IpcError.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
 export const listen = async () => {
@@ -18,9 +19,9 @@ export const wrap = (parentPort: MessagePort) => {
   return {
     parentPort,
     on(event: string, listener: any) {
-      const wrappedListener = (message: any) => {
+      const wrappedListener = (message: any, handle: any) => {
         const event = {
-          data: message,
+          data: GetActualDataNode.getActualData(message, handle),
           target: this,
         }
         listener(event)
