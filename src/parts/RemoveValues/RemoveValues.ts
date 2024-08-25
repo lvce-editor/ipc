@@ -1,4 +1,4 @@
-export const removeValues = (value: unknown, toRemove: readonly unknown[]): unknown => {
+export const removeValues = (value: unknown, toRemove: readonly unknown[]): any => {
   if (!value) {
     return value
   }
