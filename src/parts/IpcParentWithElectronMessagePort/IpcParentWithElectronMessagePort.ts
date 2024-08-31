@@ -5,14 +5,14 @@ import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePortMain from '../IsMessagePortMain/IsMessagePortMain.ts'
 import * as GetActualDataElectron from '../GetActualDataElectron/GetActualDataElectron.ts'
 
-export const listen = ({ messagePort }: { messagePort: any }) => {
+export const create = ({ messagePort }: { messagePort: MessagePortMain }) => {
   if (!IsMessagePortMain.isMessagePortMain(messagePort)) {
     throw new IpcError('port must be of type MessagePortMain')
   }
   return messagePort
 }
 
-export const signal = (messagePort: any) => {
+export const signal = (messagePort: MessagePortMain) => {
   messagePort.start()
 }
 
