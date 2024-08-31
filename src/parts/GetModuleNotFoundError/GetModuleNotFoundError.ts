@@ -2,7 +2,7 @@ import * as ErrorCodes from '../ErrorCodes/ErrorCodes.ts'
 import * as SplitLines from '../SplitLines/SplitLines.ts'
 
 const isModuleNotFoundMessage = (line: string) => {
-  return line.includes('ERR_MODULE_NOT_FOUND')
+  return line.includes('[ERR_MODULE_NOT_FOUND]')
 }
 
 export const getModuleNotFoundError = (stderr: string) => {

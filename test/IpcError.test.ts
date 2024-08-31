@@ -5,7 +5,7 @@ test('name', () => {
   expect(IpcError.name).toBe('IpcError')
 })
 
-test('module not found error', async () => {
+test('module not found error', () => {
   const message = 'Utility Process exited before connection'
   const stdout = ''
   const stderr = `Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/packages/shared-process/node_modules/@lvce-editor/embeds-process/src/embedsProcessMain-not.js' imported from /packages/main-process/`
@@ -22,7 +22,7 @@ test('module not found error', async () => {
   expect(error.code).toBe(`ERR_MODULE_NOT_FOUND`)
 })
 
-test.skip('another module not found error', async () => {
+test('another module not found error', () => {
   const message = 'Utility process exited before ipc connection was established'
   const stdout = ''
   const stderr = `node:internal/modules/esm/resolve:265
@@ -52,7 +52,7 @@ Node.js v20.15.1`
   )
   // @ts-ignore
   expect(error.stack)
-    .toMatch(`VError: Utility Process exited before connection: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/packages/shared-process/node_modules/@lvce-editor/embeds-process/src/embedsProcessMain-not.js' imported from /packages/main-process/
+    .toMatch(`VError: Utility process exited before ipc connection was established: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/packages/shared-process/node_modules/@lvce-editor/preview-process/dist/index.js' imported from /test/packages/main-process/
     at`)
   // @ts-ignore
   expect(error.code).toBe(`ERR_MODULE_NOT_FOUND`)

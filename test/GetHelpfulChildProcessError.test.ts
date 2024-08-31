@@ -289,7 +289,7 @@ Node.js v18.18.2
   expect(error.stack).toBe(undefined)
 })
 
-test.skip('getHelpfulChildProcessError - module not found 3', () => {
+test('getHelpfulChildProcessError - module not found 3', () => {
   const stderr = `node:internal/modules/esm/resolve:265
     throw new ERR_MODULE_NOT_FOUND(
           ^
@@ -313,7 +313,7 @@ Node.js v20.15.1
 `
   const error = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
   expect(error.message).toBe(
-    "Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/packages/embeds-worker/src/embedsProcessMain.js' imported from /test/packages/main-process/    at new NodeError (node:internal/errors:405:5)",
+    "Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/packages/shared-process/node_modules/@lvce-editor/preview-process/dist/index.js' imported from /test/packages/main-process/",
   )
   // @ts-ignore
   expect(error.stack).toBe(undefined)
