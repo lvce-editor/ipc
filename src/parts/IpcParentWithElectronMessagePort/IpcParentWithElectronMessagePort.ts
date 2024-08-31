@@ -1,9 +1,9 @@
 import type { MessagePortMain } from 'electron'
 import * as FixElectronParameters from '../FixElectronParameters/FixElectronParameters.ts'
-import * as GetActualDataElectron from '../GetActualDataElectron/GetActualDataElectron.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePortMain from '../IsMessagePortMain/IsMessagePortMain.ts'
+import * as GetActualDataElectron from '../GetActualDataElectron/GetActualDataElectron.ts'
 
 export const listen = ({ messagePort }: { messagePort: any }) => {
   if (!IsMessagePortMain.isMessagePortMain(messagePort)) {
@@ -16,7 +16,7 @@ export const signal = (messagePort: any) => {
   messagePort.start()
 }
 
-class IpcChildWithElectronMessagePort extends Ipc<MessagePortMain> {
+class IpcParentWithElectronMessagePort extends Ipc<MessagePortMain> {
   constructor(port: MessagePortMain) {
     super(port)
   }
@@ -46,5 +46,5 @@ class IpcChildWithElectronMessagePort extends Ipc<MessagePortMain> {
 }
 
 export const wrap = (messagePort: any) => {
-  return new IpcChildWithElectronMessagePort(messagePort)
+  return new IpcParentWithElectronMessagePort(messagePort)
 }

@@ -25,3 +25,4 @@ interface IpcParent {
 export const IpcParentWithElectronUtilityProcess: IpcParent
 export const IpcParentWithNodeForkedProcess: IpcParent
 export const IpcParentWithNodeWorker: IpcParent
+export const IpcParentWithElectronMessagePort: IpcParent
