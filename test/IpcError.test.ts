@@ -25,7 +25,7 @@ test('module not found error', async () => {
 test.skip('another module not found error', async () => {
   const message = 'Utility process exited before ipc connection was established'
   const stdout = ''
-  const stderr = `'node:internal/modules/esm/resolve:265
+  const stderr = `node:internal/modules/esm/resolve:265
     throw new ERR_MODULE_NOT_FOUND(
           ^
 
@@ -40,15 +40,15 @@ Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/packages/shared-process/
     at node:electron/js2c/utility_init:2:17513
     at asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:138:11)
     at runEntryPointWithESMLoader (node:internal/modules/run_main:162:19) {
-  code: 'ERR_MODULE_NOT_FOUND',\n" +
+  code: 'ERR_MODULE_NOT_FOUND',
   url: 'file:///test/packages/shared-process/node_modules/@lvce-editor/preview-process/dist/index.js'
 }
 
-Node.js v20.15.1\n',`
+Node.js v20.15.1`
   const error = new IpcError(message, stdout, stderr)
   // @ts-ignore
   expect(error.message).toBe(
-    `Utility Process exited before connection: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/packages/shared-process/node_modules/@lvce-editor/preview-process/dist/index.js' imported from /test/packages/main-process/`,
+    `Utility process exited before ipc connection was established: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/packages/shared-process/node_modules/@lvce-editor/preview-process/dist/index.js' imported from /test/packages/main-process/`,
   )
   // @ts-ignore
   expect(error.stack)
