@@ -1,4 +1,5 @@
 import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
+import { IpcError } from '../IpcError/IpcError.ts'
 import * as RemoveValues from '../RemoveValues/RemoveValues.ts'
 
 // workaround for node not supporting transferrable objects
@@ -7,7 +8,7 @@ import * as RemoveValues from '../RemoveValues/RemoveValues.ts'
 export const fixNodeParameters = (value: unknown) => {
   const transfer = GetTransferrables.getTransferrables(value)
   if (transfer.length === 0) {
-    throw new Error('no transferrables found')
+    throw new IpcError('no transferrables found')
   }
   const newValue = RemoveValues.removeValues(value, transfer)
   return {
