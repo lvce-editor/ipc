@@ -1,16 +1,10 @@
 import { expect, jest, test } from '@jest/globals'
 
 jest.unstable_mockModule('../src/parts/IpcChildWithModuleWorker/IpcChildWithModuleWorker.ts', () => {
-  const target = new EventTarget()
   return {
-    target,
-    listen() {
-      return target
-    },
+    listen() {},
     signal: jest.fn(),
-    wrap(port: any) {
-      return port
-    },
+    wrap: jest.fn(),
   }
 })
 
@@ -20,10 +14,14 @@ const IpcChildWithModuleWorkerAndMessagePort = await import(
 const IpcChildWithModuleWorker = await import('../src/parts/IpcChildWithModuleWorker/IpcChildWithModuleWorker.ts')
 
 test('listen - unexpected first message', async () => {
+  const target = new EventTarget()
+  // @ts-ignore
+  jest.spyOn(IpcChildWithModuleWorker, 'wrap').mockImplementation(() => {
+    return target
+  })
   jest.spyOn(IpcChildWithModuleWorker, 'signal').mockImplementation(() => {
     setTimeout(() => {
-      // @ts-ignore
-      IpcChildWithModuleWorker.target.dispatchEvent(
+      target.dispatchEvent(
         new MessageEvent('message', {
           data: {},
         }),
