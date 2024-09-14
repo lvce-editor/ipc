@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import * as FixNodeParameters from '../src/parts/FixNodeParameters/FixNodeParameters.ts'
+import * as FixNodeParameters from '../src/parts/FixNodeChildProcessParameters/FixNodeChildProcessParameters.ts'
 
 test('error - no transferrables found', () => {
   const value = {
@@ -7,7 +7,7 @@ test('error - no transferrables found', () => {
     method: 'CreateMessagePort.createMessagePort',
     params: [],
   }
-  expect(() => FixNodeParameters.fixNodeParameters(value)).toThrow(new Error('no transferrables found'))
+  expect(() => FixNodeParameters.fixNodeChildProcessParameters(value)).toThrow(new Error('no transferrables found'))
 })
 
 test('transfer messagePort', () => {
@@ -17,7 +17,7 @@ test('transfer messagePort', () => {
     method: 'CreateMessagePort.createMessagePort',
     params: [, port1],
   }
-  const { newValue, transfer } = FixNodeParameters.fixNodeParameters(value)
+  const { newValue, transfer } = FixNodeParameters.fixNodeChildProcessParameters(value)
   expect(newValue).toEqual({
     jsonrpc: '2.0',
     method: 'CreateMessagePort.createMessagePort',
