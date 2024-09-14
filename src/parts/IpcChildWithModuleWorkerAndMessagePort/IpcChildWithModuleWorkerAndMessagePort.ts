@@ -15,6 +15,11 @@ export const listen = async () => {
   }
   const type = firstMessage.params[0]
   if (type === 'message-port') {
+    parentIpc.send({
+      jsonrpc: '2.0',
+      id: firstMessage.id,
+      result: null,
+    })
     parentIpc.dispose()
     const port = firstMessage.params[1]
     return port
