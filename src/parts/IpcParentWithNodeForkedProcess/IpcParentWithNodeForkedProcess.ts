@@ -2,7 +2,7 @@ import type { ChildProcess } from 'node:child_process'
 import * as Assert from '../Assert/Assert.ts'
 import { ChildProcessError } from '../ChildProcessError/ChildProcessError.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
-import * as FixNodeParameters from '../FixNodeParameters/FixNodeParameters.ts'
+import * as FixNodeParameters from '../FixNodeChildProcessParameters/FixNodeChildProcessParameters.ts'
 import * as GetFirstNodeChildProcessEvent from '../GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { VError } from '../VError/VError.ts'
@@ -52,7 +52,7 @@ class IpcParentWithNodeForkedProcess extends Ipc<ChildProcess> {
   }
 
   override sendAndTransfer(message: any): void {
-    const { newValue, transfer } = FixNodeParameters.fixNodeParameters(message)
+    const { newValue, transfer } = FixNodeParameters.fixNodeChildProcessParameters(message)
     this._rawIpc.send(newValue, transfer)
   }
 
