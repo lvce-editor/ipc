@@ -1,5 +1,4 @@
 import { MessagePort } from 'node:worker_threads'
-import * as GetActualDataNode from '../GetActualDataNode/GetActualDataNode.ts'
 import * as GetTransferrablesNode from '../GetTransferrablesNode/GetTransferrablesNode.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
@@ -22,7 +21,9 @@ class IpcChildWithNodeWorker extends Ipc<MessagePort> {
     super(port)
   }
 
-  override getData = GetActualDataNode.getActualData
+  override getData(data: any) {
+    return data
+  }
 
   override onClose(callback: any) {
     this._rawIpc.on('close', callback)
