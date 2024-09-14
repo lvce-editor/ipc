@@ -1,7 +1,7 @@
 import type { Worker } from 'node:worker_threads'
 import * as Assert from '../Assert/Assert.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
-import * as FixNodeParameters from '../FixNodeChildProcessParameters/FixNodeChildProcessParameters.ts'
+import * as FixNodeWorkerParameters from '../FixNodeWorkerParameters/FixNodeWorkerParameters.ts'
 import * as GetFirstNodeWorkerEvent from '../GetFirstNodeWorkerEvent/GetFirstNodeWorkerEvent.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
@@ -50,7 +50,7 @@ class IpcParentWithNodeWorker extends Ipc<Worker> {
   }
 
   override sendAndTransfer(message: any): void {
-    const { newValue, transfer } = FixNodeParameters.fixNodeChildProcessParameters(message)
+    const { newValue, transfer } = FixNodeWorkerParameters.fixNodeWorkerParameters(message)
     this._rawIpc.postMessage(newValue, transfer)
   }
 
