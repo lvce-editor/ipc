@@ -1,5 +1,7 @@
-import type { MessagePort } from 'node:worker_threads'
+import { MessagePort } from 'node:worker_threads'
 import * as GetActualDataNode from '../GetActualDataNode/GetActualDataNode.ts'
+import * as GetTransferrablesNode from '../GetTransferrablesNode/GetTransferrablesNode.ts'
+import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
@@ -15,27 +17,35 @@ export const signal = (parentPort: MessagePort) => {
   parentPort.postMessage(ReadyMessage.readyMessage)
 }
 
-export const wrap = (parentPort: MessagePort) => {
-  return {
-    parentPort,
-    on(event: string, listener: any) {
-      const wrappedListener = (message: any, handle: any) => {
-        const event = {
-          data: GetActualDataNode.getActualData(message, handle),
-          target: this,
-        }
-        listener(event)
-      }
-      this.parentPort.on(event, wrappedListener)
-    },
-    off(event: string, listener: any) {
-      this.parentPort.off(event, listener)
-    },
-    send(message: any) {
-      this.parentPort.postMessage(message)
-    },
-    dispose() {
-      this.parentPort.close()
-    },
+class IpcChildWithNodeWorker extends Ipc<MessagePort> {
+  constructor(port: MessagePort) {
+    super(port)
   }
+
+  override getData = GetActualDataNode.getActualData
+
+  override onClose(callback: any) {
+    this._rawIpc.on('close', callback)
+  }
+
+  override send(message: any) {
+    this._rawIpc.postMessage(message)
+  }
+
+  override onMessage(callback: any) {
+    this._rawIpc.on('message', callback)
+  }
+
+  override sendAndTransfer(message: any): void {
+    const transfer = GetTransferrablesNode.getTransferrablesNode(message)
+    this._rawIpc.postMessage(message, transfer)
+  }
+
+  override dispose(): void {
+    this._rawIpc.close()
+  }
+}
+
+export const wrap = (parentPort: MessagePort) => {
+  return new IpcChildWithNodeWorker(parentPort)
 }
