@@ -32,11 +32,19 @@ test('listen - unexpected first message', async () => {
 })
 
 test('listen - send back response', async () => {
+  class Ipc extends EventTarget {
+    send = jest.fn()
+    dispose = jest.fn()
+  }
+  const target = new Ipc()
+  // @ts-ignore
+  jest.spyOn(IpcChildWithModuleWorker, 'wrap').mockImplementation(() => {
+    return target
+  })
   const port = {}
   jest.spyOn(IpcChildWithModuleWorker, 'signal').mockImplementation(() => {
     setTimeout(() => {
-      // @ts-ignore
-      IpcChildWithModuleWorker.target.dispatchEvent(
+      target.dispatchEvent(
         new MessageEvent('message', {
           data: {
             jsonrpc: '2.0',
@@ -48,14 +56,12 @@ test('listen - send back response', async () => {
       )
     }, 0)
   })
-  const send = jest.fn()
-  const dispose = jest.fn()
-  // @ts-ignore
-  jest.spyOn(IpcChildWithModuleWorker, 'wrap').mockImplementation(() => {
-    return {
-      send,
-      dispose,
-    }
-  })
   expect(await IpcChildWithModuleWorkerAndMessagePort.listen()).toBe(port)
+  expect(target.dispose).toHaveBeenCalledTimes(1)
+  expect(target.send).toHaveBeenCalledTimes(1)
+  expect(target.send).toHaveBeenCalledWith({
+    id: 1,
+    jsonrpc: '2.0',
+    result: null,
+  })
 })
