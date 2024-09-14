@@ -1,7 +1,9 @@
+import type { Worker } from 'node:worker_threads'
 import * as Assert from '../Assert/Assert.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 import * as FixNodeParameters from '../FixNodeParameters/FixNodeParameters.ts'
 import * as GetFirstNodeWorkerEvent from '../GetFirstNodeWorkerEvent/GetFirstNodeWorkerEvent.ts'
+import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
@@ -34,32 +36,37 @@ export const create = async ({ path, argv = [], env = process.env, execArgv = []
   return worker
 }
 
-// @ts-ignore
-export const wrap = (worker) => {
-  return {
-    worker,
-    // @ts-ignore
-    on(event, listener) {
-      const wrappedListener = (message: any) => {
-        const syntheticEvent = {
-          data: message,
-          target: this,
-        }
-        listener(syntheticEvent)
-      }
-      this.worker.on(event, wrappedListener)
-    },
-    // @ts-ignore
-    send(message) {
-      this.worker.postMessage(message)
-    },
-    // @ts-ignore
-    sendAndTransfer(message) {
-      const { newValue, transfer } = FixNodeParameters.fixNodeParameters(message)
-      this.worker.postMessage(newValue, transfer)
-    },
-    dispose() {
-      this.worker.terminate()
-    },
+class IpcParentWithNodeWorker extends Ipc<Worker> {
+  constructor(worker: Worker) {
+    super(worker)
   }
+
+  override getData(message: any) {
+    return message
+  }
+
+  override send(message: any) {
+    this._rawIpc.postMessage(message)
+  }
+
+  override sendAndTransfer(message: any): void {
+    const { newValue, transfer } = FixNodeParameters.fixNodeParameters(message)
+    this._rawIpc.postMessage(newValue, transfer)
+  }
+
+  override dispose(): void {
+    this._rawIpc.terminate()
+  }
+
+  override onClose(callback: any) {
+    this._rawIpc.on('exit', callback)
+  }
+
+  override onMessage(callback: any) {
+    this._rawIpc.on('message', callback)
+  }
+}
+
+export const wrap = (worker: Worker) => {
+  return new IpcParentWithNodeWorker(worker)
 }
