@@ -1,12 +1,24 @@
 import type { MessagePortMain } from 'electron'
+import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 import * as GetData from '../GetData/GetData.ts'
+import * as GetFirstEvent from '../GetFirstEvent/GetFirstEvent.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePort from '../IsMessagePort/IsMessagePort.ts'
+import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
-export const create = ({ messagePort }: { messagePort: MessagePort }) => {
+export const create = async ({ messagePort }: { messagePort: MessagePort }): Promise<MessagePort> => {
   if (!IsMessagePort.isMessagePort(messagePort)) {
     throw new IpcError('port must be of type MessagePort')
+  }
+  const eventPromise = GetFirstEvent.getFirstEvent(messagePort, {
+    message: FirstNodeWorkerEventType.Message,
+  })
+  messagePort.start()
+  const event = await eventPromise
+  // @ts-ignore
+  if (event.data !== ReadyMessage.readyMessage) {
+    throw new IpcError('unexpected first message')
   }
   return messagePort
 }
