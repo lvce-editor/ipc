@@ -1,3 +1,3 @@
-export const getData = (event: MessageEvent) => {
+export const getData = (event: MessageEvent): any => {
   return event.data
 }
