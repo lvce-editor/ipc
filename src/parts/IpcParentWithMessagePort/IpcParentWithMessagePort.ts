@@ -7,9 +7,12 @@ import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePort from '../IsMessagePort/IsMessagePort.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
-export const create = async ({ messagePort }: { messagePort: MessagePort }): Promise<MessagePort> => {
+export const create = async ({ messagePort, isMessagePortOpen }: { messagePort: MessagePort; isMessagePortOpen: boolean }): Promise<MessagePort> => {
   if (!IsMessagePort.isMessagePort(messagePort)) {
     throw new IpcError('port must be of type MessagePort')
+  }
+  if (isMessagePortOpen) {
+    return messagePort
   }
   const eventPromise = GetFirstEvent.getFirstEvent(messagePort, {
     message: FirstNodeWorkerEventType.Message,
