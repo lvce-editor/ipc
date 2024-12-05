@@ -27,3 +27,5 @@ export const IpcParentWithNodeForkedProcess: IpcParent
 export const IpcParentWithNodeWorker: IpcParent
 export const IpcParentWithElectronMessagePort: IpcParent
 export const IpcParentWithMessagePort: IpcParent
+export const IpcParentWithWebSocket: IpcParent
+export const IpcParentWithModuleWorker: IpcParent
