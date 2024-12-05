@@ -9,5 +9,8 @@ export * as IpcChildWithRendererProcess2 from '../IpcChildWithRendererProcess2/I
 export * as IpcChildWithWebSocket from '../IpcChildWithWebSocket/IpcChildWithWebSocket.ts'
 export * as IpcParentWithElectronMessagePort from '../IpcParentWithElectronMessagePort/IpcParentWithElectronMessagePort.ts'
 export * as IpcParentWithElectronUtilityProcess from '../IpcParentWithElectronUtilityProcess/IpcParentWithElectronUtilityProcess.ts'
+export * as IpcParentWithMessagePort from '../IpcParentWithMessagePort/IpcParentWithMessagePort.ts'
+export * as IpcParentWithModuleWorker from '../IpcParentWithModuleWorker/IpcParentWithModuleWorker.ts'
 export * as IpcParentWithNodeForkedProcess from '../IpcParentWithNodeForkedProcess/IpcParentWithNodeForkedProcess.ts'
 export * as IpcParentWithNodeWorker from '../IpcParentWithNodeWorker/IpcParentWithNodeWorker.ts'
+export * as IpcParentWithWebSocket from '../IpcParentWithWebSocket/IpcParentWithWebSocket.ts'
