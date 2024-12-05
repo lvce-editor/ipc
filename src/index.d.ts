@@ -16,6 +16,7 @@ export const IpcChildWithNodeForkedProcess: IpcChild
 export const IpcChildWithWebSocket: IpcChild
 export const IpcChildWithNodeWorker: IpcChild
 export const IpcChildWithRendererProcess2: IpcChild
+export const IpcChildWithModuleWorkerAndMessagePort: IpcChild
 
 interface IpcParent {
   readonly create: any
