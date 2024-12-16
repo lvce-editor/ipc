@@ -1,1 +1,1 @@
-export * from './parts/MainNode/MainNode.ts'
+export * from './parts/Main/Main.ts'
