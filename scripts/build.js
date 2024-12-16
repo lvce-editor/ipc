@@ -61,20 +61,6 @@ await bundleJs({
   outFile: 'dist/dist/index.js',
   external: ['electron', '@lvce-editor/web-socket-server', 'ws', '@lvce-editor/assert', '@lvce-editor/verror'],
 })
-await bundleJs({
-  cwd: root,
-  from: 'src/browser.ts',
-  platform: 'node',
-  outFile: 'dist/dist/browser.js',
-  external: ['electron', '@lvce-editor/web-socket-server', 'ws'],
-})
-await bundleJs({
-  cwd: root,
-  from: 'src/electron.ts',
-  platform: 'node',
-  outFile: 'dist/dist/electron.js',
-  external: ['electron', '@lvce-editor/web-socket-server', 'ws'],
-})
 
 const version = await getVersion()
 
