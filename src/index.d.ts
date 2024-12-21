@@ -19,6 +19,7 @@ export const IpcChildWithRendererProcess2: IpcChild
 export const IpcChildWithModuleWorkerAndMessagePort: IpcChild
 export const IpcChildWithModuleWorker: IpcChild
 export const IpcChildWithMessagePort: IpcChild
+export const IpcChildWithElectronWindow: IpcChild
 
 interface IpcParent {
   readonly create: any
