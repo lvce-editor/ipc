@@ -15,7 +15,7 @@ test('transfer messagePort', () => {
   const value = {
     jsonrpc: '2.0',
     method: 'CreateMessagePort.createMessagePort',
-    params: [, port1],
+    params: [port1],
   }
   const { newValue, transfer } = FixNodeParameters.fixNodeChildProcessParameters(value)
   expect(newValue).toEqual({
