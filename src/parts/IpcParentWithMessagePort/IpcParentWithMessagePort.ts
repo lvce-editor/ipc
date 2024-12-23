@@ -31,10 +31,6 @@ export const signal = (messagePort: MessagePortMain) => {
 }
 
 class IpcParentWithMessagePort extends Ipc<MessagePort> {
-  constructor(port: MessagePort) {
-    super(port)
-  }
-
   override getData = GetData.getData
 
   override send(message: any) {

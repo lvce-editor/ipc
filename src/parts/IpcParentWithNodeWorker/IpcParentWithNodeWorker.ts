@@ -36,10 +36,6 @@ export const create = async ({ path, argv = [], env = process.env, execArgv = []
 }
 
 class IpcParentWithNodeWorker extends Ipc<Worker> {
-  constructor(worker: Worker) {
-    super(worker)
-  }
-
   override getData(message: any) {
     return message
   }
