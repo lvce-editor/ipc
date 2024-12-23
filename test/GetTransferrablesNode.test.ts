@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import * as GetTransferrablesNode from '../src/parts/GetTransferrablesNode/GetTransferrablesNode.js'
 
 test('socket inside object', () => {
+  // eslint-disable-next-line @typescript-eslint/no-extraneous-class
   class Socket {}
   const socket = new Socket()
   const message = {
