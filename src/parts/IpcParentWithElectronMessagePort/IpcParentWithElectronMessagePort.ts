@@ -1,9 +1,9 @@
 import type { MessagePortMain } from 'electron'
 import * as FixElectronParameters from '../FixElectronParameters/FixElectronParameters.ts'
+import * as GetActualDataElectron from '../GetActualDataElectron/GetActualDataElectron.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePortMain from '../IsMessagePortMain/IsMessagePortMain.ts'
-import * as GetActualDataElectron from '../GetActualDataElectron/GetActualDataElectron.ts'
 
 export const create = ({ messagePort }: { messagePort: MessagePortMain }) => {
   if (!IsMessagePortMain.isMessagePortMain(messagePort)) {

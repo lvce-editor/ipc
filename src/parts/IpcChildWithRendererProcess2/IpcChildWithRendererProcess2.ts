@@ -1,6 +1,6 @@
 import type { IpcMainEvent, WebContents } from 'electron'
-import { Ipc } from '../Ipc/Ipc.ts'
 import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
+import { Ipc } from '../Ipc/Ipc.ts'
 
 const preloadChannelType = 'port'
 

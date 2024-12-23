@@ -1,8 +1,8 @@
 import type { MessagePortMain } from 'electron'
+import * as FixElectronParameters from '../FixElectronParameters/FixElectronParameters.ts'
 import * as GetUtilityProcessPortData from '../GetUtilityProcessPortData/GetUtilityProcessPortData.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
-import * as FixElectronParameters from '../FixElectronParameters/FixElectronParameters.ts'
 
 export const listen = () => {
   // @ts-ignore
