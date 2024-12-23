@@ -21,7 +21,6 @@ export const create = async ({ path, argv = [], env = process.env, execArgv = []
     env: actualEnv,
     execArgv,
   })
-  // @ts-ignore
   const { type, event } = await GetFirstNodeWorkerEvent.getFirstNodeWorkerEvent(worker)
   if (type === FirstNodeWorkerEventType.Exit) {
     throw new IpcError(`Worker exited before ipc connection was established`)
@@ -49,8 +48,8 @@ class IpcParentWithNodeWorker extends Ipc<Worker> {
     this._rawIpc.postMessage(newValue, transfer)
   }
 
-  override dispose(): void {
-    this._rawIpc.terminate()
+  override async dispose(): Promise<void> {
+    await this._rawIpc.terminate()
   }
 
   override onClose(callback: any) {
