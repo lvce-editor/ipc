@@ -5,10 +5,6 @@ import type { NodeJsProcess } from '../src/parts/NodeJsProcess/NodeJsProcess.ts'
 import * as Promises from '../src/parts/Promises/Promises.ts'
 
 class MockProcess extends EventEmitter implements NodeJsProcess {
-  constructor() {
-    super()
-  }
-
   send() {
     return true
   }
