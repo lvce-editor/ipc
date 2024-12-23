@@ -12,10 +12,6 @@ export const signal = (port: MessagePort) => {
 }
 
 class IpcChildWithMessagePort extends Ipc<MessagePort> {
-  constructor(port: MessagePort) {
-    super(port)
-  }
-
   override getData(event: any) {
     return GetData.getData(event)
   }
