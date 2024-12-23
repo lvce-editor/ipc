@@ -1,13 +1,12 @@
+import type { ChildProcess } from 'node:child_process'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
+import type { FirstChildProcessEvent } from '../FirstChildProcessEvent/FirstChildProcessEvent.ts'
 
-// @ts-ignore
-export const getFirstNodeChildProcessEvent = async (childProcess) => {
-  // @ts-ignore
-  const { type, event, stdout, stderr } = await new Promise((resolve, reject) => {
+export const getFirstNodeChildProcessEvent = async (childProcess: ChildProcess): Promise<FirstChildProcessEvent> => {
+  const { type, event, stdout, stderr } = await new Promise<FirstChildProcessEvent>((resolve, reject) => {
     let stderr = ''
     let stdout = ''
-    // @ts-ignore
-    const cleanup = (value) => {
+    const cleanup = (value: FirstChildProcessEvent): void => {
       if (childProcess.stdout && childProcess.stderr) {
         childProcess.stderr.off('data', handleStdErrData)
         childProcess.stdout.off('data', handleStdoutData)
@@ -17,24 +16,19 @@ export const getFirstNodeChildProcessEvent = async (childProcess) => {
       childProcess.off('error', handleError)
       resolve(value)
     }
-    // @ts-ignore
-    const handleStdErrData = (data) => {
+    const handleStdErrData = (data: string): void => {
       stderr += data
     }
-    // @ts-ignore
-    const handleStdoutData = (data) => {
+    const handleStdoutData = (data: string): void => {
       stdout += data
     }
-    // @ts-ignore
-    const handleMessage = (event) => {
+    const handleMessage = (event: any): void => {
       cleanup({ type: FirstNodeWorkerEventType.Message, event, stdout, stderr })
     }
-    // @ts-ignore
-    const handleExit = (event) => {
+    const handleExit = (event: any): void => {
       cleanup({ type: FirstNodeWorkerEventType.Exit, event, stdout, stderr })
     }
-    // @ts-ignore
-    const handleError = (event) => {
+    const handleError = (event: any): void => {
       cleanup({ type: FirstNodeWorkerEventType.Error, event, stdout, stderr })
     }
     if (childProcess.stdout && childProcess.stderr) {
