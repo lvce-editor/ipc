@@ -74,10 +74,11 @@ test.skip('sendAndTransfer message', async () => {
 })
 
 test('dispose - close', () => {
+  const close = jest.fn()
   const port = {
-    close: jest.fn(),
+    close,
   } as any as MessagePort
   const ipc = new TestIpc(port)
   ipc.dispose()
-  expect(port.close).toHaveBeenCalledTimes(1)
+  expect(close).toHaveBeenCalledTimes(1)
 })
