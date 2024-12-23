@@ -26,5 +26,5 @@ export abstract class Ipc<T>
 
   abstract sendAndTransfer(message: any): void
 
-  abstract dispose(): void
+  abstract dispose(): void | Promise<void>
 }
