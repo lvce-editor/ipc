@@ -50,7 +50,7 @@ export default tseslint.config(
       'n/no-unpublished-import': [
         'error',
         {
-          allowModules: ['@jest/globals'],
+          allowModules: ['@jest/globals', 'electron', 'ws'],
         },
       ],
     },
@@ -70,6 +70,7 @@ export default tseslint.config(
       '@typescript-eslint/no-deprecated': 'off',
       '@typescript-eslint/no-unnecessary-condition': 'off',
       'jest/no-disabled-tests': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off',
     },
   },
 )
