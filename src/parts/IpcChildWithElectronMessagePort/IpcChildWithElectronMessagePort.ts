@@ -17,10 +17,6 @@ export const signal = (messagePort: any) => {
 }
 
 class IpcChildWithElectronMessagePort extends Ipc<MessagePortMain> {
-  constructor(port: MessagePortMain) {
-    super(port)
-  }
-
   override getData = GetActualDataElectron.getActualDataElectron
 
   override send(message: any) {

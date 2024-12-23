@@ -17,10 +17,6 @@ export const signal = (parentPort: MessagePort) => {
 }
 
 class IpcChildWithNodeWorker extends Ipc<MessagePort> {
-  constructor(port: MessagePort) {
-    super(port)
-  }
-
   override getData(data: any) {
     return data
   }
