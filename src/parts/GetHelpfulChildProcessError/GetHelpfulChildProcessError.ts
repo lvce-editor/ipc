@@ -1,7 +1,7 @@
 import * as ErrorCodes from '../ErrorCodes/ErrorCodes.ts'
+import * as GetModuleNotFoundError from '../GetModuleNotFoundError/GetModuleNotFoundError.ts'
 import * as JoinLines from '../JoinLines/JoinLines.ts'
 import * as SplitLines from '../SplitLines/SplitLines.ts'
-import * as GetModuleNotFoundError from '../GetModuleNotFoundError/GetModuleNotFoundError.ts'
 
 const RE_NATIVE_MODULE_ERROR = /^innerError Error: Cannot find module '.*.node'/
 const RE_NATIVE_MODULE_ERROR_2 = /was compiled against a different Node.js version/
@@ -99,7 +99,7 @@ export const getHelpfulChildProcessError = (stdout: string, stderr: string) => {
   const lines = SplitLines.splitLines(stderr)
   const { actualMessage, rest } = getDetails(lines)
   return {
-    message: `${actualMessage}`,
+    message: actualMessage,
     code: '',
     stack: rest,
   }

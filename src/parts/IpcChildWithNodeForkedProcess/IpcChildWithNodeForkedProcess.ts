@@ -1,8 +1,8 @@
+import type { NodeJsProcess } from '../NodeJsProcess/NodeJsProcess.ts'
+import * as GetActualDataNode from '../GetActualDataNode/GetActualDataNode.ts'
 import * as GetTransferrablesNode from '../GetTransferrablesNode/GetTransferrablesNode.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
-import type { NodeJsProcess } from '../NodeJsProcess/NodeJsProcess.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
-import * as GetActualDataNode from '../GetActualDataNode/GetActualDataNode.ts'
 
 export const listen = async () => {
   if (!process.send) {

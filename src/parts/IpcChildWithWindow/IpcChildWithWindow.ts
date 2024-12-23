@@ -1,7 +1,7 @@
 import * as GetData from '../GetData/GetData.ts'
+import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
-import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 
 export const listen = () => {
   return window

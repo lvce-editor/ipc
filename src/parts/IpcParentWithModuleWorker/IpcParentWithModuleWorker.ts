@@ -1,5 +1,6 @@
 import * as FirstWorkerEventType from '../FirstWorkerEventType/FirstWorkerEventType.ts'
 import * as GetFirstWorkerEvent from '../GetFirstWorkerEvent/GetFirstWorkerEvent.ts'
+import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsErrorEvent from '../IsErrorEvent/IsErrorEvent.ts'
@@ -7,7 +8,6 @@ import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 import * as TryToGetActualWorkerErrorMessage from '../TryToGetActualWorkerErrorMessage/TryToGetActualWorkerErrorMessage.ts'
 import { WorkerError } from '../WorkerError/WorkerError.ts'
 import * as WorkerType from '../WorkerType/WorkerType.ts'
-import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 
 export const create = async ({ url, name }: { url: string; name: string }) => {
   const worker = new Worker(url, {

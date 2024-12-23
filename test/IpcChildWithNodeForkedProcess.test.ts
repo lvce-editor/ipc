@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { EventEmitter } from 'node:events'
-import * as IpcChildWithNodeForkedProcess from '../src/parts/IpcChildWithNodeForkedProcess/IpcChildWithNodeForkedProcess.ts'
 import type { NodeJsProcess } from '../src/parts/NodeJsProcess/NodeJsProcess.ts'
+import * as IpcChildWithNodeForkedProcess from '../src/parts/IpcChildWithNodeForkedProcess/IpcChildWithNodeForkedProcess.ts'
 import * as Promises from '../src/parts/Promises/Promises.ts'
 
 class MockProcess extends EventEmitter implements NodeJsProcess {

@@ -1,6 +1,6 @@
-import * as AttachEvents from '../AttachEvents/AttachEvents.ts'
 import type { IIpc } from '../IIpc/Iipc.ts'
 import type { TypedEventTarget } from '../TypedEventTarget/TypedEventTarget.ts'
+import * as AttachEvents from '../AttachEvents/AttachEvents.ts'
 
 export abstract class Ipc<T>
   extends (EventTarget as TypedEventTarget<{

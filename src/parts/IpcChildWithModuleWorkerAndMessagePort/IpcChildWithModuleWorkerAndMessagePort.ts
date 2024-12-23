@@ -1,9 +1,9 @@
 import * as GetData from '../GetData/GetData.ts'
+import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import * as IpcChildWithModuleWorker from '../IpcChildWithModuleWorker/IpcChildWithModuleWorker.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as WaitForFirstMessage from '../WaitForFirstMessage/WaitForFirstMessage.ts'
-import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 
 export const listen = async () => {
   const parentIpcRaw = IpcChildWithModuleWorker.listen()

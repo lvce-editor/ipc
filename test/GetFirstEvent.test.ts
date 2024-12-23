@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
-import * as GetFirstEvent from '../src/parts/GetFirstEvent/GetFirstEvent.js'
 import { EventEmitter } from 'node:events'
+import * as GetFirstEvent from '../src/parts/GetFirstEvent/GetFirstEvent.js'
 
 test('getFirstEvent', async () => {
   const emitter = new EventEmitter()
