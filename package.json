@@ -50,7 +50,7 @@
     "@types/eslint__js": "^8.42.3"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "prettier": {
     "semi": false,
