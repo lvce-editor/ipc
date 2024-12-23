@@ -1,41 +1,31 @@
+import type { UtilityProcess } from 'electron'
+import type { FirstUtilityProcessEvent } from '../FirstUtilityProcessEvent/FirstUtilityProcessEvent.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 import * as Promises from '../Promises/Promises.ts'
 
-/**
- *
- * @param {any} utilityProcess
- * @returns
- */
-// @ts-ignore
-export const getFirstUtilityProcessEvent = async (utilityProcess) => {
-  const { resolve, promise } = Promises.withResolvers()
+export const getFirstUtilityProcessEvent = async (utilityProcess: UtilityProcess): Promise<FirstUtilityProcessEvent> => {
+  const { resolve, promise } = Promises.withResolvers<FirstUtilityProcessEvent>()
   let stdout = ''
   let stderr = ''
-  // @ts-ignore
-  const cleanup = (value) => {
+  const cleanup = (value: FirstUtilityProcessEvent): void => {
     // @ts-ignore
     utilityProcess.stderr.off('data', handleStdErrData)
     // @ts-ignore
     utilityProcess.stdout.off('data', handleStdoutData)
     utilityProcess.off('message', handleMessage)
     utilityProcess.off('exit', handleExit)
-    // @ts-ignore
     resolve(value)
   }
-  // @ts-ignore
-  const handleStdErrData = (data) => {
+  const handleStdErrData = (data: string): void => {
     stderr += data
   }
-  // @ts-ignore
-  const handleStdoutData = (data) => {
+  const handleStdoutData = (data: string): void => {
     stdout += data
   }
-  // @ts-ignore
-  const handleMessage = (event) => {
+  const handleMessage = (event: any): void => {
     cleanup({ type: FirstNodeWorkerEventType.Message, event, stdout, stderr })
   }
-  // @ts-ignore
-  const handleExit = (event) => {
+  const handleExit = (event: any): void => {
     cleanup({ type: FirstNodeWorkerEventType.Exit, event, stdout, stderr })
   }
   // @ts-ignore
@@ -44,7 +34,6 @@ export const getFirstUtilityProcessEvent = async (utilityProcess) => {
   utilityProcess.stdout.on('data', handleStdoutData)
   utilityProcess.on('message', handleMessage)
   utilityProcess.on('exit', handleExit)
-  // @ts-ignore
   const { type, event } = await promise
   return { type, event, stdout, stderr }
 }
