@@ -9,7 +9,6 @@ import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
 // @ts-ignore
 export const create = async ({ path, argv = [], env = process.env, execArgv = [] }) => {
-  // @ts-ignore
   Assert.string(path)
   const actualArgv = ['--ipc-type=node-worker', ...argv]
   const actualEnv = {
