@@ -16,10 +16,6 @@ export const signal = (process: NodeJsProcess) => {
 }
 
 class IpcChildWithNodeForkedProcess extends Ipc<NodeJsProcess> {
-  constructor(process: NodeJsProcess) {
-    super(process)
-  }
-
   override getData(message: any, handle: any) {
     return GetActualDataNode.getActualData(message, handle)
   }
