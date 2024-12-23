@@ -1,7 +1,7 @@
 import type { IIpc } from '../IIpc/Iipc.ts'
 
-export const attachEvents = (that: IIpc) => {
-  const handleMessage = (...args: any[]) => {
+export const attachEvents = (that: IIpc): void => {
+  const handleMessage = (...args: any[]): void => {
     const data = that.getData(...args)
     that.dispatchEvent(
       new MessageEvent('message', {
@@ -10,7 +10,7 @@ export const attachEvents = (that: IIpc) => {
     )
   }
   that.onMessage(handleMessage)
-  const handleClose = (event: any) => {
+  const handleClose = (event: any): void => {
     that.dispatchEvent(new Event('close'))
   }
   that.onClose(handleClose)
