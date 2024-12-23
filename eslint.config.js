@@ -71,6 +71,7 @@ export default tseslint.config(
       '@typescript-eslint/no-deprecated': 'off',
       '@typescript-eslint/no-unnecessary-condition': 'off',
       'jest/no-disabled-tests': 'off',
+      'n/no-extraneous-import': 'off',
 
       // TODO enable
       '@typescript-eslint/explicit-function-return-type': 'off',
