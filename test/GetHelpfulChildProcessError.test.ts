@@ -123,7 +123,7 @@ Node.js v18.16.1
   ])
 })
 
-test.skip('getHelpfulChildProcessError - modules not supported in electron', () => {
+test.skip('getHelpfulChildProcessError - modules not supported in electron 2', () => {
   const stderr = `(node:120184) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
 (Use \`exe --trace-warnings ...\` to show where the warning was created)
 /test/language-features-typescript/packages/node/src/typeScriptClient.js:1
