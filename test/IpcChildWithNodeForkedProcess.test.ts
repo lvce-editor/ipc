@@ -5,10 +5,6 @@ import * as IpcChildWithNodeForkedProcess from '../src/parts/IpcChildWithNodeFor
 import * as Promises from '../src/parts/Promises/Promises.ts'
 
 class MockProcess extends EventEmitter implements NodeJsProcess {
-  constructor() {
-    super()
-  }
-
   send() {
     return true
   }
