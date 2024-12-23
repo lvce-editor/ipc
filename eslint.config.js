@@ -77,6 +77,7 @@ export default tseslint.config(
       '@typescript-eslint/explicit-function-return-type': 'off',
       'n/no-unsupported-features/es-syntax': 'off',
       'n/no-unsupported-features/node-builtins': 'off',
+      'no-case-declarations': 'off',
     },
   },
 )
