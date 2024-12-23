@@ -75,6 +75,7 @@ export default tseslint.config(
       // TODO enable
       '@typescript-eslint/explicit-function-return-type': 'off',
       'n/no-unsupported-features/es-syntax': 'off',
+      'n/no-unsupported-features/node-builtins': 'off',
     },
   },
 )
