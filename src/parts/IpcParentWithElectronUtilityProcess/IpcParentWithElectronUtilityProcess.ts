@@ -6,8 +6,15 @@ import * as GetFirstUtilityProcessEvent from '../GetFirstUtilityProcessEvent/Get
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 
-// @ts-ignore
-export const create = async ({ path, argv = [], execArgv = [], name, env = process.env }) => {
+interface UtilityProcessOptions {
+  readonly path: string
+  readonly argv?: readonly string[]
+  readonly execArgv?: string[]
+  readonly name: string
+  readonly env?: any
+}
+
+export const create = async ({ path, argv = [], execArgv = [], name, env = process.env }: UtilityProcessOptions) => {
   Assert.string(path)
   const actualArgv = ['--ipc-type=electron-utility-process', ...argv]
   const { utilityProcess } = await import('electron')
