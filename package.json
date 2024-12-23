@@ -39,7 +39,15 @@
     "prettier": "^3.4.2",
     "rollup": "^4.17.2",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "eslint-plugin-jest": "^28.10.0",
+    "eslint-plugin-n": "^17.15.1",
+    "eslint-plugin-perfectionist": "^4.4.0",
+    "nodemon": "^3.1.9",
+    "typescript-eslint": "^8.18.1",
+    "@eslint/js": "^9.17.0",
+    "@jest/globals": "^29.7.0",
+    "@types/eslint__js": "^8.42.3"
   },
   "engines": {
     "node": ">=18"
