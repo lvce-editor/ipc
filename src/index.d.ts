@@ -33,3 +33,4 @@ export const IpcParentWithElectronMessagePort: IpcParent
 export const IpcParentWithMessagePort: IpcParent
 export const IpcParentWithWebSocket: IpcParent
 export const IpcParentWithModuleWorker: IpcParent
+export const IpcParentWithModuleWorkerAndWorkaroundForChromeDevtoolsBug: IpcParent
