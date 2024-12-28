@@ -61,6 +61,6 @@ interface IpcParentWithModuleWorkerAndWorkaroundForChromeDevtoolsBugCreateOption
 }
 
 export const IpcParentWithModuleWorkerAndWorkaroundForChromeDevtoolsBug: IpcParent<
-  Worker,
+  MessagePort,
   IpcParentWithModuleWorkerAndWorkaroundForChromeDevtoolsBugCreateOptions
 >
