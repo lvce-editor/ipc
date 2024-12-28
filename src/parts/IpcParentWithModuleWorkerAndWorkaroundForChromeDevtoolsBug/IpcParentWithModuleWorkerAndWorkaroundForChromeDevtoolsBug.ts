@@ -5,7 +5,7 @@ import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 
 interface CreateOptions {
-  readonly sendPort: ({ port }: { port: MessagePort; url: string; name: string }) => Promise<void>
+  readonly sendPort: ({ port, url, name }: { port: MessagePort; url: string; name: string }) => Promise<void>
   readonly url: string
   readonly name: string
 }
