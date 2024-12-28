@@ -21,7 +21,13 @@ interface IpcChildWithMessagePortListenOptions {
 
 // MessagePort specific implementations
 export const IpcChildWithMessagePort: IpcChild<MessagePort, IpcChildWithMessagePortListenOptions>
-export const IpcParentWithMessagePort: IpcParent<MessagePort>
+
+interface IpcParentWithMessagePortCreateOptions {
+  readonly messagePort: MessagePort
+  readonly isMessagePortOpen: boolean
+}
+
+export const IpcParentWithMessagePort: IpcParent<MessagePort, IpcParentWithMessagePortCreateOptions>
 
 interface IpcChildWithElectronMessagePortListenOptions {
   readonly messagePort: import('electron').MessagePortMain
