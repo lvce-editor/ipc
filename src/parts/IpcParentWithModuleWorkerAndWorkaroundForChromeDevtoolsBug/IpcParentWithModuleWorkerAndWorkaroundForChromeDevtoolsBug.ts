@@ -1,4 +1,3 @@
-import type { MessagePortMain } from 'electron'
 import * as GetData from '../GetData/GetData.ts'
 import * as GetPortTuple from '../GetPortTuple/GetPortTuple.ts'
 import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
@@ -20,7 +19,7 @@ export const create = async ({ sendPort, url, name }: CreateOptions) => {
   return port2
 }
 
-export const signal = (messagePort: MessagePortMain) => {
+export const signal = (messagePort: MessagePort) => {
   messagePort.start()
 }
 
