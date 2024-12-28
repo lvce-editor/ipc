@@ -6,7 +6,9 @@ import * as WaitForWebSocketToBeOpen from '../WaitForWebSocketToBeOpen/WaitForWe
 
 export const create = async ({ webSocket }: { webSocket: WebSocket }) => {
   const firstWebSocketEvent = await WaitForWebSocketToBeOpen.waitForWebSocketToBeOpen(webSocket)
-  // @ts-ignore
+  if (firstWebSocketEvent.type === FirstWebSocketEventType.Error) {
+    throw new IpcError(`WebSocket connection error`)
+  }
   if (firstWebSocketEvent.type === FirstWebSocketEventType.Close) {
     throw new IpcError('Websocket connection was immediately closed')
   }
