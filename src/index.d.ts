@@ -10,9 +10,9 @@ interface IpcChild<WrapOptions = any, ListenOptions = any> {
   readonly wrap: (rawIpc: WrapOptions) => Ipc<WrapOptions>
 }
 
-interface IpcParent<T = any> {
-  readonly create: (options: any) => Promise<T>
-  readonly wrap: (rawIpc: T) => Ipc<T>
+interface IpcParent<WrapOptions = any, CreateOptions = any> {
+  readonly create: (options: CreateOptions) => Promise<WrapOptions>
+  readonly wrap: (rawIpc: WrapOptions) => Ipc<WrapOptions>
 }
 
 interface IpcChildWithMessagePortListenOptions {
@@ -53,4 +53,14 @@ export const IpcParentWithNodeWorker: IpcParent<import('worker_threads').Worker>
 export const IpcParentWithElectronMessagePort: IpcParent<Electron.MessagePortMain>
 export const IpcParentWithWebSocket: IpcParent<WebSocket>
 export const IpcParentWithModuleWorker: IpcParent<Worker>
-export const IpcParentWithModuleWorkerAndWorkaroundForChromeDevtoolsBug: IpcParent<Worker>
+
+interface IpcParentWithModuleWorkerAndWorkaroundForChromeDevtoolsBugCreateOptions {
+  readonly sendPort: ({ port, url, name }: { port: MessagePort; url: string; name: string }) => Promise<void>
+  readonly url: string
+  readonly name: string
+}
+
+export const IpcParentWithModuleWorkerAndWorkaroundForChromeDevtoolsBug: IpcParent<
+  Worker,
+  IpcParentWithModuleWorkerAndWorkaroundForChromeDevtoolsBugCreateOptions
+>
