@@ -18,8 +18,10 @@ export const create = async ({ messagePort, isMessagePortOpen }: { messagePort: 
     message: FirstNodeWorkerEventType.Message,
   })
   messagePort.start()
-  const event = await eventPromise
-  // @ts-ignore
+  const { type, event } = await eventPromise
+  if (type !== FirstNodeWorkerEventType.Message) {
+    throw new IpcError('Failed to wait for ipc message')
+  }
   if (event.data !== ReadyMessage.readyMessage) {
     throw new IpcError('unexpected first message')
   }
