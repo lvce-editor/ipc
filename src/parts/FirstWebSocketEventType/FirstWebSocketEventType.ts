@@ -1,2 +1,3 @@
-export const Open = 1
-export const Close = 2
+export const Error = 1
+export const Open = 2
+export const Close = 3
