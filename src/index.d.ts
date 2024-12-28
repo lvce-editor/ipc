@@ -24,7 +24,7 @@ export const IpcChildWithMessagePort: IpcChild<MessagePort, IpcChildWithMessageP
 
 interface IpcParentWithMessagePortCreateOptions {
   readonly messagePort: MessagePort
-  readonly isMessagePortOpen: boolean
+  readonly isMessagePortOpen?: boolean
 }
 
 export const IpcParentWithMessagePort: IpcParent<MessagePort, IpcParentWithMessagePortCreateOptions>
