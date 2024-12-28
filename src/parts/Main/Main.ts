@@ -14,6 +14,7 @@ export * as IpcParentWithElectronMessagePort from '../IpcParentWithElectronMessa
 export * as IpcParentWithElectronUtilityProcess from '../IpcParentWithElectronUtilityProcess/IpcParentWithElectronUtilityProcess.ts'
 export * as IpcParentWithMessagePort from '../IpcParentWithMessagePort/IpcParentWithMessagePort.ts'
 export * as IpcParentWithModuleWorker from '../IpcParentWithModuleWorker/IpcParentWithModuleWorker.ts'
+export * as IpcParentWithModuleWorkerAndWorkaroundForChromeDevtoolsBug from '../IpcParentWithModuleWorkerAndWorkaroundForChromeDevtoolsBug/IpcParentWithModuleWorkerAndWorkaroundForChromeDevtoolsBug.ts'
 export * as IpcParentWithNodeForkedProcess from '../IpcParentWithNodeForkedProcess/IpcParentWithNodeForkedProcess.ts'
 export * as IpcParentWithNodeWorker from '../IpcParentWithNodeWorker/IpcParentWithNodeWorker.ts'
 export * as IpcParentWithWebSocket from '../IpcParentWithWebSocket/IpcParentWithWebSocket.ts'
