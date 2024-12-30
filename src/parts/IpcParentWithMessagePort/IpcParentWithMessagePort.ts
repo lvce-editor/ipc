@@ -2,6 +2,7 @@ import type { MessagePortMain } from 'electron'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 import * as GetData from '../GetData/GetData.ts'
 import * as GetFirstEvent from '../GetFirstEvent/GetFirstEvent.ts'
+import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePort from '../IsMessagePort/IsMessagePort.ts'
@@ -40,7 +41,8 @@ class IpcParentWithMessagePort extends Ipc<MessagePort> {
   }
 
   override sendAndTransfer(message: any): void {
-    throw new Error('not implemented')
+    const transfer = GetTransferrables.getTransferrables(message)
+    this._rawIpc.postMessage(message, transfer)
   }
 
   override dispose(): void {
