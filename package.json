@@ -28,7 +28,7 @@
     "@lvce-editor/web-socket-server": "^1.4.0"
   },
   "devDependencies": {
-    "@babel/preset-typescript": "^7.27.0",
+    "@babel/preset-typescript": "^7.27.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@types/jest": "^29.5.14",
