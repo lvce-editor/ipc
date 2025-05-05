@@ -1,6 +1,5 @@
 import type { EventEmitter } from 'node:events'
 import type { FirstEvent } from '../FirstEvent/FirstEvent.ts'
-import * as Promises from '../Promises/Promises.ts'
 
 const addListener = (emitter: EventEmitter | EventTarget, type: string, callback: any) => {
   if ('addEventListener' in emitter) {
@@ -19,7 +18,7 @@ const removeListener = (emitter: EventEmitter | EventTarget, type: string, callb
 }
 
 export const getFirstEvent = (eventEmitter: EventEmitter | EventTarget, eventMap: any): Promise<FirstEvent> => {
-  const { resolve, promise } = Promises.withResolvers<FirstEvent>()
+  const { resolve, promise } = Promise.withResolvers<FirstEvent>()
   const listenerMap = Object.create(null)
   const cleanup = (value: any) => {
     for (const event of Object.keys(eventMap)) {

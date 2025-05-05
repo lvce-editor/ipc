@@ -2,7 +2,6 @@ import { expect, test } from '@jest/globals'
 import { EventEmitter } from 'node:events'
 import type { NodeJsProcess } from '../src/parts/NodeJsProcess/NodeJsProcess.ts'
 import * as IpcChildWithNodeForkedProcess from '../src/parts/IpcChildWithNodeForkedProcess/IpcChildWithNodeForkedProcess.ts'
-import * as Promises from '../src/parts/Promises/Promises.ts'
 
 class MockProcess extends EventEmitter implements NodeJsProcess {
   send() {
@@ -13,7 +12,7 @@ class MockProcess extends EventEmitter implements NodeJsProcess {
 test('data event', async () => {
   const process = new MockProcess()
   const ipc = IpcChildWithNodeForkedProcess.wrap(process)
-  const { resolve, promise } = Promises.withResolvers<MessageEvent>()
+  const { resolve, promise } = Promise.withResolvers<MessageEvent>()
   ipc.addEventListener('message', resolve)
   const handle = {
     isSocket: true,

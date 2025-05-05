@@ -1,10 +1,9 @@
 import type { UtilityProcess } from 'electron'
 import type { FirstUtilityProcessEvent } from '../FirstUtilityProcessEvent/FirstUtilityProcessEvent.ts'
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
-import * as Promises from '../Promises/Promises.ts'
 
 export const getFirstUtilityProcessEvent = async (utilityProcess: UtilityProcess): Promise<FirstUtilityProcessEvent> => {
-  const { resolve, promise } = Promises.withResolvers<FirstUtilityProcessEvent>()
+  const { resolve, promise } = Promise.withResolvers<FirstUtilityProcessEvent>()
   let stdout = ''
   let stderr = ''
   const cleanup = (value: FirstUtilityProcessEvent): void => {
