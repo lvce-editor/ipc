@@ -1,11 +1,12 @@
+import type { Socket } from 'node:net'
+import type { Request } from '../Request/Request.ts'
 import * as GetFirstWebSocketEvent from '../GetFirstWebSocketEvent/GetFirstWebSocketEvent.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsWebSocketOpen from '../IsWebSocketOpen/IsWebSocketOpen.ts'
 import * as WebSocketSerialization from '../WebSocketSerialization/WebSocketSerialization.ts'
 import * as WebSocketServer from '../WebSocketServer/WebSocketServer.ts'
 
-// @ts-ignore
-export const listen = async ({ request, handle }) => {
+export const listen = async ({ request, handle }: { request: Request; handle: Socket }) => {
   if (!request) {
     throw new IpcError('request must be defined')
   }
@@ -24,8 +25,7 @@ export const signal = (webSocket: any) => {
   webSocket.resume()
 }
 
-// @ts-ignore
-export const wrap = (webSocket) => {
+export const wrap = (webSocket: any) => {
   return {
     webSocket,
     /**
