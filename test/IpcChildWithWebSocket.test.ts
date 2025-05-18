@@ -16,8 +16,8 @@ const IpcChildWithWebSocket = await import('../src/parts/IpcChildWithWebSocket/I
 const WebSocketServer = await import('../src/parts/WebSocketServer/WebSocketServer.js')
 
 test('listen - missing request', async () => {
-  const request = undefined
-  const handle = {}
+  const request = undefined as any
+  const handle = {} as any
   await expect(
     IpcChildWithWebSocket.listen({
       request,
@@ -27,8 +27,8 @@ test('listen - missing request', async () => {
 })
 
 test('listen - missing handle', async () => {
-  const request = {}
-  const handle = undefined
+  const request = {} as any
+  const handle = undefined as any
   await expect(
     IpcChildWithWebSocket.listen({
       request,
@@ -38,8 +38,8 @@ test('listen - missing handle', async () => {
 })
 
 test('listen', async () => {
-  const request = {}
-  const handle = {}
+  const request = {} as any
+  const handle = {} as any
   const webSocket = await IpcChildWithWebSocket.listen({
     request,
     handle,
