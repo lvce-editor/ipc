@@ -7,7 +7,7 @@ import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 export const listen = async () => {
   const { parentPort } = await import('node:worker_threads')
   if (!parentPort) {
-    throw new IpcError('parentPort is required')
+    throw new IpcError('parentPort is required for node worker threads ipc')
   }
   return parentPort
 }

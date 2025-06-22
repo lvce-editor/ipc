@@ -19,7 +19,7 @@ jest.unstable_mockModule('node:worker_threads', () => {
 
 test('listen - missing parentPort', async () => {
   mockParentPort.mockReturnValue(null)
-  await expect(IpcChildWithNodeWorker.listen()).rejects.toThrow(new IpcError('parentPort is required'))
+  await expect(IpcChildWithNodeWorker.listen()).rejects.toThrow(new IpcError('parentPort is required for node worker threads ipc'))
 })
 
 test('listen - return parentPort', async () => {
