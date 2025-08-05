@@ -7,19 +7,29 @@ import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
-// @ts-ignore
-export const create = async ({ path, argv = [], env = process.env, execArgv = [] }) => {
+export interface IpcParentWithNodeWorkerOptions {
+  readonly path: string
+  readonly argv?: readonly string[]
+  readonly env?: any
+  readonly execArgv?: string[]
+  readonly stdio?: 'inherit' | undefined
+}
+
+export const create = async ({ path, argv = [], env = process.env, execArgv = [], stdio }: IpcParentWithNodeWorkerOptions) => {
   Assert.string(path)
   const actualArgv = ['--ipc-type=node-worker', ...argv]
   const actualEnv = {
     ...env,
     ELECTRON_RUN_AS_NODE: '1',
   }
+  const ignoreStdio = stdio === 'inherit' ? undefined : true
   const { Worker } = await import('node:worker_threads')
   const worker = new Worker(path, {
     argv: actualArgv,
     env: actualEnv,
     execArgv,
+    stdout: ignoreStdio,
+    stderr: ignoreStdio,
   })
   const { type, event } = await GetFirstNodeWorkerEvent.getFirstNodeWorkerEvent(worker)
   if (type === FirstNodeWorkerEventType.Exit) {
