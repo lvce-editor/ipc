@@ -13,9 +13,10 @@ export interface IpcParentWithNodeWorkerOptions {
   readonly env?: any
   readonly execArgv?: string[]
   readonly stdio?: 'inherit' | undefined
+  readonly name?: 'inherit' | undefined
 }
 
-export const create = async ({ path, argv = [], env = process.env, execArgv = [], stdio }: IpcParentWithNodeWorkerOptions) => {
+export const create = async ({ path, argv = [], env = process.env, execArgv = [], stdio, name }: IpcParentWithNodeWorkerOptions) => {
   Assert.string(path)
   const actualArgv = ['--ipc-type=node-worker', ...argv]
   const actualEnv = {
@@ -30,6 +31,7 @@ export const create = async ({ path, argv = [], env = process.env, execArgv = []
     execArgv,
     stdout: ignoreStdio,
     stderr: ignoreStdio,
+    name,
   })
   const { type, event } = await GetFirstNodeWorkerEvent.getFirstNodeWorkerEvent(worker)
   if (type === FirstNodeWorkerEventType.Exit) {
