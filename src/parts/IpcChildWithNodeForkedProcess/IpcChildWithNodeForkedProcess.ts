@@ -3,10 +3,11 @@ import * as GetActualDataNode from '../GetActualDataNode/GetActualDataNode.ts'
 import * as GetTransferrablesNode from '../GetTransferrablesNode/GetTransferrablesNode.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
+import { IpcError } from '../IpcError/IpcError.ts'
 
 export const listen = async () => {
   if (!process.send) {
-    throw new Error('process.send must be defined')
+    throw new IpcError('process.send must be defined')
   }
   return process
 }

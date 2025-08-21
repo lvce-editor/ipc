@@ -3,12 +3,13 @@ import * as FixElectronParameters from '../FixElectronParameters/FixElectronPara
 import * as GetUtilityProcessPortData from '../GetUtilityProcessPortData/GetUtilityProcessPortData.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
+import { IpcError } from '../IpcError/IpcError.ts'
 
 export const listen = () => {
   // @ts-ignore
   const { parentPort } = process
   if (!parentPort) {
-    throw new Error('parent port must be defined')
+    throw new IpcError('parent port must be defined')
   }
   return parentPort
 }
