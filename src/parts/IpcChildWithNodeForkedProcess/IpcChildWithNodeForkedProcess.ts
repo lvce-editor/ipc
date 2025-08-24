@@ -2,11 +2,12 @@ import type { NodeJsProcess } from '../NodeJsProcess/NodeJsProcess.ts'
 import * as GetActualDataNode from '../GetActualDataNode/GetActualDataNode.ts'
 import * as GetTransferrablesNode from '../GetTransferrablesNode/GetTransferrablesNode.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
+import { IpcError } from '../IpcError/IpcError.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
 export const listen = async () => {
   if (!process.send) {
-    throw new Error('process.send must be defined')
+    throw new IpcError('process.send must be defined')
   }
   return process
 }
