@@ -5,8 +5,8 @@ import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNode
 import * as FixNodeParameters from '../FixNodeChildProcessParameters/FixNodeChildProcessParameters.ts'
 import * as GetFirstNodeChildProcessEvent from '../GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
-import { VError } from '../VError/VError.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
+import { VError } from '../VError/VError.ts'
 
 // @ts-ignore
 export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inherit', name = 'child process' }) => {
