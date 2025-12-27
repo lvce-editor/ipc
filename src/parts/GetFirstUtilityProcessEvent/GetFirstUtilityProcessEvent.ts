@@ -3,7 +3,7 @@ import type { FirstUtilityProcessEvent } from '../FirstUtilityProcessEvent/First
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 
 export const getFirstUtilityProcessEvent = async (utilityProcess: UtilityProcess): Promise<FirstUtilityProcessEvent> => {
-  const { resolve, promise } = Promise.withResolvers<FirstUtilityProcessEvent>()
+  const { promise, resolve } = Promise.withResolvers<FirstUtilityProcessEvent>()
   let stdout = ''
   let stderr = ''
   const cleanup = (value: FirstUtilityProcessEvent): void => {
@@ -22,10 +22,10 @@ export const getFirstUtilityProcessEvent = async (utilityProcess: UtilityProcess
     stdout += data
   }
   const handleMessage = (event: any): void => {
-    cleanup({ type: FirstNodeWorkerEventType.Message, event, stdout, stderr })
+    cleanup({ event, stderr, stdout, type: FirstNodeWorkerEventType.Message })
   }
   const handleExit = (event: any): void => {
-    cleanup({ type: FirstNodeWorkerEventType.Exit, event, stdout, stderr })
+    cleanup({ event, stderr, stdout, type: FirstNodeWorkerEventType.Exit })
   }
   // @ts-ignore
   utilityProcess.stderr.on('data', handleStdErrData)
@@ -33,6 +33,6 @@ export const getFirstUtilityProcessEvent = async (utilityProcess: UtilityProcess
   utilityProcess.stdout.on('data', handleStdoutData)
   utilityProcess.on('message', handleMessage)
   utilityProcess.on('exit', handleExit)
-  const { type, event } = await promise
-  return { type, event, stdout, stderr }
+  const { event, type } = await promise
+  return { event, stderr, stdout, type }
 }

@@ -4,7 +4,7 @@ import { Ipc } from '../Ipc/Ipc.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
 export const listen = () => {
-  return window
+  return globalThis
 }
 
 export const signal = (global: Window) => {
@@ -36,7 +36,7 @@ class IpcChildWithElectronWindow extends Ipc<Window> {
   override onMessage(callback: any) {
     const wrapped = (event: MessageEvent) => {
       const { ports } = event
-      if (ports.length) {
+      if (ports.length > 0) {
         return
       }
       callback(event)

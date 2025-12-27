@@ -10,7 +10,7 @@ export const getModuleNotFoundError = (stderr: string) => {
   const messageIndex = lines.findIndex(isModuleNotFoundMessage)
   const message = lines[messageIndex]
   return {
-    message,
     code: ErrorCodes.ERR_MODULE_NOT_FOUND,
+    message,
   }
 }

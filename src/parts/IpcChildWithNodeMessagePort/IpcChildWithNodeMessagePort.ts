@@ -14,7 +14,12 @@ export const signal = (messagePort: any) => {
 
 export const wrap = (port: any) => {
   return {
-    port,
+    dispose() {
+      this.port.close()
+    },
+    off(event: any, listener: any) {
+      this.port.off(event, listener)
+    },
     on(event: any, listener: any) {
       const wrappedListener = (message: any) => {
         const event = {
@@ -25,14 +30,9 @@ export const wrap = (port: any) => {
       }
       this.port.on(event, wrappedListener)
     },
-    off(event: any, listener: any) {
-      this.port.off(event, listener)
-    },
+    port,
     send(message: any) {
       this.port.postMessage(message)
-    },
-    dispose() {
-      this.port.close()
     },
     start() {
       throw new Error('start method is deprecated')

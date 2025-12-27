@@ -6,7 +6,7 @@ export class ChildProcessError extends Error {
   // @ts-ignore
   constructor(stderr) {
     // @ts-ignore
-    const { message, code, stack } = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
+    const { code, message, stack } = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
     super(message || 'child process error')
     this.name = 'ChildProcessError'
     if (code) {

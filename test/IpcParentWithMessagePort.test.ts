@@ -3,7 +3,7 @@ import * as IpcParentWithMessagePort from '../src/parts/IpcParentWithMessagePort
 
 test('send', async () => {
   const { port1, port2 } = new MessageChannel()
-  const { resolve, promise } = Promise.withResolvers()
+  const { promise, resolve } = Promise.withResolvers()
   port2.onmessage = resolve
   const ipc = IpcParentWithMessagePort.wrap(port1)
   ipc.send('test')
@@ -16,7 +16,7 @@ test('send', async () => {
 
 test('receive', async () => {
   const { port1, port2 } = new MessageChannel()
-  const { resolve, promise } = Promise.withResolvers()
+  const { promise, resolve } = Promise.withResolvers()
   const ipc = IpcParentWithMessagePort.wrap(port1)
   ipc.addEventListener('message', resolve)
   port2.postMessage('test')

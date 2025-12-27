@@ -37,7 +37,7 @@ class TestIpc extends Ipc<MessagePort> {
 test('addEventListener - message', async () => {
   const { port1, port2 } = new MessageChannel()
   const ipc = new TestIpc(port1)
-  const { resolve, promise } = Promise.withResolvers<MessageEvent>()
+  const { promise, resolve } = Promise.withResolvers<MessageEvent>()
   ipc.addEventListener('message', resolve)
   port2.postMessage(1)
   const message = await promise
@@ -49,7 +49,7 @@ test('addEventListener - message', async () => {
 test('send message - send', async () => {
   const { port1, port2 } = new MessageChannel()
   const ipc = new TestIpc(port1)
-  const { resolve, promise } = Promise.withResolvers<MessageEvent>()
+  const { promise, resolve } = Promise.withResolvers<MessageEvent>()
   port2.addEventListener('message', resolve)
   ipc.send(1)
   const message = await promise
@@ -61,7 +61,7 @@ test('send message - send', async () => {
 test.skip('sendAndTransfer message', async () => {
   const { port1, port2 } = new MessageChannel()
   const ipc = new TestIpc(port1)
-  const { resolve, promise } = Promise.withResolvers<MessageEvent>()
+  const { promise, resolve } = Promise.withResolvers<MessageEvent>()
   port2.addEventListener('message', resolve)
   const array = new Uint8Array([1])
   // @ts-ignore

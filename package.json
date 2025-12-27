@@ -2,56 +2,25 @@
   "name": "@lvce-editor/ipc",
   "version": "0.0.0-dev",
   "description": "Inter Process Communication for Lvce Editor",
-  "main": "src/index.js",
-  "type": "module",
-  "sideEffects": false,
-  "scripts": {
-    "test": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
-    "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
-    "type-check": "tsc",
-    "lint": "eslint .",
-    "build": "node scripts/build",
-    "format": "prettier --write ."
-  },
   "keywords": [
     "ipc"
   ],
-  "author": "Lvce Editor",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/lvce-editor/ipc.git"
   },
-  "dependencies": {
-    "@lvce-editor/assert": "^1.5.1",
-    "@lvce-editor/verror": "^1.7.0",
-    "@lvce-editor/web-socket-server": "^2.1.0"
-  },
-  "devDependencies": {
-    "@babel/preset-typescript": "^7.28.5",
-    "@eslint/js": "^9.39.2",
-    "@jest/globals": "^29.7.0",
-    "@lvce-editor/eslint-config": "^4.3.0",
-    "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@types/eslint__js": "^9.14.0",
-    "@types/jest": "^30.0.0",
-    "electron": "^39.2.7",
-    "eslint": "^9.39.2",
-    "eslint-plugin-jest": "^29.11.0",
-    "eslint-plugin-n": "^17.23.1",
-    "eslint-plugin-perfectionist": "^5.1.0",
-    "execa": "^9.6.1",
-    "jest": "^29.7.0",
-    "nodemon": "^3.1.11",
-    "prettier": "^3.7.4",
-    "rollup": "^4.17.2",
-    "ts-jest": "^29.4.6",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.50.1"
-  },
-  "engines": {
-    "node": ">=22"
+  "license": "MIT",
+  "author": "Lvce Editor",
+  "sideEffects": false,
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "node scripts/build",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "test": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
+    "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
+    "type-check": "tsc"
   },
   "prettier": {
     "semi": false,
@@ -83,5 +52,36 @@
         "statements": 73
       }
     }
+  },
+  "dependencies": {
+    "@lvce-editor/assert": "^1.5.1",
+    "@lvce-editor/verror": "^1.7.0",
+    "@lvce-editor/web-socket-server": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.28.5",
+    "@eslint/js": "^9.39.2",
+    "@jest/globals": "^29.7.0",
+    "@lvce-editor/eslint-config": "^4.3.0",
+    "@rollup/plugin-babel": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@types/eslint__js": "^9.14.0",
+    "@types/jest": "^30.0.0",
+    "electron": "^39.2.7",
+    "eslint": "^9.39.2",
+    "eslint-plugin-jest": "^29.11.0",
+    "eslint-plugin-n": "^17.23.1",
+    "eslint-plugin-perfectionist": "^5.1.0",
+    "execa": "^9.6.1",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.7.4",
+    "rollup": "^4.17.2",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.50.1"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

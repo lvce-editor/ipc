@@ -36,16 +36,16 @@ test('onMessage - forward message events', async () => {
   mockWindow.dispatchEvent(
     new MessageEvent('message', {
       data: {
-        jsonrpc: '2.0',
         id: 1,
+        jsonrpc: '2.0',
         result: 1,
       },
     }),
   )
   expect(messages).toEqual([
     {
-      jsonrpc: '2.0',
       id: 1,
+      jsonrpc: '2.0',
       result: 1,
     },
   ])
@@ -63,8 +63,8 @@ test('onMessage - ignore events after first message', async () => {
   mockWindow.dispatchEvent(
     new MessageEvent('message', {
       data: {
-        jsonrpc: '2.0',
         id: 1,
+        jsonrpc: '2.0',
         result: 1,
       },
     }),
@@ -72,16 +72,16 @@ test('onMessage - ignore events after first message', async () => {
   mockWindow.dispatchEvent(
     new MessageEvent('message', {
       data: {
-        jsonrpc: '2.0',
         id: 2,
+        jsonrpc: '2.0',
         result: 2,
       },
     }),
   )
   expect(messages).toEqual([
     {
-      jsonrpc: '2.0',
       id: 1,
+      jsonrpc: '2.0',
       result: 1,
     },
   ])
@@ -89,8 +89,8 @@ test('onMessage - ignore events after first message', async () => {
 
 test('sendAndTransfer - move transferrable parameters to transfer array', async () => {
   const mockWindow = {
-    postMessage: jest.fn(),
     addEventListener: jest.fn(),
+    postMessage: jest.fn(),
   }
   const ipc = IpcChildWithElectronWindow.wrap(mockWindow)
 

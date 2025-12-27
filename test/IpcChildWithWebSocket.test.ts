@@ -20,8 +20,8 @@ test('listen - missing request', async () => {
   const handle = {} as any
   await expect(
     IpcChildWithWebSocket.listen({
-      request,
       handle,
+      request,
     }),
   ).rejects.toThrow(new IpcError('request must be defined'))
 })
@@ -31,8 +31,8 @@ test('listen - missing handle', async () => {
   const handle = undefined as any
   await expect(
     IpcChildWithWebSocket.listen({
-      request,
       handle,
+      request,
     }),
   ).rejects.toThrow(new IpcError('handle must be defined'))
 })
@@ -41,8 +41,8 @@ test('listen', async () => {
   const request = {} as any
   const handle = {} as any
   const webSocket = await IpcChildWithWebSocket.listen({
-    request,
     handle,
+    request,
   })
   expect(webSocket).toBeDefined()
   expect(WebSocketServer.handleUpgrade).toHaveBeenCalledTimes(1)

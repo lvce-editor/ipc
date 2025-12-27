@@ -18,7 +18,7 @@ const removeListener = (emitter: EventEmitter | EventTarget, type: string, callb
 }
 
 export const getFirstEvent = (eventEmitter: EventEmitter | EventTarget, eventMap: any): Promise<FirstEvent> => {
-  const { resolve, promise } = Promise.withResolvers<FirstEvent>()
+  const { promise, resolve } = Promise.withResolvers<FirstEvent>()
   const listenerMap = Object.create(null)
   const cleanup = (value: any) => {
     for (const event of Object.keys(eventMap)) {
@@ -29,8 +29,8 @@ export const getFirstEvent = (eventEmitter: EventEmitter | EventTarget, eventMap
   for (const [event, type] of Object.entries(eventMap)) {
     const listener = (event: any) => {
       cleanup({
-        type,
         event,
+        type,
       })
     }
     addListener(eventEmitter, event, listener)

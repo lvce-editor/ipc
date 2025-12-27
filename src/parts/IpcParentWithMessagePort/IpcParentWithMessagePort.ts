@@ -8,7 +8,7 @@ import { IpcError } from '../IpcError/IpcError.ts'
 import * as IsMessagePort from '../IsMessagePort/IsMessagePort.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
-export const create = async ({ messagePort, isMessagePortOpen }: { messagePort: MessagePort; isMessagePortOpen: boolean }): Promise<MessagePort> => {
+export const create = async ({ isMessagePortOpen, messagePort }: { messagePort: MessagePort; isMessagePortOpen: boolean }): Promise<MessagePort> => {
   if (!IsMessagePort.isMessagePort(messagePort)) {
     throw new IpcError('port must be of type MessagePort')
   }
@@ -19,7 +19,7 @@ export const create = async ({ messagePort, isMessagePortOpen }: { messagePort: 
     message: FirstNodeWorkerEventType.Message,
   })
   messagePort.start()
-  const { type, event } = await eventPromise
+  const { event, type } = await eventPromise
   if (type !== FirstNodeWorkerEventType.Message) {
     throw new IpcError('Failed to wait for ipc message')
   }

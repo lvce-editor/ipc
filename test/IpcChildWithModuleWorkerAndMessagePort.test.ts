@@ -47,9 +47,9 @@ test('listen - send back response', async () => {
       target.dispatchEvent(
         new MessageEvent('message', {
           data: {
+            id: 1,
             jsonrpc: '2.0',
             method: 'initialize',
-            id: 1,
             params: ['message-port', port],
           },
         }),
