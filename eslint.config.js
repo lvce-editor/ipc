@@ -14,6 +14,7 @@ export default [
       'n/no-extraneous-import': 'off',
       'unicorn/no-array-method-this-argument': 'off',
       'github-actions/ci-versions': 'off',
+      'markdown/heading-increment': 'off',
     },
   },
   {
