@@ -15,6 +15,7 @@ export default [
       'unicorn/no-array-method-this-argument': 'off',
       'github-actions/ci-versions': 'off',
       'markdown/heading-increment': 'off',
+      'n/no-unsupported-features/node-builtins': 'off',
     },
   },
   {
