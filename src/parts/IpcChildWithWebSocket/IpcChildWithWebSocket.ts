@@ -6,7 +6,7 @@ import * as IsWebSocketOpen from '../IsWebSocketOpen/IsWebSocketOpen.ts'
 import * as WebSocketSerialization from '../WebSocketSerialization/WebSocketSerialization.ts'
 import * as WebSocketServer from '../WebSocketServer/WebSocketServer.ts'
 
-export const listen = async ({ request, handle }: { request: Request; handle: Socket }) => {
+export const listen = async ({ handle, request }: { request: Request; handle: Socket }) => {
   if (!request) {
     throw new IpcError('request must be defined')
   }
@@ -27,14 +27,19 @@ export const signal = (webSocket: any) => {
 
 export const wrap = (webSocket: any) => {
   return {
-    webSocket,
-    /**
-     * @type {any}
-     */
-    wrappedListener: undefined,
+    dispose() {
+      this.webSocket.close()
+    },
+    // @ts-ignore
+    off(event, listener) {
+      this.webSocket.off(event, listener)
+    },
     // @ts-ignore
     on(event, listener) {
       switch (event) {
+        case 'close':
+          webSocket.on('close', listener)
+          break
         case 'message':
           // @ts-ignore
           const wrappedListener = (message) => {
@@ -47,27 +52,22 @@ export const wrap = (webSocket: any) => {
           }
           webSocket.on('message', wrappedListener)
           break
-        case 'close':
-          webSocket.on('close', listener)
-          break
         default:
           throw new Error('unknown event listener type')
       }
-    },
-    // @ts-ignore
-    off(event, listener) {
-      this.webSocket.off(event, listener)
     },
     // @ts-ignore
     send(message) {
       const stringifiedMessage = WebSocketSerialization.serialize(message)
       this.webSocket.send(stringifiedMessage)
     },
-    dispose() {
-      this.webSocket.close()
-    },
     start() {
       throw new Error('start method is deprecated')
     },
+    webSocket,
+    /**
+     * @type {any}
+     */
+    wrappedListener: undefined,
   }
 }

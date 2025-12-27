@@ -8,15 +8,15 @@ import { IpcError } from '../IpcError/IpcError.ts'
 import * as ReadyMessage from '../ReadyMessage/ReadyMessage.ts'
 
 export interface IpcParentWithNodeWorkerOptions {
-  readonly path: string
   readonly argv?: readonly string[]
   readonly env?: any
   readonly execArgv?: string[]
-  readonly stdio?: 'inherit' | undefined
   readonly name?: 'inherit' | undefined
+  readonly path: string
+  readonly stdio?: 'inherit' | undefined
 }
 
-export const create = async ({ path, argv = [], env = process.env, execArgv = [], stdio, name }: IpcParentWithNodeWorkerOptions) => {
+export const create = async ({ argv = [], env = process.env, execArgv = [], name, path, stdio }: IpcParentWithNodeWorkerOptions) => {
   Assert.string(path)
   const actualArgv = ['--ipc-type=node-worker', ...argv]
   const actualEnv = {
@@ -29,11 +29,11 @@ export const create = async ({ path, argv = [], env = process.env, execArgv = []
     argv: actualArgv,
     env: actualEnv,
     execArgv,
-    stdout: ignoreStdio,
-    stderr: ignoreStdio,
     name,
+    stderr: ignoreStdio,
+    stdout: ignoreStdio,
   })
-  const { type, event } = await GetFirstNodeWorkerEvent.getFirstNodeWorkerEvent(worker)
+  const { event, type } = await GetFirstNodeWorkerEvent.getFirstNodeWorkerEvent(worker)
   if (type === FirstNodeWorkerEventType.Exit) {
     throw new IpcError(`Worker exited before ipc connection was established`)
   }

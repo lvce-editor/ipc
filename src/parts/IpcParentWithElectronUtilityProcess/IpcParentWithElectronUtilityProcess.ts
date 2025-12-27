@@ -7,22 +7,22 @@ import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
 
 interface UtilityProcessOptions {
-  readonly path: string
   readonly argv?: readonly string[]
+  readonly env?: any
   readonly execArgv?: string[]
   readonly name: string
-  readonly env?: any
+  readonly path: string
 }
 
-export const create = async ({ path, argv = [], execArgv = [], name, env = process.env }: UtilityProcessOptions) => {
+export const create = async ({ argv = [], env = process.env, execArgv = [], name, path }: UtilityProcessOptions) => {
   Assert.string(path)
   const actualArgv = ['--ipc-type=electron-utility-process', ...argv]
   const { utilityProcess } = await import('electron')
   const childProcess = utilityProcess.fork(path, actualArgv, {
-    execArgv,
-    stdio: 'pipe',
-    serviceName: name,
     env,
+    execArgv,
+    serviceName: name,
+    stdio: 'pipe',
   })
   const handleExit = () => {
     // @ts-ignore
@@ -33,7 +33,7 @@ export const create = async ({ path, argv = [], execArgv = [], name, env = proce
   childProcess.once('exit', handleExit)
   // @ts-ignore
   childProcess.stdout.pipe(process.stdout)
-  const { type, stdout, stderr } = await GetFirstUtilityProcessEvent.getFirstUtilityProcessEvent(childProcess)
+  const { stderr, stdout, type } = await GetFirstUtilityProcessEvent.getFirstUtilityProcessEvent(childProcess)
   if (type === FirstNodeWorkerEventType.Exit) {
     throw new IpcError(`Utility process exited before ipc connection was established`, stdout, stderr)
   }

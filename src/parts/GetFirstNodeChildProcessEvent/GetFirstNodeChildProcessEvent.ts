@@ -3,7 +3,7 @@ import type { FirstChildProcessEvent } from '../FirstChildProcessEvent/FirstChil
 import * as FirstNodeWorkerEventType from '../FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
 
 export const getFirstNodeChildProcessEvent = async (childProcess: ChildProcess): Promise<FirstChildProcessEvent> => {
-  const { type, event, stdout, stderr } = await new Promise<FirstChildProcessEvent>((resolve, reject) => {
+  const { event, stderr, stdout, type } = await new Promise<FirstChildProcessEvent>((resolve, reject) => {
     let stderr = ''
     let stdout = ''
     const cleanup = (value: FirstChildProcessEvent): void => {
@@ -23,13 +23,13 @@ export const getFirstNodeChildProcessEvent = async (childProcess: ChildProcess):
       stdout += data
     }
     const handleMessage = (event: any): void => {
-      cleanup({ type: FirstNodeWorkerEventType.Message, event, stdout, stderr })
+      cleanup({ event, stderr, stdout, type: FirstNodeWorkerEventType.Message })
     }
     const handleExit = (event: any): void => {
-      cleanup({ type: FirstNodeWorkerEventType.Exit, event, stdout, stderr })
+      cleanup({ event, stderr, stdout, type: FirstNodeWorkerEventType.Exit })
     }
     const handleError = (event: any): void => {
-      cleanup({ type: FirstNodeWorkerEventType.Error, event, stdout, stderr })
+      cleanup({ event, stderr, stdout, type: FirstNodeWorkerEventType.Error })
     }
     if (childProcess.stdout && childProcess.stderr) {
       childProcess.stderr.on('data', handleStdErrData)
@@ -39,5 +39,5 @@ export const getFirstNodeChildProcessEvent = async (childProcess: ChildProcess):
     childProcess.on('exit', handleExit)
     childProcess.on('error', handleError)
   })
-  return { type, event, stdout, stderr }
+  return { event, stderr, stdout, type }
 }

@@ -26,12 +26,12 @@ test.skip('create - error - child process exits with code 1', async () => {
   // @ts-ignore
   GetFirstNodeChildProcessEvent.getFirstNodeChildProcessEvent.mockImplementation(() => {
     return {
-      type: FirstNodeWorkerEventType.Exit,
       event: 1,
       stderr: '',
+      type: FirstNodeWorkerEventType.Exit,
     }
   })
-  await expect(IpcParentWithNodeForkedProcess.create({ path: '/test/childProcess.js', argv: [], env: {}, execArgv: [] })).rejects.toThrow(
+  await expect(IpcParentWithNodeForkedProcess.create({ argv: [], env: {}, execArgv: [], path: '/test/childProcess.js' })).rejects.toThrow(
     new Error(`Failed to launch child process: ChildProcessError: child process error`),
   )
 })
@@ -44,10 +44,10 @@ test('create', async () => {
   // @ts-ignore
   GetFirstNodeChildProcessEvent.getFirstNodeChildProcessEvent.mockImplementation(() => {
     return {
-      type: FirstNodeWorkerEventType.Message,
       event: ReadyMessage.readyMessage,
+      type: FirstNodeWorkerEventType.Message,
     }
   })
-  const childProcess = await IpcParentWithNodeForkedProcess.create({ path: '/test/childProcess.js', argv: [], env: {}, execArgv: [] })
+  const childProcess = await IpcParentWithNodeForkedProcess.create({ argv: [], env: {}, execArgv: [], path: '/test/childProcess.js' })
   expect(childProcess).toBeDefined()
 })

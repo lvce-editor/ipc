@@ -9,7 +9,7 @@ import { IpcError } from '../IpcError/IpcError.ts'
 import { VError } from '../VError/VError.ts'
 
 // @ts-ignore
-export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inherit', name = 'child process' }) => {
+export const create = async ({ argv = [], env, execArgv = [], name = 'child process', path, stdio = 'inherit' }) => {
   try {
     Assert.string(path)
     const actualArgv = ['--ipc-type=node-forked-process', ...argv]
@@ -19,7 +19,7 @@ export const create = async ({ path, argv = [], env, execArgv = [], stdio = 'inh
       execArgv,
       stdio: 'pipe',
     })
-    const { type, event, stderr } = await GetFirstNodeChildProcessEvent.getFirstNodeChildProcessEvent(childProcess)
+    const { event, stderr, type } = await GetFirstNodeChildProcessEvent.getFirstNodeChildProcessEvent(childProcess)
     if (type === FirstNodeWorkerEventType.Exit) {
       throw new ChildProcessError(stderr)
     }

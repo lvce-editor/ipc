@@ -7,23 +7,23 @@ export const getFirstWebSocketEvent = async (webSocket) => {
   const { WebSocket } = await import('ws')
 
   switch (webSocket.readyState) {
-    case WebSocket.OPEN:
-      return {
-        type: FirstWebSocketEventType.Open,
-        event: undefined,
-      }
     case WebSocket.CLOSED:
       return {
-        type: FirstWebSocketEventType.Close,
         event: undefined,
+        type: FirstWebSocketEventType.Close,
+      }
+    case WebSocket.OPEN:
+      return {
+        event: undefined,
+        type: FirstWebSocketEventType.Open,
       }
     default:
       break
   }
   // @ts-ignore
-  const { type, event } = await GetFirstEvent.getFirstEvent(webSocket, {
-    open: FirstWebSocketEventType.Open,
+  const { event, type } = await GetFirstEvent.getFirstEvent(webSocket, {
     close: FirstWebSocketEventType.Close,
+    open: FirstWebSocketEventType.Open,
   })
-  return { type, event }
+  return { event, type }
 }

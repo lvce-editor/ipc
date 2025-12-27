@@ -10,15 +10,15 @@ import * as SplitLines from '../SplitLines/SplitLines.ts'
 const getNativeModuleErrorMessage = (stderr: string) => {
   const message = GetMessageCodeBlock.getMessageCodeBlock(stderr)
   return {
-    message: `Incompatible native node module: ${message}`,
     code: ErrorCodes.E_INCOMPATIBLE_NATIVE_MODULE,
+    message: `Incompatible native node module: ${message}`,
   }
 }
 
 const getModuleSyntaxError = () => {
   return {
-    message: `ES Modules are not supported in electron`,
     code: ErrorCodes.E_MODULES_NOT_SUPPORTED_IN_ELECTRON,
+    message: `ES Modules are not supported in electron`,
   }
 }
 
@@ -35,8 +35,8 @@ export const getHelpfulChildProcessError = (stdout: string, stderr: string) => {
   const lines = SplitLines.splitLines(stderr)
   const { actualMessage, rest } = GetDetails.getDetails(lines)
   return {
-    message: actualMessage,
     code: '',
+    message: actualMessage,
     stack: rest,
   }
 }

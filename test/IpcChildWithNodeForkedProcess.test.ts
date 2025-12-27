@@ -12,7 +12,7 @@ class MockProcess extends EventEmitter implements NodeJsProcess {
 test('data event', async () => {
   const process = new MockProcess()
   const ipc = IpcChildWithNodeForkedProcess.wrap(process)
-  const { resolve, promise } = Promise.withResolvers<MessageEvent>()
+  const { promise, resolve } = Promise.withResolvers<MessageEvent>()
   ipc.addEventListener('message', resolve)
   const handle = {
     isSocket: true,

@@ -4,16 +4,16 @@ import * as GetTransferrables from '../GetTransferrables/GetTransferrables.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 
 interface CreateOptions {
-  readonly sendPort: ({ port, url, name }: { port: MessagePort; url: string; name: string }) => Promise<void>
-  readonly url: string
   readonly name: string
+  readonly sendPort: ({ name, port, url }: { port: MessagePort; url: string; name: string }) => Promise<void>
+  readonly url: string
 }
 
-export const create = async ({ sendPort, url, name }: CreateOptions) => {
+export const create = async ({ name, sendPort, url }: CreateOptions) => {
   const { port1, port2 } = GetPortTuple.getPortTuple()
   await sendPort({
-    port: port1,
     name,
+    port: port1,
     url,
   })
   return port2

@@ -93,7 +93,7 @@ Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'ws' imported from /usr/lib/lv
 
 Node.js v18.15.0`
 
-  const { message, code } = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
+  const { code, message } = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
   expect(message).toBe(
     `Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'ws' imported from /usr/lib/lvce-oss/esources/app/packages/pty-host/src/parts/WebSocketServer/WebSocketServer.js`,
   )

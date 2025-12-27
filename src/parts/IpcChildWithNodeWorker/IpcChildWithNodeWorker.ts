@@ -1,4 +1,4 @@
-import { MessagePort } from 'node:worker_threads'
+import type { MessagePort } from 'node:worker_threads'
 import * as GetTransferrablesNode from '../GetTransferrablesNode/GetTransferrablesNode.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'

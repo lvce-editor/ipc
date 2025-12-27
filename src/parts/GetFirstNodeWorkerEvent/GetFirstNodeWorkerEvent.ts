@@ -5,8 +5,8 @@ import * as GetFirstEvent from '../GetFirstEvent/GetFirstEvent.ts'
 
 export const getFirstNodeWorkerEvent = (worker: Worker): Promise<FirstEvent> => {
   return GetFirstEvent.getFirstEvent(worker, {
-    message: FirstNodeWorkerEventType.Message,
-    exit: FirstNodeWorkerEventType.Exit,
     error: FirstNodeWorkerEventType.Error,
+    exit: FirstNodeWorkerEventType.Exit,
+    message: FirstNodeWorkerEventType.Message,
   })
 }

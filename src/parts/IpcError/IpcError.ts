@@ -6,7 +6,7 @@ export class IpcError extends VError {
   constructor(betterMessage, stdout = '', stderr = '') {
     if (stdout || stderr) {
       // @ts-ignore
-      const { message, code, stack } = GetHelpfulChildProcessError.getHelpfulChildProcessError(stdout, stderr)
+      const { code, message, stack } = GetHelpfulChildProcessError.getHelpfulChildProcessError(stdout, stderr)
       const cause = new Error(message)
       // @ts-ignore
       cause.code = code
