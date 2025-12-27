@@ -18,6 +18,6 @@ export default [
     },
   },
   {
-    ignore: ['src/index.d.ts'],
+    ignores: ['src/index.d.ts'],
   },
 ]
