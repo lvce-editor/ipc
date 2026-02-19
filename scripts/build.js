@@ -72,6 +72,7 @@ delete packageJson.prettier
 delete packageJson.jest
 packageJson.version = version
 packageJson.main = 'dist/index.js'
+packageJson.exports = './dist/index.js'
 packageJson.types = 'dist/index.d.ts'
 packageJson.browser = 'dist/browser.js'
 
