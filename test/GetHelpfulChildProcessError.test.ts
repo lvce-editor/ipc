@@ -78,7 +78,7 @@ test('getHelpfulChildProcessError - module not found', () => {
     ErrorCaptureStackTrace(err);
     ^
 
-Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'ws' imported from /usr/lib/lvce-oss/esources/app/packages/pty-host/src/parts/WebSocketServer/WebSocketServer.js
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'ws' imported from /usr/lib/lvce-oss/resources/app/packages/pty-host/src/parts/WebSocketServer/WebSocketServer.js
     at new NodeError (node:internal/errors:399:5)
     at packageResolve (node:internal/modules/esm/resolve:895:9)
     at moduleResolve (node:internal/modules/esm/resolve:944:20)
@@ -95,7 +95,7 @@ Node.js v18.15.0`
 
   const { code, message } = GetHelpfulChildProcessError.getHelpfulChildProcessError('', stderr)
   expect(message).toBe(
-    `Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'ws' imported from /usr/lib/lvce-oss/esources/app/packages/pty-host/src/parts/WebSocketServer/WebSocketServer.js`,
+    `Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'ws' imported from /usr/lib/lvce-oss/resources/app/packages/pty-host/src/parts/WebSocketServer/WebSocketServer.js`,
   )
   expect(code).toBe('ERR_MODULE_NOT_FOUND')
 })
