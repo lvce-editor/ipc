@@ -60,26 +60,20 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.28.5",
-    "@eslint/js": "^9.39.2",
     "@jest/globals": "^29.7.0",
-    "@lvce-editor/eslint-config": "^4.9.0",
+    "@lvce-editor/eslint-config": "^7.2.0",
     "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@types/eslint__js": "^9.14.0",
     "@types/jest": "^30.0.0",
-    "electron": "^40.1.0",
+    "electron": "^40.6.0",
     "eslint": "^9.39.2",
-    "eslint-plugin-jest": "^29.12.2",
-    "eslint-plugin-n": "^17.23.2",
-    "eslint-plugin-perfectionist": "^5.5.0",
     "execa": "^9.6.1",
     "jest": "^29.7.0",
     "nodemon": "^3.1.11",
     "prettier": "^3.8.1",
     "rollup": "^4.17.2",
     "ts-jest": "^29.4.6",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.54.0"
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=22"
