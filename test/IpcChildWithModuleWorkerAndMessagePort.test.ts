@@ -8,9 +8,8 @@ jest.unstable_mockModule('../src/parts/IpcChildWithModuleWorker/IpcChildWithModu
   }
 })
 
-const IpcChildWithModuleWorkerAndMessagePort = await import(
-  '../src/parts/IpcChildWithModuleWorkerAndMessagePort/IpcChildWithModuleWorkerAndMessagePort.ts'
-)
+const IpcChildWithModuleWorkerAndMessagePort =
+  await import('../src/parts/IpcChildWithModuleWorkerAndMessagePort/IpcChildWithModuleWorkerAndMessagePort.ts')
 const IpcChildWithModuleWorker = await import('../src/parts/IpcChildWithModuleWorker/IpcChildWithModuleWorker.ts')
 
 test('listen - unexpected first message', async () => {
