@@ -2,7 +2,6 @@ import { expect, test } from '@jest/globals'
 import * as GetTransferrablesNode from '../src/parts/GetTransferrablesNode/GetTransferrablesNode.js'
 
 test('socket inside object', () => {
-   
   class Socket {}
   const socket = new Socket()
   const message = {

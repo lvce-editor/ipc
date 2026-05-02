@@ -16,6 +16,5 @@ export const walkValue = (value: unknown, transferrables: unknown[], isTransferr
     for (const property of Object.values(value)) {
       walkValue(property, transferrables, isTransferrable)
     }
-    return
   }
 }

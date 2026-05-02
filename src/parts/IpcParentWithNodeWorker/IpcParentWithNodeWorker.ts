@@ -11,9 +11,9 @@ export interface IpcParentWithNodeWorkerOptions {
   readonly argv?: readonly string[]
   readonly env?: any
   readonly execArgv?: string[]
-  readonly name?: 'inherit' | undefined
+  readonly name?: 'inherit'
   readonly path: string
-  readonly stdio?: 'inherit' | undefined
+  readonly stdio?: 'inherit'
 }
 
 export const create = async ({ argv = [], env = process.env, execArgv = [], name, path, stdio }: IpcParentWithNodeWorkerOptions) => {

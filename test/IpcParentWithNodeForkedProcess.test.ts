@@ -18,7 +18,7 @@ const GetFirstNodeChildProcessEvent = await import('../src/parts/GetFirstNodeChi
 const IpcParentWithNodeForkedProcess = await import('../src/parts/IpcParentWithNodeForkedProcess/IpcParentWithNodeForkedProcess.js')
 const NodeChildProcess = await import('node:child_process')
 
-test.skip('create - error - child process exits with code 1', async () => {
+test('create - error - child process exits with code 1', async () => {
   // @ts-ignore
   NodeChildProcess.fork.mockImplementation(() => {
     return {}
