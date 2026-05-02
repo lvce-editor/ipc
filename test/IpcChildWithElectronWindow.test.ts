@@ -93,12 +93,6 @@ test('sendAndTransfer - move transferrable parameters to transfer array', async 
     postMessage: jest.fn(),
   }
   const ipc = IpcChildWithElectronWindow.wrap(mockWindow)
-
-  const messages: any[] = []
-  const handleMessage = (event: MessageEvent) => {
-    messages.push(event.data)
-  }
-  ipc.addEventListener('message', handleMessage)
   const { port1: port3 } = new MessageChannel()
   const message = {
     jsonrpc: '2.0',

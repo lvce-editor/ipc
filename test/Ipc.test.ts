@@ -58,7 +58,7 @@ test('send message - send', async () => {
   port2.close()
 })
 
-test.skip('sendAndTransfer message', async () => {
+test('sendAndTransfer message', async () => {
   const { port1, port2 } = new MessageChannel()
   const ipc = new TestIpc(port1)
   const { promise, resolve } = Promise.withResolvers<MessageEvent>()
