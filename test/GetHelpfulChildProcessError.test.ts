@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import * as GetHelpfulChildProcessError from '../src/parts/GetHelpfulChildProcessError/GetHelpfulChildProcessError.js'
+import * as GetHelpfulChildProcessError from '../src/parts/GetHelpfulChildProcessError/GetHelpfulChildProcessError.ts'
 
 test('getHelpfulChildProcessError - incompatible native module', () => {
   const stderr = `innerError Error: Cannot find module '../build/Debug/pty.node'
@@ -157,7 +157,7 @@ Node.js v18.18.2
     "Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/packages/embeds-worker/src/embedsProcessMain.js' imported from /test/packages/main-process/    at new NodeError (node:internal/errors:405:5)",
   )
   // @ts-ignore
-  expect(error.stack).toBe(undefined)
+  expect(error.stack).toBeUndefined()
 })
 
 test('getHelpfulChildProcessError - module not found 3', () => {
@@ -187,5 +187,5 @@ Node.js v20.15.1
     "Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/test/packages/shared-process/node_modules/@lvce-editor/preview-process/dist/index.js' imported from /test/packages/main-process/",
   )
   // @ts-ignore
-  expect(error.stack).toBe(undefined)
+  expect(error.stack).toBeUndefined()
 })

@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import * as GetTransferrablesNode from '../src/parts/GetTransferrablesNode/GetTransferrablesNode.js'
+import * as GetTransferrablesNode from '../src/parts/GetTransferrablesNode/GetTransferrablesNode.ts'
 
 test('socket inside object', () => {
   class Socket {}

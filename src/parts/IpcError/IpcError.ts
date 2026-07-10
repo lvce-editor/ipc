@@ -10,7 +10,14 @@ export class IpcError extends VError {
       const cause = new Error(message)
       // @ts-ignore
       cause.code = code
-      cause.stack = stack
+      if (stack) {
+        Object.defineProperty(cause, 'stack', {
+          configurable: true,
+          enumerable: false,
+          value: stack,
+          writable: true,
+        })
+      }
       super(cause, betterMessage)
     } else {
       super(betterMessage)

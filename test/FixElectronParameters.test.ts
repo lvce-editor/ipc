@@ -22,6 +22,6 @@ test('move messageport from params to transfer list', () => {
 test('null', () => {
   const value = null
   const { newValue, transfer } = FixElectronParameters.fixElectronParameters(value)
-  expect(newValue).toBe(null)
+  expect(newValue).toBeNull()
   expect(transfer).toEqual([])
 })

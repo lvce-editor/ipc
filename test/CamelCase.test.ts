@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import * as CamelCase from '../src/parts/CamelCase/CamelCase.js'
+import * as CamelCase from '../src/parts/CamelCase/CamelCase.ts'
 
 test('empty string', async () => {
   const string = ''

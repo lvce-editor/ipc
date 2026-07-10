@@ -26,13 +26,13 @@ export const signal = (webSocket: any) => {
 }
 
 export const wrap = (webSocket: any) => {
-  return {
+  const wrap = {
     dispose() {
-      this.webSocket.close()
+      wrap.webSocket.close()
     },
     // @ts-ignore
     off(event, listener) {
-      this.webSocket.off(event, listener)
+      wrap.webSocket.off(event, listener)
     },
     // @ts-ignore
     on(event, listener) {
@@ -46,7 +46,7 @@ export const wrap = (webSocket: any) => {
             const data = WebSocketSerialization.deserialize(message)
             const event = {
               data,
-              target: this,
+              target: wrap,
             }
             listener(event)
           }
@@ -59,7 +59,7 @@ export const wrap = (webSocket: any) => {
     // @ts-ignore
     send(message) {
       const stringifiedMessage = WebSocketSerialization.serialize(message)
-      this.webSocket.send(stringifiedMessage)
+      wrap.webSocket.send(stringifiedMessage)
     },
     start() {
       throw new Error('start method is deprecated')
@@ -70,4 +70,5 @@ export const wrap = (webSocket: any) => {
      */
     wrappedListener: undefined,
   }
+  return wrap
 }
