@@ -1,7 +1,7 @@
 import { expect, jest, test } from '@jest/globals'
-import { IpcError } from '../src/parts/IpcError/IpcError.js'
+import { IpcError } from '../src/parts/IpcError/IpcError.ts'
 
-jest.unstable_mockModule('../src/parts/WebSocketServer/WebSocketServer.js', () => {
+jest.unstable_mockModule('../src/parts/WebSocketServer/WebSocketServer.ts', () => {
   return {
     handleUpgrade: jest.fn(() => {
       return {
@@ -12,8 +12,8 @@ jest.unstable_mockModule('../src/parts/WebSocketServer/WebSocketServer.js', () =
   }
 })
 
-const IpcChildWithWebSocket = await import('../src/parts/IpcChildWithWebSocket/IpcChildWithWebSocket.js')
-const WebSocketServer = await import('../src/parts/WebSocketServer/WebSocketServer.js')
+const IpcChildWithWebSocket = await import('../src/parts/IpcChildWithWebSocket/IpcChildWithWebSocket.ts')
+const WebSocketServer = await import('../src/parts/WebSocketServer/WebSocketServer.ts')
 
 test('listen - missing request', async () => {
   const request = undefined as any

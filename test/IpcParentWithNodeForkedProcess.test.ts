@@ -1,8 +1,8 @@
 import { jest, test, expect } from '@jest/globals'
-import * as FirstNodeWorkerEventType from '../src/parts/FirstNodeWorkerEventType/FirstNodeWorkerEventType.js'
-import * as ReadyMessage from '../src/parts/ReadyMessage/ReadyMessage.js'
+import * as FirstNodeWorkerEventType from '../src/parts/FirstNodeWorkerEventType/FirstNodeWorkerEventType.ts'
+import * as ReadyMessage from '../src/parts/ReadyMessage/ReadyMessage.ts'
 
-jest.unstable_mockModule('../src/parts/GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.js', () => {
+jest.unstable_mockModule('../src/parts/GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.ts', () => {
   return {
     getFirstNodeChildProcessEvent: jest.fn(),
   }
@@ -14,8 +14,8 @@ jest.unstable_mockModule('node:child_process', () => {
   }
 })
 
-const GetFirstNodeChildProcessEvent = await import('../src/parts/GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.js')
-const IpcParentWithNodeForkedProcess = await import('../src/parts/IpcParentWithNodeForkedProcess/IpcParentWithNodeForkedProcess.js')
+const GetFirstNodeChildProcessEvent = await import('../src/parts/GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.ts')
+const IpcParentWithNodeForkedProcess = await import('../src/parts/IpcParentWithNodeForkedProcess/IpcParentWithNodeForkedProcess.ts')
 const NodeChildProcess = await import('node:child_process')
 
 test('create - error - child process exits with code 1', async () => {

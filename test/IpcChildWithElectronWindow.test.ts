@@ -3,7 +3,11 @@ import * as IpcChildWithElectronWindow from '../src/parts/IpcChildWithElectronWi
 
 beforeAll(() => {
   // @ts-ignore
-  globalThis.location = { origin: 'test://test' }
+Object.defineProperty(globalThis, 'location', {
+    configurable: true,
+    value: { origin: 'test://test' },
+    writable: true,
+  })
 })
 
 test('onMessage - ignore events with messagePorts', async () => {

@@ -1,6 +1,6 @@
 import { beforeEach, expect, jest, test } from '@jest/globals'
 import * as IpcChildWithNodeWorker from '../src/parts/IpcChildWithNodeWorker/IpcChildWithNodeWorker.ts'
-import { IpcError } from '../src/parts/IpcError/IpcError.js'
+import { IpcError } from '../src/parts/IpcError/IpcError.ts'
 import * as ReadyMessage from '../src/parts/ReadyMessage/ReadyMessage.ts'
 
 const mockParentPort = jest.fn()
