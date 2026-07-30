@@ -3,7 +3,7 @@ import * as IpcChildWithElectronWindow from '../src/parts/IpcChildWithElectronWi
 
 beforeAll(() => {
   // @ts-ignore
-Object.defineProperty(globalThis, 'location', {
+  Object.defineProperty(globalThis, 'location', {
     configurable: true,
     value: { origin: 'test://test' },
     writable: true,
