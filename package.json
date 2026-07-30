@@ -17,7 +17,7 @@
   "scripts": {
     "build": "node scripts/build",
     "format": "prettier --write .",
-    "lint": "eslint .",
+    "lint": "eslint . && prettier --check . && knip --no-config-hints",
     "test": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
     "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
     "type-check": "tsc"
@@ -56,12 +56,14 @@
   "dependencies": {
     "@lvce-editor/assert": "^1.5.1",
     "@lvce-editor/verror": "^1.7.0",
-    "@lvce-editor/web-socket-server": "^2.1.0"
+    "@lvce-editor/web-socket-server": "^2.1.0",
+    "ws": "^8.21.1"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.28.5",
     "@jest/globals": "^30.3.0",
     "@lvce-editor/eslint-config": "^17.6.0",
+    "@lvce-editor/eslint-plugin-github-actions": "^17.7.0",
     "@rollup/plugin-babel": "^7.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/jest": "^30.0.0",
@@ -69,7 +71,7 @@
     "eslint": "^10.8.0",
     "execa": "^9.6.1",
     "jest": "^30.3.0",
-    "nodemon": "^3.1.14",
+    "knip": "^6.29.0",
     "prettier": "^3.8.3",
     "rollup": "^4.17.2",
     "ts-jest": "^29.4.9",
