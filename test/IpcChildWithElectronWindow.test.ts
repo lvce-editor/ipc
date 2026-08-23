@@ -55,7 +55,7 @@ test('onMessage - forward message events', async () => {
   ])
 })
 
-test('onMessage - ignore events after first message', async () => {
+test('onMessage - forward multiple message events', async () => {
   const mockWindow = new EventTarget()
   const ipc = IpcChildWithElectronWindow.wrap(mockWindow)
 
@@ -87,6 +87,11 @@ test('onMessage - ignore events after first message', async () => {
       id: 1,
       jsonrpc: '2.0',
       result: 1,
+    },
+    {
+      id: 2,
+      jsonrpc: '2.0',
+      result: 2,
     },
   ])
 })

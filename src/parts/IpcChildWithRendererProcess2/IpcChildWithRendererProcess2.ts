@@ -9,10 +9,13 @@ export const listen = ({ webContents }: { webContents: WebContents }) => {
 }
 
 const getData = (event: IpcMainEvent, message: any) => {
+  if (!message || !('method' in message)) {
+    return message
+  }
   const { ports, sender } = event
   const data = {
     ...message,
-    params: [...message.params, ...ports, sender.id],
+    params: [...(Array.isArray(message.params) ? message.params : []), ...ports, sender.id],
   }
   return data
 }
