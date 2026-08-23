@@ -40,7 +40,6 @@ class IpcChildWithElectronWindow extends Ipc<Window> {
         return
       }
       callback(event)
-      this._rawIpc.removeEventListener('message', wrapped)
     }
     this._rawIpc.addEventListener('message', wrapped)
   }
