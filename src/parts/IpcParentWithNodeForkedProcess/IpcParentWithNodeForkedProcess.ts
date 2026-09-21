@@ -6,6 +6,7 @@ import * as FixNodeParameters from '../FixNodeChildProcessParameters/FixNodeChil
 import * as GetFirstNodeChildProcessEvent from '../GetFirstNodeChildProcessEvent/GetFirstNodeChildProcessEvent.ts'
 import { Ipc } from '../Ipc/Ipc.ts'
 import { IpcError } from '../IpcError/IpcError.ts'
+import * as StopSocketRead from '../StopSocketRead/StopSocketRead.ts'
 import { VError } from '../VError/VError.ts'
 
 // @ts-ignore
@@ -54,6 +55,7 @@ class IpcParentWithNodeForkedProcess extends Ipc<ChildProcess> {
 
   override sendAndTransfer(message: any): void {
     const { newValue, transfer } = FixNodeParameters.fixNodeChildProcessParameters(message)
+    StopSocketRead.stopSocketRead(transfer)
     this._rawIpc.send(newValue, transfer)
   }
 
