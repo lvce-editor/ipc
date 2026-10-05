@@ -28,3 +28,17 @@ test('receive', async () => {
   port1.close()
   port2.close()
 })
+
+test('create preserves an already-open message port', async () => {
+  const { port1, port2 } = new MessageChannel()
+  const ipc = await IpcParentWithMessagePort.create({ isMessagePortOpen: true, messagePort: port1 })
+  const { promise, resolve } = Promise.withResolvers<MessageEvent>()
+  ipc.addEventListener('message', resolve)
+  port2.postMessage('first rpc message')
+
+  const response = await promise
+  expect(ipc).toBe(port1)
+  expect(response.data).toBe('first rpc message')
+  port1.close()
+  port2.close()
+})
