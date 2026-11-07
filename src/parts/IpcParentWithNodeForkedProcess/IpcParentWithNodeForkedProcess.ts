@@ -50,10 +50,16 @@ class IpcParentWithNodeForkedProcess extends Ipc<ChildProcess> {
   }
 
   override send(message: any): void {
+    if (!this._rawIpc.connected) {
+      throw new IpcError('IPC channel is closed')
+    }
     this._rawIpc.send(message)
   }
 
   override sendAndTransfer(message: any): void {
+    if (!this._rawIpc.connected) {
+      throw new IpcError('IPC channel is closed')
+    }
     const { newValue, transfer } = FixNodeParameters.fixNodeChildProcessParameters(message)
     StopSocketRead.stopSocketRead(transfer)
     this._rawIpc.send(newValue, transfer)
@@ -64,7 +70,14 @@ class IpcParentWithNodeForkedProcess extends Ipc<ChildProcess> {
   }
 
   override onClose(callback: any) {
-    this._rawIpc.on('close', callback)
+    const childProcess = this._rawIpc
+    const handleClose = () => {
+      childProcess.off('disconnect', handleClose)
+      childProcess.off('close', handleClose)
+      callback()
+    }
+    childProcess.once('disconnect', handleClose)
+    childProcess.once('close', handleClose)
   }
 
   override onMessage(callback: any) {
